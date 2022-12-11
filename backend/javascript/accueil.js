@@ -27,7 +27,7 @@ function generateImages(outerDiv) {
         let div = document.createElement('div');
         div.className = baseClassName;
         let image = document.createElement('img');
-        image.src = './img/image' + i + '.png';
+        image.src = './frontend/img/image' + i + '.png';
         image.alt = 'Oil Painting'
 
         let a = document.createElement('a');
@@ -37,7 +37,7 @@ function generateImages(outerDiv) {
         // And call the function getJsonData
         // And insert the datat to the page
         a.onclick = () => {
-            window.location.href = 'product.html';
+            window.location.href = './frontend/product.html';
             getJsonData();
             console.log("SENTs")
         }

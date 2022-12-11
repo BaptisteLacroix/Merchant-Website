@@ -1,5 +1,7 @@
 // Set magnifier background image same as img
 $(".magnifier").css("background-image", "url(" + $("#myimage").attr("src") + ")");
+// Set disable true on loading page
+$(".magnifier").hide();
 
 $(".magnified").hover(function (e) {
     //Store position & dimension information of image
