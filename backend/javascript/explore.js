@@ -1,8 +1,8 @@
 // Constant
-const numberOfIMages = 8;
+const numberOfIMages = 12;
 const head = document.head;
 const style = document.createElement('style');
-const section = document.body;
+const section = document.getElementById('explorer');
 
 
 // Define a function that creates and adds the elements to the page
@@ -19,92 +19,81 @@ function createElements() {
 }
 
 function generateLists(container) {
+
     for (let i = 1; i <= numberOfIMages; i++) {
         let div_card = document.createElement('div');
         div_card.className = 'card';
-    
-        let div_imgBox = document.createElement('div');
-        div_imgBox.className = 'imgBox';
-    
-        let img = document.createElement('img');
-        img.src = './img/image' + i + '.png';
 
-        let ul_action = document.createElement('ul');
-        ul_action.className = 'action';
+        let div = document.createElement('div');
+        div.style = 'padding: 20px;text-align: center;font-size:12px;';
 
-        let li_shopping_cart = document.createElement('li');
-        let i_shopping_cart = document.createElement('i');
-        i_shopping_cart.className = 'fa fa-shopping-cart';
+        let h1 = document.createElement('h1');
+        h1.innerHTML = 'Apps';
 
-        let span_cart = document.createElement('span');
-        span_cart.innerHTML = 'Add to cart';
-    
-        let li_heart = document.createElement('li');
-        let i_heart = document.createElement('i');
-        i_heart.className = 'fa fa-heart';
+        let p = document.createElement('p');
+        p.innerHTML = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ultrices in iaculis nunc sed augue.';
 
-        let span_heart = document.createElement('span');
-        span_heart.innerHTML = 'Add to wishlist';
+        let button = document.createElement('button');
+        button.className = 'btn-information cta';
 
-        let li_eye = document.createElement('li');
-        let i_eye = document.createElement('i');
-        i_eye.className = 'fa fa-eye';
-
-        let span_eye = document.createElement('span');
-        span_eye.innerHTML = 'View Details';
-
-        let div_content = document.createElement('div');
-        div_content.className = 'content';
-    
-        let div_productName = document.createElement('div');
-        div_productName.className = 'productName';
-    
-        let h3 = document.createElement('h3');
-        h3.innerHTML = 'Product Name';
-    
-        let div_price_rating = document.createElement('div');
-        div_price_rating.className = 'price_rating';
-    
-        let h2_price_rating = document.createElement('h2');
-        h2_price_rating.innerHTML = 'Price';
-    
-        let div_rating = document.createElement('div');
-        div_rating.className = 'rating';
-    
-        for (let i = 0; i < 5; i++) {
-            // TODO -> Notation voir avec la BDD (rajouter classe grey si vide)
-            let span = document.createElement('span');
-            i.className = 'fa fa-star';
-            i.arialHidden = 'true';
-            span.innerHTML = '★';
-            div_rating.appendChild(span);
+        // On click a tag go to the page product.html
+        // And call the function getJsonData
+        // And insert the datat to the page
+        button.onclick = () => {
+            window.location.href = './frontend/product.html';
         }
 
-        div_price_rating.appendChild(h2_price_rating);
-        div_price_rating.appendChild(div_rating);
 
-        div_productName.appendChild(h3);
+        let span = document.createElement('span');
+        span.className = 'hover-underline-animation';
+        span.innerHTML = 'Shop now';
 
-        div_content.appendChild(div_productName);
-        div_content.appendChild(div_price_rating);
+        let svg = document.createElement('svg');
+        svg.viewBox = '0 0 46 16';
+        svg.head = '10';
+        svg.head = '30';
+        svg.xmlns = 'http://www.w3.org/2000/svg';
+        svg.id = 'arrow-horizontal';
 
-        div_imgBox.appendChild(img);
-        div_imgBox.appendChild(ul_action);
+        let path = document.createElement('path');
+        path.transform = 'translate(30)';
+        path.d = 'M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z';
+        path.data = 'Path 10';
+        path.id = 'Path_10';
 
-        ul_action.appendChild(li_shopping_cart);
-        ul_action.appendChild(li_heart);
-        ul_action.appendChild(li_eye);
+        svg.appendChild(path);
+        span.appendChild(svg);
+        button.appendChild(span);
 
-        li_shopping_cart.appendChild(i_shopping_cart);
-        li_heart.appendChild(i_heart);
-        li_eye.appendChild(i_eye);
+        div.appendChild(h1);
+        div.appendChild(p);
+        div.appendChild(button);
 
-        li_shopping_cart.appendChild(span_cart);
-        li_heart.appendChild(span_heart);
-        li_eye.appendChild(span_eye);
+        let div_cover = document.createElement('div');
+        div_cover.className = 'cover';
 
-        div_card.appendChild(div_imgBox);
-        div_card.appendChild(div_content);
+        let div_coverFront = document.createElement('div');
+        div_coverFront.className = 'cover-front';
+
+        let div2 = document.createElement('div');
+
+        let img = document.createElement('img');
+        img.src = './img/image' + i + '.png';
+        img.className = 'sh_img';
+        img.alt = 'An Oil Painting with animals';
+
+        div2.appendChild(img);
+
+        div_coverFront.appendChild(div2);
+
+        let div_coverBack = document.createElement('div');
+        div_coverBack.className = 'cover-back';
+
+        div_cover.appendChild(div_coverFront);
+        div_cover.appendChild(div_coverBack);
+
+        div_card.appendChild(div);
+        div_card.appendChild(div_cover);
 
         container.appendChild(div_card);
     }

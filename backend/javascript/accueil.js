@@ -1,5 +1,5 @@
 // Constant
-const numberOfIMages = 8;
+const numberOfIMages = 12;
 const head = document.head;
 const style = document.createElement('style');
 const body = document.body;
