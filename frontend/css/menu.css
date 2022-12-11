@@ -1,0 +1,97 @@
+* {
+    color: black;
+    box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&family=Roboto:wght@300&display=swap');
+
+
+body {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-image: url(../img/background.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+/*-------------------- Navigation --------------------*/
+
+nav {
+    position: fixed;
+    width: 100vw;
+    display: flex;
+    backdrop-filter: blur(5px);
+    box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+    border-bottom: orange solid 5px;
+    z-index: 999;
+}
+
+nav>div.nav-left {
+    display: flex;
+    flex-grow: 1;
+    margin-left: 5%;
+}
+
+nav>div.nav-right {
+    display: flex;
+    flex-direction: column;
+    margin-right: 5%;
+}
+
+nav>div.nav-left>ol>li>a {
+    color: black;
+    font-size: 1.2em;
+    text-decoration: none;
+    font-weight: 200;
+    margin: 0;
+    padding: 0;
+}
+
+nav>div.nav-right>ol>li>a {
+    text-decoration: none;
+    font-weight: 200;
+    font-size: 1em;
+}
+
+nav ol>li {
+    list-style: none;
+    font-weight: bolder;
+    display: inline-block;
+    padding: 20px 20px;
+    cursor: pointer;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+    display: block;
+    list-style: none;
+}
+
+
+#shoppingCart {
+    width: 50px;
+    height: 50px;
+    border: 2px solid black;
+}
+
+
+/*-------------------- Footer --------------------*/
+
+footer {
+    display: block;
+    margin-top: 3%;
+    padding: 1%;
+    text-align: center;
+    backdrop-filter: blur(5px);
+    box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+    border-top: orange solid 5px;
+}
+
+footer>p>a {
+    text-decoration: none;
+}

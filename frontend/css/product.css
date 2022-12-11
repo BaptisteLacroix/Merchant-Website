@@ -1,0 +1,48 @@
+.product-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+    height: 100vh;
+}
+
+
+img {
+    width: 300px;
+    height: auto;
+}
+
+
+.magnify {
+    width: 550px;
+    height: 300px;
+    position: relative;
+    display: inline-block;
+}
+
+.magnify .magnified {
+    display: block;
+    z-index: 10;
+    margin: auto;
+    border: 5px solid #fff;
+}
+
+.magnify .magnifier {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 20;
+    border: 4px solid white;
+    background-size: 1000%;
+    background-repeat: no-repeat;
+    margin-left: -100px !important;
+    margin-top: -100px !important;
+    pointer-events: none;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+}
