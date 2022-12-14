@@ -36,11 +36,11 @@ function generateLists(container) {
         let button = document.createElement('button');
         button.className = 'btn-information cta';
 
-        // On click a tag go to the page product.html
+        // On click a tag go to the page product.php
         // And call the function getJsonData
         // And insert the datat to the page
         button.onclick = () => {
-            window.location.href = './frontend/product.html';
+            window.location.href = '../../product.php';
         }
 
 
