@@ -38,5 +38,18 @@ class bdd
         return $this->pdo->query($sql);
     }
 
+    public function addNewClient(string $prenom, string $nom, string $email, string $password)
+    {
+        $sql = "INSERT INTO client (prenom_client, nom_client, email_client, password_client) VALUES ('" . $prenom . "', '" . $nom . "', '" . $email . "', '" . $password . "');";
+        // if the query is successful, return true
+        return $this->pdo->query($sql);
+    }
+
+    public function getClient(string $email)
+    {
+        $sql = "SELECT * FROM client WHERE email_client LIKE "."'" .  $email . "';";
+        return $this->pdo->query($sql);
+    }
+
 }
 

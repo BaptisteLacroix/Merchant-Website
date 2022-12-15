@@ -40,7 +40,7 @@ $products = $pdo->getProducts();
                 </li>
                 <li>
                     <a href="login.php"><img id="shoppingCart" src="img/shoppingCart.png" width="1024" height="1024"
-                                     alt="oil painting of shopping cart"></a>
+                                             alt="oil painting of shopping cart"></a>
                 </li>
             </ol>
         </div>
@@ -75,17 +75,7 @@ $products = $pdo->getProducts();
         <?php } ?>
     </div>
 </section>
-<script>
-    // Select all the buttons and add onclickevent to them
-    // this onclick will send the user to the product page of the element
-    // The information is contained on  $product['reference_produit']
-    const buttons = document.querySelectorAll('.btn-information');
-    buttons.forEach(button => {
-        button.addEventListener('click', () => {
-            window.location.href = `./product.php?reference=${button.parentElement.parentElement.children[0].children[0].id}`;
-        });
-    });
-</script>
+<script src="backend/javascript/explore.js"></script>
 <footer>
     <p>
         <a href="mailto:baptiste&period;lacroix&commat;etu&period;unice&period;fr">Lacroix Baptiste</a>

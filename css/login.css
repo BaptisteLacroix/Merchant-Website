@@ -131,7 +131,10 @@ body.active {
     margin-bottom: 20px;
 }
 
-.form-bx .form form input {
+.form-bx .form form input[type="text"],
+.form-bx .form form input[type="password"],
+.form-bx .form form input[type="email"],
+.form-bx .form form input[type="submit"] {
     width: 100%;
     margin-bottom: 20px;
     padding: 10px;
@@ -155,6 +158,13 @@ body.active {
 .form-bx .form form .forgot {
     color: #333;
 }
+
+
+/* CheckBox */
+
+
+
+/* Responsive */
 
 
 @media (max-width: 991px) {
