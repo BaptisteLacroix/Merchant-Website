@@ -15,7 +15,6 @@ class bdd
             try {
                 $this->pdo = new PDO('mysql:host=localhost;dbname=Projet-Web', 'root', '');
                 $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                echo 'Connected to database successfully';
             } catch (PDOException $e) {
                 echo 'Connection failed: ' . $e->getMessage();
             }

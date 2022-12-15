@@ -41,7 +41,7 @@ $product = $product->fetch();
                     <a href="#">About us</a>
                 </li>
                 <li>
-                    <a href="#"><img id="shoppingCart" src="img/shoppingCart.png" width="1024" height="1024"
+                    <a href="login.php"><img id="shoppingCart" src="img/shoppingCart.png" width="1024" height="1024"
                                      alt="oil painting of shopping cart"></a>
                 </li>
             </ol>
