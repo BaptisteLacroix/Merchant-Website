@@ -35,7 +35,7 @@ $product = $product->fetch();
         <div class="nav-right">
             <ol>
                 <li>
-                    <a href="explore.html">Explore</a>
+                    <a href="explore.php">Explore</a>
                 </li>
                 <li>
                     <a href="#">About us</a>

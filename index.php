@@ -16,6 +16,7 @@ $products =$pdo->getProducts();
     <meta name="author" content="Baptiste Lacroix">
     <link rel="stylesheet" href="css/menu.css">
     <link rel="stylesheet" href="css/accueil.css">
+    <link rel="stylesheet" href="css/buttons.css">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Painting Oil Beautify</title>
 </head>
@@ -34,7 +35,7 @@ $products =$pdo->getProducts();
         <div class="nav-right">
             <ol>
                 <li>
-                    <a href="./explore.html">Explore</a>
+                    <a href="explore.php">Explore</a>
                 </li>
                 <li>
                     <a href="#">About us</a>
@@ -59,8 +60,8 @@ $products =$pdo->getProducts();
                     <img src="./img/<?php echo $product['reference_produit'] ?>.png" alt="<?php echo $product['titre_produit'] ?>">
                     <a class="btn-information cta" href="./product.php?reference=<?php echo $product['reference_produit'] ?>">
                         <span class="hover-underline-animation">
-                        Shop now
-                    </span>
+                            Shop now
+                        </span>
                     </a>
                 </div>
             <?php } ?>

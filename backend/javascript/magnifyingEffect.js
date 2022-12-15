@@ -5,7 +5,7 @@ $(".magnifier").hide();
 
 $(".magnified").hover(function (e) {
     //Store position & dimension information of image
-    var imgPosition = $(".magnify").position(),
+    let imgPosition = $(".magnify").position(),
         imgHeight = $(".magnified").height(),
         imgWidth = $(".magnified").width();
 
@@ -15,7 +15,7 @@ $(".magnified").hover(function (e) {
     //While the mouse is moving and over the image move the magnifier and magnified image
     $(this).mousemove(function (e) {
         //Store position of mouse as it moves and calculate its position in percent
-        var posX = e.pageX - imgPosition.left,
+        let posX = e.pageX - imgPosition.left,
             posY = e.pageY - imgPosition.top,
             percX = (posX / imgWidth) * 100,
             percY = (posY / imgHeight) * 100,
