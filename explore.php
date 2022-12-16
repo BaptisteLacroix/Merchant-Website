@@ -13,7 +13,6 @@ $products = $pdo->getProducts();
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Baptiste Lacroix">
-    <link rel="stylesheet" href="css/menu.css">
     <link rel="stylesheet" href="css/explore.css">
     <link rel="stylesheet" href="css/buttons.css">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -21,34 +20,9 @@ $products = $pdo->getProducts();
 </head>
 
 <body>
-<header>
-    <nav id="premier">
-        <div class="nav-left">
-            <ol>
-                <li>
-                    <a href="index.php">MENU</a>
-                </li>
-            </ol>
-        </div>
-        <div class="nav-right">
-            <ol>
-                <li>
-                    <a href="explore.php">Explore</a>
-                </li>
-                <li>
-                    <a href="#">About us</a>
-                </li>
-                <li>
-                    <a href="login.php"><img id="shoppingCart" src="img/shoppingCart.png" width="1024" height="1024"
-                                             alt="oil painting of shopping cart"></a>
-                </li>
-            </ol>
-        </div>
-    </nav>
-</header>
+<script src="backend/javascript/navbar.js"></script>
 <section>
-    <div id="top">
-        <h1>Explorer</h1>
+    <div id="top" style="height: 0">
     </div>
 </section>
 <section id="explorer">
@@ -76,11 +50,7 @@ $products = $pdo->getProducts();
     </div>
 </section>
 <script src="backend/javascript/explore.js"></script>
-<footer>
-    <p>
-        <a href="mailto:baptiste&period;lacroix&commat;etu&period;unice&period;fr">Lacroix Baptiste</a>
-    </p>
-</footer>
+<script src="./backend/javascript/footer.js"></script>
 </body>
 
 </html>

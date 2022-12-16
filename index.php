@@ -14,41 +14,15 @@ $products =$pdo->getProducts();
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Baptiste Lacroix">
-    <link rel="stylesheet" href="css/menu.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="css/accueil.css">
     <link rel="stylesheet" href="css/buttons.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Painting Oil Beautify</title>
 </head>
 
 <body>
 
-<header>
-    <nav id="premier">
-        <div class="nav-left">
-            <ol>
-                <li>
-                    <a href="index.php">MENU</a>
-                </li>
-            </ol>
-        </div>
-        <div class="nav-right">
-            <ol>
-                <li>
-                    <a href="explore.php">Explore</a>
-                </li>
-                <li>
-                    <a href="#">About us</a>
-                </li>
-                <li>
-                    <a href="login.php"><img id="shoppingCart" src="img/shoppingCart.png" width="1024" height="1024"
-                                     alt="oil painting of shopping cart"></a>
-                </li>
-            </ol>
-        </div>
-    </nav>
-</header>
-
+<script src="backend/javascript/navbar.js"></script>
 
 <div class="container">
     <div class="horizontal-scroll">
@@ -70,11 +44,7 @@ $products =$pdo->getProducts();
 </div>
 
 <script src="./backend/javascript/accueil.js"></script>
-<footer>
-    <p>
-        <a href="mailto:baptiste&period;lacroix&commat;etu&period;unice&period;fr">Lacroix Baptiste</a>
-    </p>
-</footer>
+<script src="./backend/javascript/footer.js"></script>
 </body>
 
 </html>

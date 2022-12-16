@@ -1,7 +1,6 @@
-const signinButton = document.getElementById('sign-in');
-const signupButton = document.getElementById('sign-up');
-const formBx = document.querySelector('.form-bx');
-const body = document.querySelector('body');
+let signinButton = document.getElementById('sign-in');
+let signupButton = document.getElementById('sign-up');
+let formBx = document.querySelector('.form-bx');
 
 
 signupButton.onclick = function(){

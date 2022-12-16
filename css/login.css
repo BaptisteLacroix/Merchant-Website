@@ -8,7 +8,7 @@ body.active {
 }
 
 #top {
-    height: 23vh;
+    height: 10vh;
     width: 100%;
     display: flex;
     justify-content: flex-end;

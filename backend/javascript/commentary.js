@@ -75,7 +75,7 @@ window.onload = function() {
 }
 
 buttonLeft.onclick = function() {
-    if (middleCard != 0) {
+    if (middleCard !== 0) {
         scrollDown(tab[middleCard]);
         middleCard--;
         scrollUp(tab[middleCard]);
@@ -84,7 +84,7 @@ buttonLeft.onclick = function() {
 }
 
 buttonRight.onclick = function() {
-    if (middleCard != numberOfIMages - 1) {
+    if (middleCard !== numberOfIMages - 1) {
         scrollDown(tab[middleCard]);
         middleCard++;
         scrollUp(tab[middleCard]);

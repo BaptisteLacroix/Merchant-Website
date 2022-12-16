@@ -16,70 +16,42 @@ $product = $product->fetch();
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Baptiste Lacroix">
-    <link rel="stylesheet" href="css/menu.css">
     <link rel="stylesheet" href="css/product.css">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Painting Oil Beautify</title>
 </head>
 
 <body>
-<header>
-    <nav id="premier">
-        <div class="nav-left">
-            <ol>
-                <li>
-                    <a href="index.php">MENU</a>
-                </li>
-            </ol>
-        </div>
-        <div class="nav-right">
-            <ol>
-                <li>
-                    <a href="explore.php">Explore</a>
-                </li>
-                <li>
-                    <a href="#">About us</a>
-                </li>
-                <li>
-                    <a href="login.php"><img id="shoppingCart" src="img/shoppingCart.png" width="1024" height="1024"
-                                     alt="oil painting of shopping cart"></a>
-                </li>
-            </ol>
-        </div>
-    </nav>
-</header>
+<script src="backend/javascript/navbar.js"></script>
 <section>
+    <!-- Centrer les deux box -->
     <div class="product-container">
-        <div class="container-left">
-            <div class="magnify">
-                <div class="magnifier"></div>
-                <div class="magnified">
-                    <img id="myimage" src="img/<?php echo $product['reference_produit'] ?>.png" alt="image">
+        <div class="cover">
+            <!-- Conteneur gauche centré par rapport au conteneur droit -->
+            <div class="container-left">
+                <div class="magnify">
+                    <div class="magnifier"></div>
+                    <div class="magnified">
+                        <img id="myimage" src="img/<?php echo $product['reference_produit'] ?>.png" alt="image">
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="container-right">
-            <div>
-                <h3><?php echo $product['titre_produit'] ?></h3>
-                <p>DALLE-E</p>
-            </div>
-            <div>
+            <div class="desc">
+                <h1><?= $product['titre_produit'] ?></h1>
                 <p>
-                    <?php echo $product['descriptif_produit'] ?>
+                    <?= $product['descriptif_produit'] ?>
                 </p>
-            </div>
-
-            <div>
-                <h3><?php echo $product['prix_achat_produit'] ?>€</h3>
-                <p><?php echo $product['quantite_produit'] ?></p>
-            </div>
-
-            <div>
-                <p>Livraison gratuite</p>
-                <button>Ajouter au panier</button>
+                <h1 class="price">
+                    <?= $product['prix_public_produit'] ?> €
+                </h1>
+                <button class="cart-button">
+                    <span class="add-to-cart">Add to cart</span>
+                    <span class="added">Added</span>
+                    <i class="fas fa-shopping-cart"></i>
+                    <i class="fas fa-box"></i>
+                </button>
             </div>
         </div>
-    </div>
 </section>
 <section id="commentary">
 
@@ -87,11 +59,7 @@ $product = $product->fetch();
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="backend/javascript/magnifyingEffect.js"></script>
 <script src="backend/javascript/commentary.js"></script>
-<footer>
-    <p>
-        <a href="mailto:baptiste&period;lacroix&commat;etu&period;unice&period;fr">Lacroix Baptiste</a>
-    </p>
-</footer>
+<script src="./backend/javascript/footer.js"></script>
 </body>
 
 </html>

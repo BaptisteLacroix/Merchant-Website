@@ -10,20 +10,27 @@ if (isset($_POST['login'])) {
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
     $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
     $hash = password_hash($password, PASSWORD_DEFAULT);
-    $client = $pdo->getClient($email);
-    if ($client->rowCount() > 0) {
-        $client = $client->fetch();
-        if (password_verify($password, $client['password_client'])) {
-            session_start();
-            $_SESSION['client'] = $client;
-            header('Location: index.php');
-            exit();
+
+    if (empty($email) && !preg_match('/[\w\-]{2,}@[\w\-]{2,}\.[\w\-]+/', $email) || empty($password)) {
+        $errorMsg = 'Please fill all the fields with valid values';
+        // if the both passwords are not the same.
+    } else {
+        $client = $pdo->getClient($email);
+        if ($client->rowCount() > 0) {
+            $client = $client->fetch();
+            if (password_verify($password, $client['password_client'])) {
+                session_start();
+                $_SESSION['client'] = $client;
+                header('Location: index.php');
+                exit();
+            } else {
+                $errorMsg = 'Wrong email or password';
+            }
         } else {
             $errorMsg = 'Wrong email or password';
         }
-    } else {
-        $errorMsg = 'Wrong email or password';
     }
+
 } else if (isset($_POST['register'])) {
     echo 'register';
     $prenom = filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_STRING);
@@ -33,14 +40,17 @@ if (isset($_POST['login'])) {
     $cpassword = filter_input(INPUT_POST, 'cpassword', FILTER_SANITIZE_STRING);
 
     // If there are some input non-filled
-    if (empty($prenom) || empty($nom) || empty($email) || empty($password) || empty($cpassword)) {
-        $errorMsg = 'Please fill all the fields';
-    // if the both passwords are not the same.
+    if (empty($prenom) && !preg_match('/^[A-Za-z\s\-]+$/', $prenom) ||
+        empty($nom) && !preg_match('/^[A-Za-z\s\-]+$/', $nom) ||
+        empty($email) && !preg_match('/[\w\-]{2,}@[\w\-]{2,}\.[\w\-]+/', $email) ||
+        empty($password) || empty($cpassword)) {
+        $errorMsg = 'Please fill all the fields with valid values';
+        // if the both passwords are not the same.
     } else if ($password != $cpassword) {
         $errorMsg = 'Passwords do not match';
     } else {
         $hash = password_hash($password, PASSWORD_DEFAULT);
-        $client = $pdo->getClient($email, $hash);
+        $client = $pdo->getClient($email);
         // If email is already used
         if ($client->rowCount() > 0) {
             $errorMsg = 'Email already used';
@@ -63,7 +73,6 @@ if (isset($_POST['login'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Baptiste Lacroix">
-    <link rel="stylesheet" href="css/menu.css">
     <link rel="stylesheet" href="css/login.css">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Painting Oil Beautify</title>
@@ -71,34 +80,10 @@ if (isset($_POST['login'])) {
 
 <body>
 
-<header>
-    <nav id="premier">
-        <div class="nav-left">
-            <ol>
-                <li>
-                    <a href="index.php">MENU</a>
-                </li>
-            </ol>
-        </div>
-        <div class="nav-right">
-            <ol>
-                <li>
-                    <a href="explore.php">Explore</a>
-                </li>
-                <li>
-                    <a href="#">About us</a>
-                </li>
-                <li>
-                    <a href="#"><img id="shoppingCart" src="img/shoppingCart.png" width="1024" height="1024"
-                                     alt="oil painting of shopping cart"></a>
-                </li>
-            </ol>
-        </div>
-    </nav>
-</header>
+<script src="backend/javascript/navbar.js"></script>
 
 <section>
-    <p id="top"></p>
+    <div id="top"></div>
 </section>
 
 <section id="login-container">
@@ -163,5 +148,6 @@ if (isset($_POST['login'])) {
     </div>
 </section>
 <script src="./backend/javascript/login.js"></script>
+<script src="./backend/javascript/footer.js"></script>
 </body>
 </html>
