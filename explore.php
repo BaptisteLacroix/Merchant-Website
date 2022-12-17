@@ -20,7 +20,7 @@ $products = $pdo->getProducts();
 </head>
 
 <body>
-<?php require_once(__DIR__ . '/navbar.php'); ?>
+<?php require_once(__DIR__ . '/backend/php/navbar.php'); ?>
 <section>
     <div id="top" style="height: 0">
     </div>

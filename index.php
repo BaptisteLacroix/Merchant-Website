@@ -5,6 +5,11 @@ require_once __DIR__ . '/backend/php/global.php';
 $pdo = $_SESSION['pdo'];
 $products = $pdo->getProducts();
 
+if (isLoggedIn())
+    $rows = $pdo->getCartQuantity($_SESSION['id_client'])->fetchAll();
+else
+    $rows = [];
+
 ?>
 
 
@@ -15,14 +20,14 @@ $products = $pdo->getProducts();
     <meta charset="UTF-8">
     <meta name="author" content="Baptiste Lacroix">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="css/accueil.css">
-    <link rel="stylesheet" href="css/buttons.css">
+    <link rel="stylesheet" href="./css/accueil.css">
+    <link rel="stylesheet" href="./css/buttons.css">
     <title>Painting Oil Beautify</title>
 </head>
 
 <body>
 
-<?php require_once(__DIR__ . '/navbar.php'); ?>
+<?php require_once(__DIR__ . '/backend/php/navbar.php'); ?>
 
 <div class="container">
     <div class="horizontal-scroll">

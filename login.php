@@ -23,7 +23,7 @@ if (isLoggedIn() === true) {
 
 <body>
 
-<?php require_once(__DIR__ . '/navbar.php'); ?>
+<?php require_once(__DIR__ . '/backend/php/navbar.php'); ?>
 
 <section>
     <div id="top"></div>

@@ -22,7 +22,7 @@ $product = $product->fetch();
 </head>
 
 <body>
-<?php require_once(__DIR__ . '/navbar.php'); ?>
+<?php require_once(__DIR__ . '/backend/php/navbar.php'); ?>
 <section>
     <!-- Centrer les deux box -->
     <div class="product-container">
