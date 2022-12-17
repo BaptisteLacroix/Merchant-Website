@@ -1,71 +1,14 @@
 <?php
 
-require './backend/php/connectionBDD.php';
+require_once './backend/php/global.php';
 
-$pdo = new bdd();
-
-
-if (isset($_POST['login'])) {
-    echo $_POST['password'];
-    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
-    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
-    $hash = password_hash($password, PASSWORD_DEFAULT);
-
-    if (empty($email) && !preg_match('/[\w\-]{2,}@[\w\-]{2,}\.[\w\-]+/', $email) || empty($password)) {
-        $errorMsg = 'Please fill all the fields with valid values';
-        // if the both passwords are not the same.
-    } else {
-        $client = $pdo->getClient($email);
-        if ($client->rowCount() > 0) {
-            $client = $client->fetch();
-            if (password_verify($password, $client['password_client'])) {
-                session_start();
-                $_SESSION['client'] = $client;
-                header('Location: index.php');
-                exit();
-            } else {
-                $errorMsg = 'Wrong email or password';
-            }
-        } else {
-            $errorMsg = 'Wrong email or password';
-        }
-    }
-
-} else if (isset($_POST['register'])) {
-    echo 'register';
-    $prenom = filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_STRING);
-    $nom = filter_input(INPUT_POST, 'lastName', FILTER_SANITIZE_STRING);
-    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
-    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
-    $cpassword = filter_input(INPUT_POST, 'cpassword', FILTER_SANITIZE_STRING);
-
-    // If there are some input non-filled
-    if (empty($prenom) && !preg_match('/^[A-Za-z\s\-]+$/', $prenom) ||
-        empty($nom) && !preg_match('/^[A-Za-z\s\-]+$/', $nom) ||
-        empty($email) && !preg_match('/[\w\-]{2,}@[\w\-]{2,}\.[\w\-]+/', $email) ||
-        empty($password) || empty($cpassword)) {
-        $errorMsg = 'Please fill all the fields with valid values';
-        // if the both passwords are not the same.
-    } else if ($password != $cpassword) {
-        $errorMsg = 'Passwords do not match';
-    } else {
-        $hash = password_hash($password, PASSWORD_DEFAULT);
-        $client = $pdo->getClient($email);
-        // If email is already used
-        if ($client->rowCount() > 0) {
-            $errorMsg = 'Email already used';
-        } else {
-            $pdo->addNewClient($prenom, $nom, $email, $hash);
-            $client = $pdo->getClient($email);
-            $client = $client->fetch();
-            session_start();
-            $_SESSION['client'] = $client;
-            header('Location: index.php');
-            exit();
-        }
-    }
+if (isLoggedIn() === true) {
+    header('Location: index.php');
+    exit;
 }
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -80,7 +23,7 @@ if (isset($_POST['login'])) {
 
 <body>
 
-<script src="backend/javascript/navbar.js"></script>
+<?php require_once(__DIR__ . '/navbar.php'); ?>
 
 <section>
     <div id="top"></div>
@@ -100,11 +43,11 @@ if (isset($_POST['login'])) {
         </div>
         <div class="form-bx">
             <div class="form sign-in-form">
-                <form method="post" action="login.php">
+                <form method="post" action="./backend/php/create_session.php">
                     <h3>Sign In</h3>
-                    <?php if (isset($_POST['login']) && !empty($errorMsg)) {
-                        echo '<p><b style="color: red; font-weight: bolder">' . $errorMsg . '</b></p>';
-                    } ?>
+                    <?php if (!empty($_GET['error'])) : ?>
+                        <p><b style="color: red; font-weight: bolder"><?= urldecode($_GET['error']) ?></b></p>
+                    <?php endif ?>
                     <label>
                         <input type="email" name="email" placeholder="email@exemple.com" required>
                     </label>
@@ -121,11 +64,11 @@ if (isset($_POST['login'])) {
                 </form>
             </div>
             <div class="form sign-up-form">
-                <form method="post" action="login.php">
+                <form method="post" action="./backend/php/create_session.php">
                     <h3>Sign Up</h3>
-                    <?php if (isset($_POST['register']) && !empty($errorMsg)) {
-                        echo '<p><b style="color: red; font-weight: bolder">' . $errorMsg . '</b></p>';
-                    } ?>
+                    <?php if (!empty($_GET['error'])) : ?>
+                        <p><b style="color: red; font-weight: bolder"><?= urldecode($_GET['error']) ?></b></p>
+                    <?php endif ?>
                     <label>
                         <input type="text" name="firstName" placeholder="Prénom" required>
                     </label>

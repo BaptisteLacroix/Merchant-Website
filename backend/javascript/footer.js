@@ -1,4 +1,6 @@
 const footer = document.createElement('footer');
+const body = document.querySelector('body');
+
 
 function createFooter() {
     let linkFooter = document.createElement('link');

@@ -1,8 +1,8 @@
 <?php
 
-require './backend/php/connectionBDD.php';
+require_once __DIR__ . '/backend/php/global.php';
 
-$pdo = new bdd();
+$pdo = $_SESSION['pdo'];
 $products = $pdo->getProducts();
 
 ?>
@@ -20,7 +20,7 @@ $products = $pdo->getProducts();
 </head>
 
 <body>
-<script src="backend/javascript/navbar.js"></script>
+<?php require_once(__DIR__ . '/navbar.php'); ?>
 <section>
     <div id="top" style="height: 0">
     </div>

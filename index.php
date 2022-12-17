@@ -1,9 +1,9 @@
 <?php
 
-require './backend/php/connectionBDD.php';
+require_once __DIR__ . '/backend/php/global.php';
 
-$pdo = new bdd();
-$products =$pdo->getProducts();
+$pdo = $_SESSION['pdo'];
+$products = $pdo->getProducts();
 
 ?>
 
@@ -22,7 +22,7 @@ $products =$pdo->getProducts();
 
 <body>
 
-<script src="backend/javascript/navbar.js"></script>
+<?php require_once(__DIR__ . '/navbar.php'); ?>
 
 <div class="container">
     <div class="horizontal-scroll">
@@ -31,8 +31,10 @@ $products =$pdo->getProducts();
         <div class="images-containers">
             <?php foreach ($products as $product) { ?>
                 <div class="image-size">
-                    <img src="./img/<?php echo $product['reference_produit'] ?>.png" alt="<?php echo $product['titre_produit'] ?>">
-                    <a class="btn-information cta" href="./product.php?reference=<?php echo $product['reference_produit'] ?>">
+                    <img src="./img/<?php echo $product['reference_produit'] ?>.png"
+                         alt="<?php echo $product['titre_produit'] ?>">
+                    <a class="btn-information cta"
+                       href="./product.php?reference=<?php echo $product['reference_produit'] ?>">
                         <span class="hover-underline-animation">
                             Shop now
                         </span>

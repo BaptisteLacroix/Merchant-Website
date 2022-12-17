@@ -1,8 +1,8 @@
 <?php
 
-require './backend/php/connectionBDD.php';
+require __DIR__ . '/backend/php/global.php';
 
-$pdo = new bdd();
+$pdo = $_SESSION['pdo'];
 $product = $pdo->getProductReference($_GET['reference']);
 
 // get the first product
@@ -22,7 +22,7 @@ $product = $product->fetch();
 </head>
 
 <body>
-<script src="backend/javascript/navbar.js"></script>
+<?php require_once(__DIR__ . '/navbar.php'); ?>
 <section>
     <!-- Centrer les deux box -->
     <div class="product-container">
