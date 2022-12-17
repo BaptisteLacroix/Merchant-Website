@@ -44,7 +44,7 @@ $product = $product->fetch();
                 <h1 class="price">
                     <?= $product['prix_public_produit'] ?> €
                 </h1>
-                <button class="cart-button">
+                <button class="cart-button" onclick="addToCart()">
                     <span class="add-to-cart">Add to cart</span>
                     <span class="added">Added</span>
                     <i class="fas fa-shopping-cart"></i>
@@ -60,6 +60,28 @@ $product = $product->fetch();
 <script src="backend/javascript/magnifyingEffect.js"></script>
 <script src="backend/javascript/commentary.js"></script>
 <script src="./backend/javascript/footer.js"></script>
+<script>
+    function addToCart() {
+        $.ajax({
+            url: './backend/php/shoppingCart.php',
+            type: 'POST',
+            data: {
+                function_name: 'addToCart',
+                arguments: ['<?php echo $product['reference_produit'] ?>', "<?php echo $product['prix_public_produit'] ?>", "1"]
+            },
+            success: function (response) {
+                // Handle the response
+                let data = JSON.parse(response);
+                if (data.success) {
+                    $("#cart-quantity").text(data.message);
+                } else {
+                   // redirect to login.php
+                    window.location.href = data.message;
+                }
+            }
+        });
+    }
+</script>
 </body>
 
 </html>

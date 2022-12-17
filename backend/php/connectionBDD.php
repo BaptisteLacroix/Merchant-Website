@@ -16,12 +16,12 @@ class bdd
         $this->database = $database;
     }
 
-    public function connect()
+    public function connect(): void
     {
         $this->connection = new PDO("mysql:host=$this->host;dbname=$this->database", $this->username, $this->password);
     }
 
-    public function close()
+    public function close(): void
     {
         unset($this->connection);
     }
@@ -41,21 +41,21 @@ class bdd
         $this->connect();
     }
 
-    public function getProducts()
+    public function getProducts(): bool|PDOStatement
     {
         $this->__wakeup();
         $sql = 'SELECT * FROM produit;';
         return $this->connection->query($sql);
     }
 
-    public function getProductReference($reference)
+    public function getProductReference($reference): bool|PDOStatement
     {
         $this->__wakeup();
         $sql = "SELECT * FROM produit WHERE reference_produit LIKE " . "'" . $reference . "';";
         return $this->connection->query($sql);
     }
 
-    public function addNewClient(string $prenom, string $nom, string $email, string $password)
+    public function addNewClient(string $prenom, string $nom, string $email, string $password): bool|PDOStatement
     {
         $this->__wakeup();
         $sql = "INSERT INTO client (prenom_client, nom_client, email_client, password_client) VALUES ('" . $prenom . "', '" . $nom . "', '" . $email . "', '" . $password . "');";
@@ -63,36 +63,30 @@ class bdd
         return $this->connection->query($sql);
     }
 
-    public function getClient(string $email)
+    public function getClient(string $email): bool|PDOStatement
     {
         $this->__wakeup();
         $sql = "SELECT * FROM client WHERE email_client LIKE " . "'" . $email . "';";
         return $this->connection->query($sql);
     }
 
-    public function addNewOrder(string $id_client, string $ref_produit, string $quantite, string $prix)
+    public function addToCart(string $id_client, string $ref_produit, string $quantite, string $prix): bool|PDOStatement
     {
         $this->__wakeup();
         $id_produit = $this->getProductReference($ref_produit)->fetch()['id_produit'];
-        $sql = "INSERT INTO panier (id_client, id_produit, quantite, prix) VALUES ('" . $id_client . "', '" . $id_produit . "', '" . $quantite . "', '" . $prix . "');";
+        $sql = "insert into panier(id_client, id_produit, quantite, prix) VALUES\n"
+
+            . "('" . $id_client . "', '" . $id_produit . "', '" . $quantite . "', '" . $prix . "');";
+
         // if the query is successful, return true
         return $this->connection->query($sql);
     }
 
-    public function getOrders(string $id_client)
+    public function getCart(string $id_client): bool|PDOStatement
     {
         $this->__wakeup();
         $sql = "SELECT * FROM panier WHERE id_client LIKE " . "'" . $id_client . "';";
         return $this->connection->query($sql);
     }
-
-
-    public function getCartQuantity(string $id_client)
-    {
-        $this->__wakeup();
-        $sql = "SELECT * FROM panier WHERE id_client LIKE " . "'" . $id_client . "' GROUP BY id_produit;";
-        return $this->connection->query($sql);
-    }
-
 }
 

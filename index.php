@@ -5,11 +5,6 @@ require_once __DIR__ . '/backend/php/global.php';
 $pdo = $_SESSION['pdo'];
 $products = $pdo->getProducts();
 
-if (isLoggedIn())
-    $rows = $pdo->getCartQuantity($_SESSION['id_client'])->fetchAll();
-else
-    $rows = [];
-
 ?>
 
 

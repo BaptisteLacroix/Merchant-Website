@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             if (password_verify($password, $client['password_client'])) {
                 session_start();
                 if (isset($_POST['remember']) && $_POST['remember'] === 'yes') {
-                    setcookie('remember', $email, time() + 180);
+                    setcookie('remember', $email, time() + 3600);
                 }
                 $_SESSION['id_client'] = $client['id_client'];
                 header('Location: ../../index.php');
