@@ -44,11 +44,21 @@ $product = $product->fetch();
                 <h1 class="price">
                     <?= $product['prix_public_produit'] ?> €
                 </h1>
-                <button class="cart-button" onclick="addToCart()">
-                    <span class="add-to-cart">Add to cart</span>
-                    <span class="added">Added</span>
-                    <i class="fas fa-shopping-cart"></i>
-                    <i class="fas fa-box"></i>
+                <?php $stock = $product['quantite_produit'] ?>
+                <h3 id="stock"><?= $stock ?> en stocks</h3>
+                <button class="cart-button"
+                    <?php if ($stock > 0) {
+                        echo 'onclick="addToCart()"';
+                    } else {
+                        echo 'style="opacity: 0.5"';
+                        echo 'disabled="true"';
+                    } ?>>
+                    <span>Add to cart</span>
+                    <div class="cart">
+                        <svg viewBox="0 0 36 26">
+                            <polyline points="1 2.5 6 2.5 10 18.5 25.5 18.5 28.5 7.5 7.5 7.5"></polyline>
+                            <polyline points="15 13.5 17 15.5 22 10.5"></polyline>
+                        </svg>
                 </button>
             </div>
         </div>
@@ -67,20 +77,30 @@ $product = $product->fetch();
             type: 'POST',
             data: {
                 function_name: 'addToCart',
-                arguments: ['<?php echo $product['reference_produit'] ?>', "<?php echo $product['prix_public_produit'] ?>", "1"]
+                arguments: ['<?php echo $product['reference_produit'] ?>', "<?php echo $product['prix_public_produit'] ?>", "1", "<?php echo $product['quantite_produit'] ?>"]
             },
             success: function (response) {
                 // Handle the response
                 let data = JSON.parse(response);
                 if (data.success) {
                     $("#cart-quantity").text(data.message);
+                } else if (data.message === 'error quantity') {
+                    alert("Ce produit n'est plus en stock");
                 } else {
-                   // redirect to login.php
+                    // redirect to login.php
                     window.location.href = data.message;
                 }
             }
         });
     }
+
+    document.querySelectorAll('.cart-button').forEach(button => button.addEventListener('click', e => {
+        if(!button.classList.contains('loading')) {
+            button.classList.add('loading');
+            setTimeout(() => button.classList.remove('loading'), 3700);
+        }
+        e.preventDefault();
+    }));
 </script>
 </body>
 

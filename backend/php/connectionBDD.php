@@ -129,5 +129,49 @@ class bdd
         $sql = "SELECT ROUND(SUM(prix*quantite), 2) as somme FROM panier WHERE id_client LIKE " . "'" . $id_client . "';";
         return $this->connection->query($sql);
     }
+
+
+    public function insertFacture($id_client)
+    {
+        $this->__wakeup();
+        $client_informations = $this->getClient($id_client)->fetch();
+        // mettre dans un json les triplets reference_produit, quantite, prix. Pour tous les paniers du client
+        $json = $this->generateJSON($id_client);
+
+        // calculer le prix total ht
+        $total_ht = $this->getTotalPrice($id_client)->fetch()['somme'];
+
+        // calculer le prix total ttc
+        $total_ttc = $total_ht * 1.2;
+
+        $sql = "INSERT INTO facturation (id_client, date_creation, nom_client, prenom_client, email_client, produits, prix_total_HT, prix_total_TTC)" +
+            "VALUES (" . $id_client . ",NOW()," . $client_informations['nom_client'] . "," . $client_informations['prenom_client'] . ","
+            . $client_informations['email_client'] . "," . $json . "," . $total_ht . "," . $total_ttc . ");";
+
+        return $this->connection->query($sql);
+    }
+
+    private function generateJSON($id_client)
+    {
+        $carts = $this->getCarts($id_client);
+        $json = [];
+        foreach ($carts as $cart) {
+            $product = $this->getProductReference($cart['id_produit'])->fetch();
+            $json[] = [
+                'reference_produit' => $product['reference_produit'],
+                'quantite' => $cart['quantite'],
+                'prix' => $cart['prix']
+            ];
+        }
+        return $json;
+    }
+
+    public function getFacture($id_client): bool|PDOStatement
+    {
+        $this->__wakeup();
+        //Get the most recent facture fromid_client and date
+        $sql = "SELECT * FROM facture WHERE id_client LIKE " . "'" . $id_client . "' ORDER BY date_creation DESC LIMIT 1;";
+        return $this->connection->query($sql);
+    }
 }
 

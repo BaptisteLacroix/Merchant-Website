@@ -29,16 +29,6 @@
     opacity: 0.8;
 }
 
-.cover button {
-    border-radius: 5px;
-    padding: 0.5em;
-    background-color: #999999;
-    color: #ffffff;
-    border: 2px solid transparent;
-    width: 15em;
-    cursor: pointer;
-}
-
 img {
     width: 540px;
     height: 450px;
@@ -75,112 +65,155 @@ img {
 
 /* Adding cart animation */
 
+.cart-button:not(:disabled):hover {
+
+}
+
 .cart-button {
     position: relative;
-    padding: 10px;
-    width: 200px;
-    height: 60px;
-    border: 0;
-    border-radius: 10px;
-    background-color: #4834d4;
-    outline: none;
-    cursor: pointer;
-    color: #fff;
-    transition: .3s ease-in-out;
+    border: none;
+    background: none;
+    padding: 8px 28px;
+    border-radius: 8px;
     overflow: hidden;
-}
-.cart-button:hover {
-    background-color: #35269b;
-}
-.cart-button:active {
-    transform: scale(.9);
+    cursor: pointer;
+    text-align: center;
+    min-width: 144px;
+    color: black;
+    backdrop-filter: blur(20px);
+    transform: scale(0.95);
+    transition: transform 0.4s cubic-bezier(0.36, 1.01, 0.32, 1.27);
+    box-shadow: 0 0 0 2px black;
 }
 
-.cart-button .fa-shopping-cart {
-    position: absolute;
-    z-index: 2;
-    top: 50%;
-    left: -10%;
-    font-size: 2em;
-    transform: translate(-50%,-50%);
+.cart-button:active {
+    transform: scale(0.95);
 }
-.cart-button .fa-box {
-    position: absolute;
-    z-index: 3;
-    top: -20%;
-    left: 52%;
-    font-size: 1.2em;
-    transform: translate(-50%,-50%);
-}
+
 .cart-button span {
+    font-size: 14px;
+    font-weight: 500;
+    display: block;
+    position: relative;
+    padding-left: 24px;
+    margin-left: -8px;
+    line-height: 26px;
+    transform: translateY(var(--span-y, 0));
+    transition: transform 0.7s ease;
+}
+
+.cart-button span:before, .cart-button span:after {
+    content: '';
+    width: var(--w, 2px);
+    height: var(--h, 14px);
+    border-radius: 1px;
     position: absolute;
-    z-index: 3;
+    left: var(--l, 8px);
+    top: var(--t, 6px);
+    background: currentColor;
+    transform: scale(0.75) rotate(var(--icon-r, 0deg));
+    transition: transform 0.65s ease 0.05s;
+}
+
+.cart-button span:after {
+    --w: 14px;
+    --h: 2px;
+    --l: 2px;
+    --t: 12px;
+}
+
+.cart-button .cart {
+    position: absolute;
     left: 50%;
     top: 50%;
-    font-size: 1.2em;
-    color: #fff;
-    transform: translate(-50%,-50%);
-}
-.cart-button span.add-to-cart {
-    opacity: 1;
-}
-.cart-button span.added {
-    opacity: 0;
+    margin: -13px 0 0 -18px;
+    transform-origin: 12px 23px;
+    transform: translateX(-120px) rotate(-18deg);
 }
 
-.cart-button.clicked .fa-shopping-cart {
-    animation: cart 1.5s ease-in-out forwards;
+.cart-button .cart:before, .cart-button .cart:after {
+    content: '';
+    position: absolute;
 }
-.cart-button.clicked .fa-box {
-    animation: box 1.5s ease-in-out forwards;
+
+.cart-button .cart:before {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 2px black;
+    bottom: 0;
+    left: 9px;
+    filter: drop-shadow(11px 0 0 black);
 }
-.cart-button.clicked span.add-to-cart {
-    animation: txt1 1.5s ease-in-out forwards;
+
+.cart-button .cart:after {
+    width: 16px;
+    height: 9px;
+    background: black;
+    left: 9px;
+    bottom: 7px;
+    transform-origin: 50% 100%;
+    transform: perspective(4px) rotateX(-6deg) scaleY(var(--fill, 0));
+    transition: transform 1.2s ease var(--fill-d);
 }
-.cart-button.clicked span.added {
-    animation: txt2 1.5s ease-in-out forwards;
+
+.cart-button .cart svg {
+    z-index: 1;
+    width: 36px;
+    height: 26px;
+    display: block;
+    position: relative;
+    fill: none;
+    stroke: black;
+    stroke-width: 2px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
+
+.cart-button .cart svg polyline:last-child {
+    stroke: black;
+    stroke-dasharray: 10px;
+    stroke-dashoffset: var(--offset, 10px);
+    transition: stroke-dashoffset 0.4s ease var(--offset-d);
+}
+
+.cart-button.loading {
+    --scale: 0.95;
+    --span-y: -32px;
+    --icon-r: 180deg;
+    --fill: 1;
+    --fill-d: 0.8s;
+    --offset: 0;
+    --offset-d: 1.73s;
+}
+
+.cart-button.loading .cart {
+    animation: cart 3.4s linear forwards 0.2s;
+}
+
 @keyframes cart {
-    0% {
-        left: -10%;
+    12.5% {
+        transform: translateX(-60px) rotate(-18deg);
     }
-    40%, 60% {
-        left: 50%;
+    25%, 45%, 55%, 75% {
+        transform: none;
     }
-    100% {
-        left: 110%;
+    50% {
+        transform: scale(0.9);
     }
-}
-@keyframes box {
-    0%, 40% {
-        top: -20%;
+    44%, 56% {
+        transform-origin: 12px 23px;
     }
-    60% {
-        top: 40%;
-        left: 52%;
+    45%, 55% {
+        transform-origin: 50% 50%;
     }
-    100% {
-        top: 40%;
-        left: 112%;
-    }
-}
-@keyframes txt1 {
-    0% {
-        opacity: 1;
-    }
-    20%, 100% {
-        opacity: 0;
-    }
-}
-@keyframes txt2 {
-    0%, 80% {
-        opacity: 0;
+    87.5% {
+        transform: translateX(70px) rotate(-18deg);
     }
     100% {
-        opacity: 1;
+        transform: translateX(140px) rotate(-18deg);
     }
 }
-
 
 /*--------- Section avis ---------- */
 

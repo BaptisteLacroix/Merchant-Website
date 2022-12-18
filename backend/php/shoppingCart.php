@@ -14,7 +14,7 @@ if (!isLoggedIn()) {
 } else if (isset($_POST['function_name'])) {
     $function_name = $_POST['function_name'];
     // Add more cases for other functions here
-    if ($function_name == 'addToCart') {
+    if ($function_name == 'addToCart' && $_POST['arguments'][3] > 0) {
         addToCart($_POST['arguments']);
         echo json_encode(
             [
@@ -48,6 +48,13 @@ if (!isLoggedIn()) {
                     'totalPrice' => $_SESSION['pdo']->getTotalPrice($_SESSION['id_client'])->fetch()['somme']
                 ]);
         }
+    } else if ($_POST['arguments'][3] == 0) {
+        echo json_encode(
+            [
+                'success' => false,
+                'message' => 'error quantity'
+            ]
+        );
     }
 }
 

@@ -1,12 +1,5 @@
-
-
 #top {
     height: 15vh;
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    flex-direction: column;
 }
 
 .container {
@@ -71,6 +64,8 @@ tbody tr td button {
 
 .trash-svg {
     text-align: center;
+    width: 25px;
+    height: 25px;
 }
 
 input[type="number"] {
@@ -138,7 +133,7 @@ input[type="number"] {
     justify-content: space-between;
 }
 
-.shipping-container {
+.tva-container {
     display: flex;
     justify-content: space-between;
 }
@@ -251,6 +246,7 @@ input[type="number"] {
     }
 
     #cart-container table {
+        display: block;
         overflow-x: scroll;
     }
 

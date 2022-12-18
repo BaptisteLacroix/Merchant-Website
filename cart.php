@@ -82,10 +82,11 @@ $products = $pdo->getProductsFromCart($_SESSION['id_client']);
                         <button onclick="updateQuantity(<?= $carts[$index]['id_panier'] ?>, 1)">+</button>
                     </td>
                     <td>
-                        <h4><?= $product['prix'] ?>€</h4>
+                        <h4 id="price-product-<?= $carts[$index]['id_panier'] ?>"><?= $product['prix'] ?> €</h4>
                     </td>
                     <td>
-                        <h4><?= $product['prix'] * $carts[$index]['quantite'] ?>€</h4>
+                        <h4 id="price-quantity-<?= $carts[$index]['id_panier'] ?>"><?= $product['prix'] * $carts[$index]['quantite'] ?>
+                            €</h4>
                     </td>
                 </tr>
                 <?php $index++;
@@ -112,15 +113,18 @@ $products = $pdo->getProductsFromCart($_SESSION['id_client']);
                 <h5>CART TOTAL</h5>
                 <div class="subtotal-container">
                     <p>Subtotal</p>
-                    <p class="price"><?= $pdo->getTotalPrice($_SESSION['id_client'])->fetch()['somme'] ?>€</p>
+                    <p class="price"><?= $pdo->getTotalPrice($_SESSION['id_client'])->fetch()['somme'] ?> €</p>
                 </div>
-                <div class="shipping-container">
-                    <p>Shipping</p>
-                    <p>FREE</p>
+                <div class="tva-container">
+                    <p>TVA</p>
+                    <p><?php // Montant HT * (1 + taux de TVA)
+                        $tva = round($pdo->getTotalPrice($_SESSION['id_client'])->fetch()['somme'] * (1 + 0.2) - $pdo->getTotalPrice($_SESSION['id_client'])->fetch()['somme'], 2);
+                        echo $tva ?>
+                        €</p>
                 </div>
                 <div class="total-container">
                     <p>Total</p>
-                    <p class="price"><?= $pdo->getTotalPrice($_SESSION['id_client'])->fetch()['somme']?>€</p>
+                    <p class="price"><?= $pdo->getTotalPrice($_SESSION['id_client'])->fetch()['somme'] + $tva ?> €</p>
                 </div>
                 <div>
                     <button>PROCEED TO CHECKOUT</button>
@@ -163,9 +167,7 @@ $products = $pdo->getProductsFromCart($_SESSION['id_client']);
             },
             success: function (response) {
                 // Handle the response
-                console.log(response);
                 let data = JSON.parse(response);
-                console.log(data);
                 // if data.message exist
                 if (data.success && !data.message) {
                     $("#cart-quantity-wanted-" + id_panier).text(data.counter);
@@ -174,6 +176,7 @@ $products = $pdo->getProductsFromCart($_SESSION['id_client']);
                     $("#cart-quantity").text(data.counter);
                 }
                 $(".price").text(data.totalPrice + "€");
+                $("#price-quantity-" + id_panier).text(parseFloat($("#price-product-" + id_panier).text()) * parseFloat($('#cart-quantity-wanted-' + id_panier).text()) + "€");
             }
         });
     }

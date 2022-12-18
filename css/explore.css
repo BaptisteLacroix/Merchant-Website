@@ -1,10 +1,5 @@
 #top {
     height: 23vh;
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    flex-direction: column;
 }
 
 
