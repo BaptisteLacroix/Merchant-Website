@@ -2,11 +2,13 @@
 
 require_once __DIR__ . '/global.php';
 
+$delete = false;
+
 if (!isLoggedIn()) {
     echo json_encode(
         [
             'success' => false,
-            'message' => 'login.php',
+            'message' => 'login.php'
         ]
     );
 } else if (isset($_POST['function_name'])) {
@@ -17,12 +19,39 @@ if (!isLoggedIn()) {
         echo json_encode(
             [
                 'success' => true,
-                'message' => $_SESSION['pdo']->getCart($_SESSION['id_client'])->rowCount()
+                'message' => $_SESSION['pdo']->getCarts($_SESSION['id_client'])->rowCount(),
+                'totalPrice' => $_SESSION['pdo']->getTotalPrice($_SESSION['id_client'])->fetch()['somme']
             ]);
+    } else if ($function_name == 'deleteFromCart') {
+        deleteFromCart($_POST['arguments']);
+        echo json_encode(
+            [
+                'success' => true,
+                'message' => $_POST['arguments'][0],
+                'counter' => $_SESSION['pdo']->getCarts($_SESSION['id_client'])->rowCount(),
+                'totalPrice' => $_SESSION['pdo']->getTotalPrice($_SESSION['id_client'])->fetch()['somme']
+            ]);
+    } else if ($function_name == 'updateQuantity') {
+        if (updateQuantity($_POST['arguments'])) {
+            echo json_encode(
+                [
+                    'success' => true,
+                    'message' => $_POST['arguments'][0],
+                    'counter' => $_SESSION['pdo']->getCarts($_SESSION['id_client'])->rowCount(),
+                    'totalPrice' => $_SESSION['pdo']->getTotalPrice($_SESSION['id_client'])->fetch()['somme']
+                ]);
+        } else {
+            echo json_encode(
+                [
+                    'success' => true,
+                    'counter' => $_SESSION['pdo']->getCart($_POST['arguments'][0])->fetch()['quantite'],
+                    'totalPrice' => $_SESSION['pdo']->getTotalPrice($_SESSION['id_client'])->fetch()['somme']
+                ]);
+        }
     }
 }
 
-function addToCart($arguments)
+function addToCart($arguments): void
 {
     $pdo = $_SESSION['pdo'];
     $id_client = $_SESSION['id_client'];
@@ -30,6 +59,27 @@ function addToCart($arguments)
     $prix = $arguments[1];
     $quantite = $arguments[2];
     $pdo->addToCart($id_client, $reference_produit, $quantite, $quantite * $prix);
+}
+
+
+function deleteFromCart($arguments): void
+{
+    $pdo = $_SESSION['pdo'];
+    $id_panier = $arguments[0];
+    $pdo->deleteFromCart($id_panier);
+}
+
+function updateQuantity($arguments): bool
+{
+    $pdo = $_SESSION['pdo'];
+    $id_panier = $arguments[0];
+    $quantite = $arguments[1];
+    $pdo->updateQuantityCart($id_panier, $quantite);
+    if ($pdo->getCart($id_panier)->fetch()['quantite'] === 0) {
+        deleteFromCart([$id_panier]);
+        return true;
+    }
+    return false;
 }
 
 

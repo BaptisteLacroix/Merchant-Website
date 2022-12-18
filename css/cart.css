@@ -1,0 +1,260 @@
+
+
+#top {
+    height: 15vh;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container {
+    margin: 50px 150px;
+}
+
+#cart-container {
+    padding: 10px;
+    margin-bottom: 50px;
+}
+
+#cart-container table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    white-space: nowrap;
+}
+
+#cart-container table thead {
+    font-weight: 700;
+}
+
+#cart-container table thead td {
+    background: black;
+    color: white;
+    padding: 10px;
+}
+
+tbody tr td {
+    text-align: center;
+}
+
+tbody tr td button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+#cart-container table td {
+    border: 1px solid black;
+}
+
+#cart-container table td:nth-child(1) {
+    width: 100px;
+}
+
+#cart-container table td:nth-child(2),
+#cart-container table td:nth-child(3) {
+    width: 200px;
+}
+
+#cart-container table td:nth-child(4),
+#cart-container table td:nth-child(5),
+#cart-container table td:nth-child(6) {
+    width: 170px;
+}
+
+#cart-container table td img {
+    width: 75px;
+    height: 75px;
+}
+
+.trash-svg {
+    text-align: center;
+}
+
+input[type="number"] {
+    width: 50px;
+}
+
+/* ------------ Bottom ----------  */
+
+#cart-bottom {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* ------------ Left ----------  */
+
+.coupon {
+    border: 1px solid black;
+    background-color: white;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    width: 550px;
+}
+
+.coupon h5 {
+    color: white;
+    padding: 10px;
+    font-weight: bolder;
+    background: black;
+    margin: 0;
+}
+
+.coupon div {
+    padding: 10px;
+}
+
+.coupon input[type="text"],
+.coupon button {
+    padding: 10px;
+    border: 1px solid black;
+}
+
+/* ------------ Right ----------  */
+
+.bottom-right {
+    background: white;
+}
+
+.total {
+    border: 1px solid black;
+    width: 600px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.total h5 {
+    color: white;
+    padding: 10px;
+    background: black;
+    margin: 0;
+}
+.total div {
+    margin: 10px;
+}
+
+.subtotal-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.shipping-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.total-container {
+    border-top: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+}
+
+.total div:last-child {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.total div:last-child button {
+    padding: 10px;
+    border: 1px solid black;
+}
+
+
+/* ------------ Media Queries ----------  */
+
+@media screen and (max-width: 1300px) {
+    .container {
+        margin: 50px 100px;
+    }
+
+    .coupon {
+        width: 450px;
+    }
+
+    .total {
+        width: 500px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .container {
+        margin: 50px 50px;
+    }
+
+    .coupon {
+        width: 400px;
+    }
+
+    .total {
+        width: 450px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .container {
+        margin: 50px 25px;
+    }
+
+    .coupon {
+        width: 350px;
+        height: 277px;
+    }
+
+    .total {
+        width: 400px;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .container {
+        margin: 50px 25px;
+    }
+
+    .coupon {
+        width: 300px;
+    }
+
+    .total {
+        width: 350px;
+    }
+}
+
+@media screen and (max-width: 740px) {
+    .container {
+        margin: 50px 25px;
+    }
+
+    .coupon {
+        width: 250px;
+    }
+
+    .total {
+        width: 300px;
+    }
+}
+
+@media screen and (max-width: 670px) {
+    #cart-bottom {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: stretch;
+    }
+
+    .coupon {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .total {
+        width: 100%;
+    }
+
+    #cart-container table {
+        overflow-x: scroll;
+    }
+
+    #cart-container table td:nth-child(3) {
+        width: 100px;
+    }
+}

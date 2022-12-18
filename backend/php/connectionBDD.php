@@ -82,10 +82,51 @@ class bdd
         return $this->connection->query($sql);
     }
 
-    public function getCart(string $id_client): bool|PDOStatement
+    public function getCarts(string $id_client): bool|PDOStatement
     {
         $this->__wakeup();
         $sql = "SELECT * FROM panier WHERE id_client LIKE " . "'" . $id_client . "';";
+        return $this->connection->query($sql);
+    }
+
+    public function getCart(string $id_panier): bool|PDOStatement
+    {
+        $this->__wakeup();
+        $sql = "SELECT * FROM panier WHERE id_panier LIKE " . "'" . $id_panier . "';";
+        return $this->connection->query($sql);
+    }
+
+
+    public function getProductsFromCart(string $id_client): bool|PDOStatement
+    {
+        $this->__wakeup();
+        $sql = "select * from produit\n"
+
+            . "INNER JOIN panier on produit.id_produit = panier.id_produit\n"
+
+            . "where id_client = " . $id_client . ";";
+
+        return $this->connection->query($sql);
+    }
+
+    public function deleteFromCart(string $id_panier): bool|PDOStatement
+    {
+        $this->__wakeup();
+        $sql = "DELETE FROM panier WHERE id_panier LIKE " . "'" . $id_panier . "';";
+        return $this->connection->query($sql);
+    }
+
+    public function updateQuantityCart(string $id_panier, int $newValue): bool|PDOStatement
+    {
+        $this->__wakeup();
+        $sql = "UPDATE panier SET quantite = quantite + " . $newValue . " WHERE id_panier LIKE " . "'" . $id_panier . "';";
+        return $this->connection->query($sql);
+    }
+
+    public function getTotalPrice(string $id_client): bool|PDOStatement
+    {
+        $this->__wakeup();
+        $sql = "SELECT ROUND(SUM(prix*quantite), 2) as somme FROM panier WHERE id_client LIKE " . "'" . $id_client . "';";
         return $this->connection->query($sql);
     }
 }
