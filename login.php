@@ -2,9 +2,9 @@
 
 require_once './backend/php/global.php';
 
-if (isLoggedIn() === true) {
+if (isLoggedIn()) {
     header('Location: index.php');
-    exit;
+    exit();
 }
 
 ?>

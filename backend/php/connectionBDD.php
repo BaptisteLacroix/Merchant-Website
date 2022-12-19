@@ -48,10 +48,24 @@ class bdd
         return $this->connection->query($sql);
     }
 
-    public function getProductReference($reference): bool|PDOStatement
+    public function getProductByid($id_product): bool|PDOStatement
+    {
+        $this->__wakeup();
+        $sql = "SELECT * FROM produit WHERE id_produit = '" . $id_product . "';";
+        return $this->connection->query($sql);
+    }
+
+    public function getProductByReference($reference): bool|PDOStatement
     {
         $this->__wakeup();
         $sql = "SELECT * FROM produit WHERE reference_produit LIKE " . "'" . $reference . "';";
+        return $this->connection->query($sql);
+    }
+
+    public function updateProductStocksByReference($reference_produit, $new_quantity): bool|PDOStatement
+    {
+        $this->__wakeup();
+        $sql = "UPDATE produit SET quantite_produit = " . $new_quantity . " WHERE reference_produit LIKE " . "'" . $reference_produit . "';";
         return $this->connection->query($sql);
     }
 
@@ -70,10 +84,24 @@ class bdd
         return $this->connection->query($sql);
     }
 
+    public function deleteCartClient($id_client)
+    {
+        $this->__wakeup();
+        $sql = "DELETE FROM panier WHERE id_client = " . $id_client . ";";
+        return $this->connection->query($sql);
+    }
+
+    public function updateClient($id_client, $lastname, $firstname, $email, $mobilephone, $address, $postalCode, $city, $country)
+    {
+        $this->__wakeup();
+        $sql = "UPDATE client SET nom_client = '" . $lastname . "', prenom_client = '" . $firstname . "', email_client = '" . $email . "', telephone_client = '" . $mobilephone . "', adresse_client = '" . $address . "', code_postal_client = '" . $postalCode . "', ville_client = '" . $city . "', pays_client = '" . $country . "' WHERE id_client = " . $id_client . ";";
+        return $this->connection->query($sql);
+    }
+
     public function addToCart(string $id_client, string $ref_produit, string $quantite, string $prix): bool|PDOStatement
     {
         $this->__wakeup();
-        $id_produit = $this->getProductReference($ref_produit)->fetch()['id_produit'];
+        $id_produit = $this->getProductByReference($ref_produit)->fetch()['id_produit'];
         $sql = "insert into panier(id_client, id_produit, quantite, prix) VALUES\n"
 
             . "('" . $id_client . "', '" . $id_produit . "', '" . $quantite . "', '" . $prix . "');";
@@ -131,47 +159,62 @@ class bdd
     }
 
 
-    public function insertFacture($id_client)
+    public function insertNewFacture($email_client)
     {
         $this->__wakeup();
-        $client_informations = $this->getClient($id_client)->fetch();
+        $client_informations = $this->getClient($email_client)->fetch();
+        $id_client = $client_informations['id_client'];
+
         // mettre dans un json les triplets reference_produit, quantite, prix. Pour tous les paniers du client
-        $json = $this->generateJSON($id_client);
+        $json = $this->getTotalCart($id_client);
 
         // calculer le prix total ht
         $total_ht = $this->getTotalPrice($id_client)->fetch()['somme'];
 
         // calculer le prix total ttc
         $total_ttc = $total_ht * 1.2;
+        // round ttc to 2 decimals
+        $total_ttc = round($total_ttc, 2);
 
-        $sql = "INSERT INTO facturation (id_client, date_creation, nom_client, prenom_client, email_client, produits, prix_total_HT, prix_total_TTC)" +
-            "VALUES (" . $id_client . ",NOW()," . $client_informations['nom_client'] . "," . $client_informations['prenom_client'] . ","
-            . $client_informations['email_client'] . "," . $json . "," . $total_ht . "," . $total_ttc . ");";
+        $sql = "INSERT INTO facturation (id_client, date_creation, nom_client, prenom_client, email_client, produits, prix_total_HT, prix_total_TTC)" .
+            "VALUES (" . $id_client . ",NOW(),'" . $client_informations['nom_client'] . "','" . $client_informations['prenom_client'] . "','"
+            . $client_informations['email_client'] . "','" . $json . "'," . $total_ht . "," . $total_ttc . ");";
 
         return $this->connection->query($sql);
     }
 
-    private function generateJSON($id_client)
+    public function getTotalCart($id_client): bool|string
     {
         $carts = $this->getCarts($id_client);
         $json = [];
         foreach ($carts as $cart) {
-            $product = $this->getProductReference($cart['id_produit'])->fetch();
+            $product = $this->getProductByid($cart['id_produit'])->fetch();
             $json[] = [
                 'reference_produit' => $product['reference_produit'],
                 'quantite' => $cart['quantite'],
                 'prix' => $cart['prix']
             ];
         }
-        return $json;
+        return json_encode($json);
     }
 
     public function getFacture($id_client): bool|PDOStatement
     {
         $this->__wakeup();
         //Get the most recent facture fromid_client and date
-        $sql = "SELECT * FROM facture WHERE id_client LIKE " . "'" . $id_client . "' ORDER BY date_creation DESC LIMIT 1;";
+        $sql = "SELECT * FROM facturation WHERE id_client LIKE " . "'" . $id_client . "' ORDER BY date_creation DESC LIMIT 1;";
         return $this->connection->query($sql);
+    }
+
+    public function getTotalHT($facture): float|int
+    {
+        $this->__wakeup();
+        $JSON = json_decode($facture['produits']);
+        $total_ht = 0;
+        foreach ($JSON as $product) {
+            $total_ht += $product->prix * $product->quantite;
+        }
+        return $total_ht;
     }
 }
 

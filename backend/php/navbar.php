@@ -1,14 +1,19 @@
 <?php
 $pdo = $_SESSION['pdo'];
 
-if (isLoggedIn()) {
+if (isLoggedIn() && !empty($_COOKIE['id_client'])) {
+    $rows = $pdo->getCarts($_COOKIE['id_client'])->rowCount();
+    //$rows = 0;
+} else if (isLoggedIn() && !empty($_SESSION['id_client'])) {
     $rows = $pdo->getCarts($_SESSION['id_client'])->rowCount();
-} else
+    //$rows = 0;
+} else {
     $rows = 0;
+}
 ?>
 
 <header>
-    <div class="logo">Oil Painting</div>
+    <div class="logo"><a href="./index.php">Oil Painting</a></div>
     <div class="hamburger"><span></span></div>
     <nav class="nav-bar">
         <ul>

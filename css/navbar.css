@@ -40,10 +40,11 @@ header {
     position: fixed;
 }
 
-.logo {
+.logo > a {
     font-size: 28px;
     font-weight: bold;
     color: white;
+    text-decoration: none;
 }
 
 .hamburger {

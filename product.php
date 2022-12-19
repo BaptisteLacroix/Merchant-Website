@@ -3,7 +3,7 @@
 require __DIR__ . '/backend/php/global.php';
 
 $pdo = $_SESSION['pdo'];
-$product = $pdo->getProductReference($_GET['reference']);
+$product = $pdo->getProductByReference($_GET['reference']);
 
 // get the first product
 $product = $product->fetch();

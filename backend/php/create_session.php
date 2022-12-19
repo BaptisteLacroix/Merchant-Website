@@ -1,10 +1,10 @@
 <?php
 
-require_once 'global.php';
+require_once './global.php';
 
-if (isLoggedIn() === true) {
-    header('Location: index.php');
-    exit;
+if (isLoggedIn()) {
+    header('Location: ../../index.php');
+    exit();
 }
 
 $pdo = $_SESSION['pdo'];
@@ -23,12 +23,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         $client = $pdo->getClient($email);
         if ($client->rowCount() > 0) {
             $client = $client->fetch();
+            $id_client = $client['id_client'];
             if (password_verify($password, $client['password_client'])) {
-                session_start();
                 if (isset($_POST['remember']) && $_POST['remember'] === 'yes') {
-                    setcookie('remember', $email, time() + 3600);
+                    setcookie('remember', $email, time() + 3600, "/");
+                    setcookie('id_client', $id_client, time() + 3600, "/");
                 }
-                $_SESSION['id_client'] = $client['id_client'];
+                $_SESSION['id_client'] = $id_client;
+                $_SESSION['email_client'] = $email;
                 header('Location: ../../index.php');
             } else {
                 $errorMsg = 'Wrong email or password';
@@ -72,10 +74,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             $pdo->addNewClient($prenom, $nom, $email, $hash);
             $client = $pdo->getClient($email);
             $client = $client->fetch();
-            session_start();
             $_SESSION['id_client'] = $client['id_client'];
+            $_SESSION['email_client'] = $client['email_client'];
             header('Location: ../../index.php');
         }
         exit();
     }
+} else {
+    header('Location: ../../login.php');
+    exit();
 }

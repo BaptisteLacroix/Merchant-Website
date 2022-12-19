@@ -127,7 +127,7 @@ $products = $pdo->getProductsFromCart($_SESSION['id_client']);
                     <p class="price"><?= $pdo->getTotalPrice($_SESSION['id_client'])->fetch()['somme'] + $tva ?> €</p>
                 </div>
                 <div>
-                    <button>PROCEED TO CHECKOUT</button>
+                    <button onclick="processCheckout()">PROCEED TO CHECKOUT</button>
                 </div>
             </div>
         </div>
@@ -180,6 +180,11 @@ $products = $pdo->getProductsFromCart($_SESSION['id_client']);
             }
         });
     }
+
+    function processCheckout() {
+        window.location.href = "./checkout.php";
+    }
+
 
     function removeNode(id_panier) {
         let node = document.getElementById(id_panier);
