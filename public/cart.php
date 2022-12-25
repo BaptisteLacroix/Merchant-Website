@@ -1,9 +1,9 @@
 <?php
 
-require_once __DIR__ . './backend/php/global.php';
+require_once('../backend/php/global.php');
 
 if (isLoggedIn() === false) {
-    header('Location: login.php');
+    header('Location: ./login.php');
     exit();
 }
 
@@ -26,14 +26,14 @@ $products = $pdo->getProductsFromCart($_SESSION['id_client']);
     <meta charset="UTF-8">
     <meta name="author" content="Baptiste Lacroix">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="./css/cart.css">
-    <link rel="stylesheet" href="./css/buttons.css">
+    <link rel="stylesheet" href="../css/cart.css">
+    <link rel="stylesheet" href="../css/buttons.css">
     <title>Painting Oil Beautify</title>
 </head>
 
 <body>
 
-<?php require_once(__DIR__ . '/backend/php/navbar.php'); ?>
+<?php require_once('../backend/php/navbar.php'); ?>
 <section>
     <div id="top">
     </div>
@@ -70,7 +70,7 @@ $products = $pdo->getProductsFromCart($_SESSION['id_client']);
                         </button>
                     </td>
                     <td>
-                        <img src="./img/<?= $product['reference_produit'] ?>.png" alt="product image">
+                        <img src="data:image/jpeg;base64,<?= base64_encode($product['image']) ?>" alt="product image">
                     </td>
                     <td>
                         <h4><?= $product['titre_produit'] ?></h4>
@@ -134,12 +134,12 @@ $products = $pdo->getProductsFromCart($_SESSION['id_client']);
     </section>
 </div>
 
-<script src="./backend/javascript/footer.js"></script>
+<script src="../backend/javascript/footer.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
     function deleteFromCart(id_panier) {
         $.ajax({
-            url: './backend/php/shoppingCart.php',
+            url: '../backend/php/shoppingCart.php',
             type: 'POST',
             data: {
                 function_name: 'deleteFromCart',
@@ -159,7 +159,7 @@ $products = $pdo->getProductsFromCart($_SESSION['id_client']);
 
     function updateQuantity(id_panier, quantity) {
         $.ajax({
-            url: './backend/php/shoppingCart.php',
+            url: '../backend/php/shoppingCart.php',
             type: 'POST',
             data: {
                 function_name: 'updateQuantity',
@@ -182,7 +182,9 @@ $products = $pdo->getProductsFromCart($_SESSION['id_client']);
     }
 
     function processCheckout() {
-        window.location.href = "./checkout.php";
+        if ($("#cart-quantity").text() > 0) {
+            window.location.href = "checkout.php";
+        }
     }
 
 

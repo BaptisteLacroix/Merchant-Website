@@ -1,17 +1,23 @@
 <?php
 
-require_once __DIR__ . '/backend/php/global.php';
+require_once('../backend/php/global.php');
 
 $pdo = $_SESSION['pdo'];
 
 if (!isLoggedIn()) {
-    header('Location: login.php');
+    header('Location: ./login.php');
     exit();
 }
 
 $id_client = $_SESSION['id_client'];
 $email_client = $_SESSION['email_client'];
 $client_informations = $pdo->getClient($email_client)->fetch();
+
+/** @var BDD $pdo */
+if ($pdo->getCarts($id_client)->rowCount() <= 0) {
+    header('Location: ./cart.php');
+    exit();
+}
 
 ?>
 
@@ -22,13 +28,13 @@ $client_informations = $pdo->getClient($email_client)->fetch();
     <meta charset="UTF-8">
     <meta name="author" content="Baptiste Lacroix">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="./css/checkout.css">
+    <link rel="stylesheet" href="../css/checkout.css">
     <title>Painting Oil Beautify</title>
 </head>
 
 <body>
 
-<?php require_once(__DIR__ . '/backend/php/navbar.php'); ?>
+<?php require_once('../backend/php/navbar.php'); ?>
 
 <section>
     <div id="top">
@@ -38,7 +44,7 @@ $client_informations = $pdo->getClient($email_client)->fetch();
 
 <section class="container">
     <div>
-        <form method="post" action="./backend/php/processForm.php">
+        <form method="post" action="../backend/php/processForm.php">
             <?php if (!empty($_GET['error'])) : ?>
                 <h1 style="text-align: center; display: block"><b style="color: red; font-weight: bolder"><?= urldecode($_GET['error']) ?></b></h1>
             <?php endif ?>
@@ -130,7 +136,7 @@ $client_informations = $pdo->getClient($email_client)->fetch();
     </div>
 </section>
 
-<script src="./backend/javascript/footer.js"></script>
+<script src="../backend/javascript/footer.js"></script>
 </body>
 
 </html>

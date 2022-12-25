@@ -1,9 +1,15 @@
 <?php
 
-require __DIR__ . '/backend/php/global.php';
+require_once('../backend/php/global.php');
 
 $pdo = $_SESSION['pdo'];
-$product = $pdo->getProductByReference($_GET['reference']);
+
+if (isset($_GET['reference']))
+    $product = $pdo->getProductByReference($_GET['reference']);
+else {
+    header('Location: ../index.php?error=' . urlencode('Product not found'));
+    exit();
+}
 
 // get the first product
 $product = $product->fetch();
@@ -16,13 +22,13 @@ $product = $product->fetch();
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Baptiste Lacroix">
-    <link rel="stylesheet" href="css/product.css">
+    <link rel="stylesheet" href="../css/product.css">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Painting Oil Beautify</title>
 </head>
 
 <body>
-<?php require_once(__DIR__ . '/backend/php/navbar.php'); ?>
+<?php require_once('../backend/php/navbar.php'); ?>
 <section>
     <!-- Centrer les deux box -->
     <div class="product-container">
@@ -32,7 +38,8 @@ $product = $product->fetch();
                 <div class="magnify">
                     <div class="magnifier"></div>
                     <div class="magnified">
-                        <img id="myimage" src="img/<?php echo $product['reference_produit'] ?>.png" alt="image">
+                        <img id="myimage" src="data:image/jpeg;base64,<?= base64_encode($product['image']) ?>"
+                             alt="image">
                     </div>
                 </div>
             </div>
@@ -67,13 +74,13 @@ $product = $product->fetch();
 
 </section>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script src="backend/javascript/magnifyingEffect.js"></script>
-<script src="backend/javascript/commentary.js"></script>
-<script src="./backend/javascript/footer.js"></script>
+<script src="../backend/javascript/magnifyingEffect.js"></script>
+<script src="../backend/javascript/commentary.js"></script>
+<script src="../backend/javascript/footer.js"></script>
 <script>
     function addToCart() {
         $.ajax({
-            url: './backend/php/shoppingCart.php',
+            url: '../backend/php/shoppingCart.php',
             type: 'POST',
             data: {
                 function_name: 'addToCart',
@@ -95,7 +102,7 @@ $product = $product->fetch();
     }
 
     document.querySelectorAll('.cart-button').forEach(button => button.addEventListener('click', e => {
-        if(!button.classList.contains('loading')) {
+        if (!button.classList.contains('loading')) {
             button.classList.add('loading');
             setTimeout(() => button.classList.remove('loading'), 3700);
         }

@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/backend/php/global.php';
+require_once ('../backend/php/global.php');
 
 $pdo = $_SESSION['pdo'];
 $products = $pdo->getProducts();
@@ -13,14 +13,14 @@ $products = $pdo->getProducts();
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Baptiste Lacroix">
-    <link rel="stylesheet" href="css/explore.css">
-    <link rel="stylesheet" href="css/buttons.css">
+    <link rel="stylesheet" href="../css/explore.css">
+    <link rel="stylesheet" href="../css/buttons.css">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Painting Oil Beautify</title>
 </head>
 
 <body>
-<?php require_once(__DIR__ . '/backend/php/navbar.php'); ?>
+<?php require_once('../backend/php/navbar.php'); ?>
 <section>
     <div id="top" style="height: 0">
     </div>
@@ -32,14 +32,14 @@ $products = $pdo->getProducts();
                 <div>
                     <h1 id="<?php echo $product['reference_produit'] ?>"><?php echo $product['titre_produit'] ?></h1>
                     <p><?php echo $product['descriptif_produit'] ?></p>
-                    <button class="btn-information cta">
+                    <button class="btn-information cta" value="<?php echo $product['reference_produit'] ?>">
                         <span class="hover-underline-animation">Shop now</span>
                     </button>
                 </div>
                 <div class="cover">
                     <div class="cover-front">
                         <div>
-                            <img src="./img/<?php echo $product['reference_produit'] ?>.png" class="sh_img"
+                            <img src="data:image/jpeg;base64,<?= base64_encode($product['image']) ?>" class="sh_img"
                                  alt="<?php echo $product['titre_produit'] ?>">
                         </div>
                     </div>
@@ -49,8 +49,8 @@ $products = $pdo->getProducts();
         <?php } ?>
     </div>
 </section>
-<script src="backend/javascript/explore.js"></script>
-<script src="./backend/javascript/footer.js"></script>
+<script src="../backend/javascript/explore.js"></script>
+<script src="../backend/javascript/footer.js"></script>
 </body>
 
 </html>

@@ -13,11 +13,11 @@ if (isLoggedIn() && !empty($_COOKIE['id_client'])) {
 ?>
 
 <header>
-    <div class="logo"><a href="./index.php">Oil Painting</a></div>
+    <div class="logo"><a href="../index.php">Oil Painting</a></div>
     <div class="hamburger"><span></span></div>
     <nav class="nav-bar">
         <ul>
-            <li><a href="./index.php" class="active">Home</a></li>
+            <li><a href="../index.php" class="active">Home</a></li>
             <li><a href="./explore.php">
                     <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                          preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20">
@@ -29,7 +29,7 @@ if (isLoggedIn() && !empty($_COOKIE['id_client'])) {
                         </g>
                     </svg>
                 </a></li>
-            <li><a href="about.php">About Us</a></li>
+            <li><a href="./about.php">About Us</a></li>
             <li>
                 <a href="./cart.php">
                     <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
@@ -53,7 +53,7 @@ if (isLoggedIn() && !empty($_COOKIE['id_client'])) {
                 </a>
             </li>
             <li>
-                <a href="./backend/php/logout.php">
+                <a href="../backend/php/logout.php">
                     <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                          preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
                         <path fill="white"
@@ -68,7 +68,7 @@ if (isLoggedIn() && !empty($_COOKIE['id_client'])) {
     let linkNav = document.createElement('link');
     linkNav.rel = 'stylesheet';
     linkNav.type = 'text/css';
-    linkNav.href = './css/navbar.css';
+    linkNav.href = '../css/navbar.css';
     document.head.appendChild(linkNav);
 
     let hamburger = document.querySelector('.hamburger');

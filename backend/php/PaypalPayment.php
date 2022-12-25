@@ -3,17 +3,14 @@
 
 require_once __DIR__ . '/global.php';
 
-$delete = false;
 $pdo = $_SESSION['pdo'];
 $id_client = $_SESSION['id_client'];
 
+print_r($_POST);
+
 if (!isLoggedIn()) {
-    echo json_encode(
-        [
-            'success' => false,
-            'message' => 'login.php'
-        ]
-    );
+    header('Location: ../../public/login.php');
+    exit();
 } else if (isset($_POST['transaction_success'])) {
     $function_name = $_POST['transaction_success'];
     // Add more cases for other functions here
@@ -21,10 +18,34 @@ if (!isLoggedIn()) {
         updateQuantity($pdo, $id_client);
         createNewFacture($pdo);
         deleteCartClient($pdo, $id_client);
+        sendmail($_POST['arguments'][0],
+            $_POST['arguments'][1],
+            $_POST['arguments'][2],
+            $_POST['arguments'][3],
+            $_POST['arguments'][4],
+            $_POST['arguments'][5],
+            $_POST['arguments'][6]);
     }
 }
 
-function createNewFacture($pdo) {
+function sendmail($description, $full_name, $email_address, $items, $address, $amount_paid, $date): void
+{
+    $to = 'baptiste.lacroix@etu.unice.fr';
+    $subject = $description;
+    $message = $email_address .
+        "\r\npackage send at " . $full_name .
+        "\r\nadresse : " . $address .
+        "\r\nList of all oil paintings buy : " . $items .
+        "\r\nTotal amount : " . $amount_paid .
+        "\r\nDate : " . $date;
+    $headers = 'From:Oil Painting company';
+    echo "<hr>";
+    echo 'mail send';
+    mail($to, $subject, $message, $headers);
+}
+
+function createNewFacture($pdo)
+{
     $pdo->insertNewFacture($_SESSION['email_client']);
 }
 

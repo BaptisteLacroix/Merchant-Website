@@ -3,7 +3,7 @@
 require_once __DIR__ . '/global.php';
 
 if (!isLoggedIn()) {
-    header('Location: ../../login.php');
+    header('Location: ../../index.php');
     exit;
 }
 
@@ -14,3 +14,4 @@ unset($_COOKIE['remember']);
 unset($_COOKIE['id_client']);
 
 header('Location: ../../index.php');
+exit();

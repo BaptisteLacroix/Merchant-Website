@@ -6,10 +6,10 @@ function createFooter() {
     let linkFooter = document.createElement('link');
     linkFooter.rel = 'stylesheet';
     linkFooter.type = 'text/css';
-    linkFooter.href = './css/footer.css';
+    linkFooter.href = '../css/footer.css';
     document.head.appendChild(linkFooter);
     let listOfInnerHTML = ['Home', 'Explore', 'About Us', 'Cart', 'Login'];
-    let listOfLinks = ['index.php', 'explore.php', 'about.php', 'cart.php', 'login.php'];
+    let listOfLinks = ['../index.php', './explore.php', './about.php', './cart.php', './login.php'];
     footer.classList.add('sticky-footer');
     let ul = document.createElement('ul');
     for (let i = 0; i < listOfLinks.length; i++) {

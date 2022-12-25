@@ -1,9 +1,9 @@
 <?php
 
-require_once './backend/php/global.php';
+require_once('../backend/php/global.php');
 
 if (isLoggedIn()) {
-    header('Location: index.php');
+    header('Location: ../index.php');
     exit();
 }
 
@@ -16,14 +16,14 @@ if (isLoggedIn()) {
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Baptiste Lacroix">
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="../css/login.css">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Painting Oil Beautify</title>
 </head>
 
 <body>
 
-<?php require_once(__DIR__ . '/backend/php/navbar.php'); ?>
+<?php require_once('../backend/php/navbar.php'); ?>
 
 <section>
     <div id="top"></div>
@@ -43,7 +43,7 @@ if (isLoggedIn()) {
         </div>
         <div class="form-bx">
             <div class="form sign-in-form">
-                <form method="post" action="./backend/php/create_session.php">
+                <form method="post" action="../backend/php/create_session.php">
                     <h3>Sign In</h3>
                     <?php if (!empty($_GET['error'])) : ?>
                         <p><b style="color: red; font-weight: bolder"><?= urldecode($_GET['error']) ?></b></p>
@@ -64,7 +64,7 @@ if (isLoggedIn()) {
                 </form>
             </div>
             <div class="form sign-up-form">
-                <form method="post" action="./backend/php/create_session.php">
+                <form method="post" action="../backend/php/create_session.php">
                     <h3>Sign Up</h3>
                     <?php if (!empty($_GET['error'])) : ?>
                         <p><b style="color: red; font-weight: bolder"><?= urldecode($_GET['error']) ?></b></p>
@@ -90,7 +90,8 @@ if (isLoggedIn()) {
         </div>
     </div>
 </section>
-<script src="./backend/javascript/login.js"></script>
-<script src="./backend/javascript/footer.js"></script>
+<script src="../backend/javascript/login.js"></script>
+<script src="../backend/javascript/footer.js"></script>
 </body>
 </html>
+

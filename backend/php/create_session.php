@@ -1,6 +1,6 @@
 <?php
 
-require_once './global.php';
+require_once __DIR__ . '/global.php';
 
 if (isLoggedIn()) {
     header('Location: ../../index.php');
@@ -31,7 +31,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
                 }
                 $_SESSION['id_client'] = $id_client;
                 $_SESSION['email_client'] = $email;
-                header('Location: ../../index.php');
+                if ($pdo->getAdminByClientId($id_client)->rowCount() > 0) {
+                    header('Location: ../../admin-dashboard/dashboard.php');
+                } else {
+                    header('Location: ../../index.php');
+                }
             } else {
                 $errorMsg = 'Wrong email or password';
                 header('Location: ../../login.php?error=' . urlencode($errorMsg));

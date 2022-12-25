@@ -1,0 +1,24 @@
+
+button {
+    cursor: pointer;
+}
+
+button.addAdmin {
+    background: transparent;
+    color: green;
+    border: none;
+}
+
+button.removeAdmin {
+    background: transparent;
+    color: red;
+    border: none;
+}
+
+
+@media screen and (max-width: 1050px) {
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+}

@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/backend/php/global.php';
+require_once('../backend/php/global.php');
 
 if (!isLoggedIn()) {
     header('Location: ./login.php');
@@ -19,7 +19,7 @@ if (empty($client_informations['prenom_client']) || empty($client_informations['
     empty($client_informations['adresse_client']) || empty($client_informations['code_postal_client']) ||
     empty($client_informations['ville_client']) || empty($client_informations['pays_client'])) {
 
-    header('Location: ./checkout.php?error=' . urlencode('Please fill all the fields with valid values'));
+    header('Location: ../checkout.php?error=' . urlencode('Please fill all the fields with valid values'));
     exit();
 }
 
@@ -88,7 +88,7 @@ foreach ($allreferences as $reference) {
     }
 
     if ($quantity > $stock) {
-        header('Location: ./checkout.php?error=' . urlencode('The stock is not available for the product ' . $reference));
+        header('Location: ../checkout.php?error=' . urlencode('The stock is not available for the product ' . $reference));
         exit();
     }
 }
@@ -102,13 +102,13 @@ foreach ($allreferences as $reference) {
     <meta charset="UTF-8">
     <meta name="author" content="Baptiste Lacroix">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="./css/paypal.css">
+    <link rel="stylesheet" href="../css/paypal.css">
     <title>Painting Oil Beautify</title>
 </head>
 
 <body>
 
-<?php require_once(__DIR__ . '/backend/php/navbar.php'); ?>
+<?php require_once('../backend/php/navbar.php'); ?>
 
 <section>
     <div id="top">
@@ -121,6 +121,7 @@ foreach ($allreferences as $reference) {
 <section class="container">
     <div id="paypal-button-container"></div>
 </section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
     paypal.Buttons({
         // Sets up the transaction when a payment button is clicked
@@ -135,28 +136,63 @@ foreach ($allreferences as $reference) {
                 // const transaction = orderData.purchase_units[0].payments.captures[0];
                 // alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
                 // When ready to go live, remove the alert and show a success message within this page. For example:
+
+                // Extract the desired information from the JSON message
+                let description = orderData.purchase_units[0].description;
+                let full_name = orderData.purchase_units[0].shipping.name.full_name;
+                let email_address = orderData.purchase_units[0].payee.email_address;
+                let items = orderData.purchase_units[0].items;
+                let address = orderData.purchase_units[0].shipping.address;
+                let amount_paid = orderData.purchase_units[0].amount.value;
+                let date = orderData.create_time;
+
+                // Print the extracted information
+                console.log(description);
+                console.log(full_name);
+                console.log(email_address);
+                console.log(items);
+                console.log(address);
+                console.log(amount_paid);
+                console.log(date);
+
+
                 const element = document.getElementById('paypal-button-container');
-                element.innerHTML = '<h3>Thank you for your payment!</h3>';
-                // Update the stocks
-                $.ajax({
-                    url: 'PaypalPayment.php', // the script where you handle the database update
-                    type: 'POST', // use POST method
-                    data: {
-                        function_name: 'transaction_success',
-                    },
-                    success: function(response) { // on success
-                        console.log('Database updated successfully');
-                    }
+                let title = document.createElement('h3');
+                title.innerHTML = 'Thank you for your payment!';
+
+                let text = document.createElement('p');
+                text.innerHTML = 'Your order has been successfully processed. And you will receive an email confirmation shortly.';
+
+                element.append(title);
+                element.append(text);
+
+                let button = document.createElement('button');
+                button.innerHTML = 'Back to home';
+                button.addEventListener('click', () => {
+                    window.location.href = '../index.php';
                 });
-                // After 5 seconds redirect to the home page
-                setTimeout(function () {
-                    window.location.href = './index.php?success=' + encodeURIComponent('Your payment has been successfully processed');
-                }, 5000);
+                element.append(button);
+                // Update the stocks
+                updateStocks(description, full_name, email_address, items, address, amount_paid, date);
             });
         }
     }).render('#paypal-button-container');
+
+    function updateStocks(description, full_name, email_address, items, address, amount_paid, date) {
+        $.ajax({
+            url: '../backend/php/PaypalPayment.php', // the script where you handle the database update
+            type: 'POST', // use POST method
+            data: {
+                function_name: 'transaction_success',
+                message: [description, full_name, email_address, items, address, amount_paid, date]
+            },
+            success: function (response) { // on success
+                console.log(response);
+            }
+        });
+    }
 </script>
 
-<script src="./backend/javascript/footer.js"></script>
+<script src="../backend/javascript/footer.js"></script>
 </body>
 </html>

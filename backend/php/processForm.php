@@ -1,10 +1,10 @@
 <?php
 
 
-require_once 'global.php';
+require_once __DIR__ . '/global.php';
 
 if (!isLoggedIn()) {
-    header('Location: ../../login.php');
+    header('Location: ../../public/login.php');
     exit;
 }
 
@@ -28,14 +28,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['payment'])) {
         empty($email) && !preg_match('/[\w\-]{2,}@[\w\-]{2,}\.[\w\-]+/', $email) ||
         empty($mobilePhone) && !preg_match('/^[0-9]{10}$/', $mobilePhone) || empty($address) || empty($postalCode) || empty($city) || empty($country)) {
         $errorMsg = 'Please fill all the fields with valid values';
-        header('Location: ../../checkout.php?error=' . urlencode($errorMsg));
+        header('Location: ../../public/checkout.php?error=' . urlencode($errorMsg));
         // if the both passwords are not the same.
     } else {
         if ($pdo->updateClient($id_client, $lastName, $firstName, $email, $mobilePhone, $address, $postalCode, $city, $country)) {
-            header('Location: ../../paypal.php?success=' . urlencode('Your informations have been updated'));
+            header('Location: ../../public/paypal.php?success=' . urlencode('Your informations have been updated'));
         } else {
             $errorMsg = 'Something went wrong, please try again';
-            header('Location: ../../checkout.php?error=' . urlencode($errorMsg));
+            header('Location: ../../public/checkout.php?error=' . urlencode($errorMsg));
         }
     }
     exit();

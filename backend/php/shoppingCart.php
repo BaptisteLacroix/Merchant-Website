@@ -5,12 +5,8 @@ require_once __DIR__ . '/global.php';
 $delete = false;
 
 if (!isLoggedIn()) {
-    echo json_encode(
-        [
-            'success' => false,
-            'message' => 'login.php'
-        ]
-    );
+    header('Location: ../../public/login.php');
+    exit();
 } else if (isset($_POST['function_name'])) {
     $function_name = $_POST['function_name'];
     // Add more cases for other functions here

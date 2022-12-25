@@ -1,0 +1,135 @@
+/* */
+
+#adding-box {
+    background: #20283c;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    width: 200px;
+}
+
+#adding-box label {
+    display: block;
+    padding: 20px 0 20px 20px;
+    width: 90%;
+}
+
+#adding-box input {
+    display: none;
+}
+
+#adding-box input:checked + label {
+    border-right: 5px solid #456aff;
+    margin-bottom: 20px;
+}
+
+#adding-element {
+    /*display: none;*/
+}
+
+#adding-box input:checked ~ #adding-element {
+    display: block;
+}
+
+/* adding element */
+
+#adding-element > form > fieldset:first-child {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    background: white;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding: 20px;
+    color: black;
+}
+
+#adding-element > form > fieldset:first-child label {
+    padding: 15px;
+    border: 1px solid black;
+    border-radius: 0;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    color: black;
+    font-size: 13px;
+}
+
+#fileInput {
+    display: none;
+}
+
+#icon {
+    display: block;
+    width: 100px;
+    cursor: pointer;
+}
+
+#adding-element > form > fieldset:first-child input[type="button"] {
+    width: 100px;
+    background: #ee0979;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+}
+
+#adding-element tr td label input[type="text"] {
+    position: relative;
+    max-width: 100%;
+    width: auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    outline: none;
+    border: none;
+    background: transparent;
+}
+
+#adding-element tr td label input[type="button"] {
+    position: relative;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background: transparent;
+    border: #456aff;
+    cursor: pointer;
+}
+
+#fileInput, #add {
+    display: none;
+}
+
+#uploadIMG, #addIMG {
+    width: 25%;
+    height: 25%;
+    cursor: pointer;
+}
+
+
+/**/
+
+#bottom {
+    margin-top: 100px
+}
+
+
+@media screen and (max-width: 1300px) {
+    #adding-element tr td label input[type="text"] {
+        width: 100px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    #adding-element tr td label input[type="text"] {
+        width: 50px;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+}

@@ -1,14 +1,18 @@
 <?php
+require_once('../backend/php/global.php');
 
-require_once __DIR__ . '/backend/php/global.php';
-
+if (!isLoggedIn()) {
+    header('Location: ../public/login.php');
+    exit();
+}
+/** @var BDD $pdo */
 $pdo = $_SESSION['pdo'];
-$products = $pdo->getProducts();
+$_client = $_SESSION['id_client'];
 
-if (isLoggedIn() && !empty($_COOKIE['id_client'])) {
+if (!empty($_COOKIE['id_client'])) {
     $rows = $pdo->getCarts($_COOKIE['id_client'])->rowCount();
     //$rows = 0;
-} else if (isLoggedIn() && !empty($_SESSION['id_client'])) {
+} else if (!empty($_SESSION['id_client'])) {
     $rows = $pdo->getCarts($_SESSION['id_client'])->rowCount();
     //$rows = 0;
 } else {
@@ -17,7 +21,6 @@ if (isLoggedIn() && !empty($_COOKIE['id_client'])) {
 
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,20 +28,18 @@ if (isLoggedIn() && !empty($_COOKIE['id_client'])) {
     <meta charset="UTF-8">
     <meta name="author" content="Baptiste Lacroix">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="./css/accueil.css">
-    <link rel="stylesheet" href="./css/buttons.css">
     <title>Painting Oil Beautify</title>
 </head>
 
 <body>
 
 <header>
-    <div class="logo"><a href="./index.php">Oil Painting</a></div>
+    <div class="logo"><a href="../index.php">Oil Painting</a></div>
     <div class="hamburger"><span></span></div>
     <nav class="nav-bar">
         <ul>
-            <li><a href="./index.php" class="active">Home</a></li>
-            <li><a href="./public/explore.php">
+            <li><a href="../index.php" class="active">Home</a></li>
+            <li><a href="../public/explore.php">
                     <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                          preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20">
                         <g fill="white">
@@ -49,9 +50,9 @@ if (isLoggedIn() && !empty($_COOKIE['id_client'])) {
                         </g>
                     </svg>
                 </a></li>
-            <li><a href="./public/about.php">About Us</a></li>
+            <li><a href="../public/about.php">About Us</a></li>
             <li>
-                <a href="./public/cart.php">
+                <a href="../public/cart.php">
                     <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                          preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
                         <path fill="white"
@@ -61,7 +62,7 @@ if (isLoggedIn() && !empty($_COOKIE['id_client'])) {
                 </a>
             </li>
             <li>
-                <a href="./public/login.php">
+                <a href="../public/login.php">
                     <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                          preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16">
                         <g fill="white">
@@ -73,7 +74,7 @@ if (isLoggedIn() && !empty($_COOKIE['id_client'])) {
                 </a>
             </li>
             <li>
-                <a href="./backend/php/logout.php">
+                <a href="../backend/php/logout.php">
                     <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                          preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
                         <path fill="white"
@@ -88,7 +89,7 @@ if (isLoggedIn() && !empty($_COOKIE['id_client'])) {
     let linkNav = document.createElement('link');
     linkNav.rel = 'stylesheet';
     linkNav.type = 'text/css';
-    linkNav.href = './css/navbar.css';
+    linkNav.href = '../css/navbar.css';
     document.head.appendChild(linkNav);
 
     let hamburger = document.querySelector('.hamburger');
@@ -100,66 +101,16 @@ if (isLoggedIn() && !empty($_COOKIE['id_client'])) {
     }
 </script>
 
-<div class="container">
-    <div class="horizontal-scroll">
-        <button class="btn-scroll" id="btn-scroll-left"></button>
-        <button class="btn-scroll" id="btn-scroll-right"></button>
-        <div class="images-containers">
-            <?php foreach ($products as $product) { ?>
-                <div class="image-size">
-                    <img src="data:image/jpeg;base64,<?= base64_encode($product['image']) ?>"
-                         alt="<?php echo $product['titre_produit'] ?>">
-                    <a class="btn-information cta"
-                       href="public/product.php?reference=<?php echo $product['reference_produit'] ?>">
-                        <span class="hover-underline-animation">
-                            Shop now
-                        </span>
-                    </a>
-                </div>
-            <?php } ?>
-        </div>
-    </div>
-</div>
 
-<script src="./backend/javascript/accueil.js"></script>
-<script>
+<section>
+    <div id="top"></div>
+</section>
 
-    const footer = document.createElement('footer');
-    const body = document.querySelector('body');
+<section id="panel-container">
+    <div class="container"></div>
+</section>
 
-
-    function createFooter() {
-        let linkFooter = document.createElement('link');
-        linkFooter.rel = 'stylesheet';
-        linkFooter.type = 'text/css';
-        linkFooter.href = './css/footer.css';
-        document.head.appendChild(linkFooter);
-        let listOfInnerHTML = ['Home', 'Explore', 'About Us', 'Cart', 'Login'];
-        let listOfLinks = ['./index.php', './public/explore.php', './public/about.php', './public/cart.php', './public/login.php'];
-        footer.classList.add('sticky-footer');
-        let ul = document.createElement('ul');
-        for (let i = 0; i < listOfLinks.length; i++) {
-            let li = document.createElement('li');
-            let a = document.createElement('a');
-            a.href = listOfLinks[i];
-            a.innerHTML = listOfInnerHTML[i];
-            li.appendChild(a);
-            ul.appendChild(li);
-        }
-        footer.appendChild(ul);
-
-        let p = document.createElement('p');
-        let a = document.createElement('a');
-        a.href = 'mailto:baptiste&period;lacroix&commat;etu&period;unice&period;fr';
-        a.innerHTML = '© Copyright - Lacroix Baptiste - 2022/2023 - All rights reserved';
-        p.appendChild(a);
-        footer.appendChild(p);
-
-        body.appendChild(footer);
-    }
-
-    createFooter();
-</script>
+<script src="../backend/javascript/admin-dashboard/adminPanel.js"></script>
+<script src="../backend/javascript/footer.js"></script>
 </body>
-
 </html>
