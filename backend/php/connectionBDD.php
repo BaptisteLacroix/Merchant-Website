@@ -41,11 +41,17 @@ class bdd
         $this->connect();
     }
 
-    public function addNewProduct($img, $fournisseur, $reference, $status, $marque, $type, $aspect, $taille, $couleur, $publicPrice, $boughtPrice, $titre, $descriptif, $quantite): PDOStatement|bool
+    public function addNewProduct(string $img, string $fournisseur, string $reference, string $status, string $marque,
+                                  string $type, string $aspect, string $taille, string $couleur, string $publicPrice,
+                                  string $boughtPrice, string $titre, string $descriptif, string $quantite): PDOStatement|bool
     {
         $this->__wakeup();
-        $sql = "INSERT INTO produit (id_fournisseur, image, reference, status, marque_produit, type_produit, aspect_produit, taille_produit, couleur_produit, prix_public_produit, prix_achat_produit, titre_produit, descriptif_produit, quantite_produit)" .
-            "VALUES ('" . $fournisseur . "', '" . $img . "', '" . $reference . "', '" . $status . "', '" . $marque . "', '" . $type . "', '" . $aspect . "', '" . $taille . "', '" . $couleur . "', '" . $publicPrice . "', '" . $boughtPrice . "', '" . $titre . "', '" . $descriptif . "','" . $quantite . "')";
+        $sql = "INSERT INTO produit (id_fournisseur, image, reference_produit, status, marque_produit, type_produit, 
+                     aspect_produit, taille_produit, couleur_produit, prix_public_produit, prix_achat_produit, 
+                     titre_produit, descriptif_produit, quantite_produit)" .
+            "VALUES ('" . $fournisseur . "', '" . $img . "', '" . $reference . "', '" . $status . "', '" .
+            $marque . "', '" . $type . "', '" . $aspect . "', '" . $taille . "', '" . $couleur . "', '" .
+            $publicPrice . "', '" . $boughtPrice . "', '" . $titre . "', '" . $descriptif . "','" . $quantite . "')";
         return $this->connection->query($sql);
     }
 
@@ -56,21 +62,28 @@ class bdd
         return $this->connection->query($sql);
     }
 
-    public function getProductByid($id_product): bool|PDOStatement
+    public function getProductByid(string $id_product): bool|PDOStatement
     {
         $this->__wakeup();
         $sql = "SELECT * FROM produit WHERE id_produit = '" . $id_product . "';";
         return $this->connection->query($sql);
     }
 
-    public function getProductByReference($reference): bool|PDOStatement
+    public function getProductByReference(string $reference): bool|PDOStatement
     {
         $this->__wakeup();
         $sql = "SELECT * FROM produit WHERE reference_produit LIKE " . "'" . $reference . "';";
         return $this->connection->query($sql);
     }
 
-    public function updateProductStocksByReference($reference_produit, $new_quantity): bool|PDOStatement
+    public function deleteProductById(string $id_produit): bool|PDOStatement
+    {
+        $this->__wakeup();
+        $sql = "DELETE FROM produit WHERE id_produit = '" . $id_produit . "';";
+        return $this->connection->query($sql);
+    }
+
+    public function updateProductStocksByReference(string $reference_produit, string $new_quantity): bool|PDOStatement
     {
         $this->__wakeup();
         $sql = "UPDATE produit SET quantite_produit = " . $new_quantity . " WHERE reference_produit LIKE " . "'" . $reference_produit . "';";
@@ -82,6 +95,21 @@ class bdd
         $this->__wakeup();
         $sql = "INSERT INTO client (prenom_client, nom_client, email_client, password_client) VALUES ('" . $prenom . "', '" . $nom . "', '" . $email . "', '" . $password . "');";
         // if the query is successful, return true
+        return $this->connection->query($sql);
+    }
+
+    public function addNewClientAllValues(string $prenom, string $nom, string $email, string $password, string $address, string $postalCode, string $city, string $country, string $phone): bool|PDOStatement
+    {
+        $this->__wakeup();
+        $sql = "INSERT INTO client (prenom_client, nom_client, email_client, password_client, adresse_client, code_postal_client, ville_client, pays_client, telephone_client) VALUES ('" . $prenom . "', '" . $nom . "', '" . $email . "', '" . $password . "', '" . $address . "', '" . $postalCode . "', '" . $city . "', '" . $country . "', '" . $phone . "');";
+        // if the query is successful, return true
+        return $this->connection->query($sql);
+    }
+
+    public function getClientById($id_client): bool|PDOStatement
+    {
+        $this->__wakeup();
+        $sql = "SELECT * FROM client WHERE id_client = '" . $id_client . "';";
         return $this->connection->query($sql);
     }
 
@@ -99,17 +127,25 @@ class bdd
         return $this->connection->query($sql);
     }
 
-    public function deleteCartClient($id_client)
+    public function deleteCartClient(string $id_client): bool|PDOStatement
     {
         $this->__wakeup();
         $sql = "DELETE FROM panier WHERE id_client = " . $id_client . ";";
         return $this->connection->query($sql);
     }
 
-    public function updateClient($id_client, $lastname, $firstname, $email, $mobilephone, $address, $postalCode, $city, $country)
+    public function updateClient(string $id_client, string $lastname, string $firstname, string $email,
+                                 string $mobilephone, string $address, string $postalCode, string $city, string $country): bool|PDOStatement
     {
         $this->__wakeup();
         $sql = "UPDATE client SET nom_client = '" . $lastname . "', prenom_client = '" . $firstname . "', email_client = '" . $email . "', telephone_client = '" . $mobilephone . "', adresse_client = '" . $address . "', code_postal_client = '" . $postalCode . "', ville_client = '" . $city . "', pays_client = '" . $country . "' WHERE id_client = " . $id_client . ";";
+        return $this->connection->query($sql);
+    }
+
+    public function deleteClientById($id_client): bool|PDOStatement
+    {
+        $this->__wakeup();
+        $sql = "DELETE FROM client WHERE id_client = " . $id_client;
         return $this->connection->query($sql);
     }
 
@@ -132,13 +168,13 @@ class bdd
         return $this->connection->query($sql);
     }
 
+
     public function getCart(string $id_panier): bool|PDOStatement
     {
         $this->__wakeup();
         $sql = "SELECT * FROM panier WHERE id_panier LIKE " . "'" . $id_panier . "';";
         return $this->connection->query($sql);
     }
-
 
     public function getProductsFromCart(string $id_client): bool|PDOStatement
     {
@@ -180,7 +216,7 @@ class bdd
         return $this->connection->query($sql);
     }
 
-    public function insertNewFacture($email_client): bool|PDOStatement
+    public function insertNewFacture(string $email_client): bool|PDOStatement
     {
         $this->__wakeup();
         $client_informations = $this->getClient($email_client)->fetch();
@@ -204,7 +240,7 @@ class bdd
         return $this->connection->query($sql);
     }
 
-    public function getTotalCart($id_client): bool|string
+    public function getTotalCart(string $id_client): bool|string
     {
         $carts = $this->getCarts($id_client);
         $json = [];
@@ -219,7 +255,7 @@ class bdd
         return json_encode($json);
     }
 
-    public function getFacture($id_client): bool|PDOStatement
+    public function getFacture(string $id_client): bool|PDOStatement
     {
         $this->__wakeup();
         //Get the most recent facture fromid_client and date
@@ -227,7 +263,7 @@ class bdd
         return $this->connection->query($sql);
     }
 
-    public function getTotalHT($facture): float|int
+    public function getTotalHT(string $facture): float|int
     {
         $this->__wakeup();
         $JSON = json_decode($facture['produits']);
@@ -242,6 +278,13 @@ class bdd
     {
         $this->__wakeup();
         $sql = "SELECT * FROM fournisseur;";
+        return $this->connection->query($sql);
+    }
+
+    public function getSupplierById(string $id_fournisseur): bool|PDOStatement
+    {
+        $this->__wakeup();
+        $sql = "SELECT * FROM fournisseur WHERE id_fournisseur = " . $id_fournisseur . ";";
         return $this->connection->query($sql);
     }
 
@@ -272,7 +315,7 @@ class bdd
         return $this->connection->query($sql);
     }
 
-    function getAllData()
+    function getAllData(): bool|string
     {
         $this->__wakeup();
         // get all the json from facturation
@@ -328,7 +371,8 @@ class bdd
         return $total_quantity;
     }
 
-    public function getRevenueProduct($reference_product): float|int
+
+    public function getRevenueProduct(string $reference_product): float|int
     {
         $this->__wakeup();
         // get all data and sum the price of the product
@@ -343,7 +387,7 @@ class bdd
     }
 
 
-    public function getQuantityProduct($reference_produit)
+    public function getQuantityProduct(string $reference_produit)
     {
         $this->__wakeup();
         // get all data and sum the quantity of the product
@@ -357,15 +401,14 @@ class bdd
         return $total_quantity;
     }
 
-
-    public function getFactureByDate($date): bool|PDOStatement
+    public function getFactureByDate(string $date): bool|PDOStatement
     {
         $this->__wakeup();
         $sql = "SELECT * FROM facturation WHERE date_creation LIKE " . "'" . $date . "';";
         return $this->connection->query($sql);
     }
 
-    public function getBoughtPrice($reference_product): float|int
+    public function getBoughtPrice(string $reference_product): float|int
     {
         $this->__wakeup();
         $sql = "SELECT prix_achat_produit FROM produit WHERE reference_produit LIKE " . "'" . $reference_product . "';";
@@ -383,7 +426,7 @@ class bdd
         return $total_bought_price;
     }
 
-    public function getRevenueByDate($date): float|int
+    public function getRevenueByDate(string $date): float|int
     {
         $this->__wakeup();
         $sql = "SELECT ROUND(SUM(prix_total_TTC), 2) as somme FROM facturation WHERE date_creation LIKE " . "'" . $date . "';";
@@ -430,6 +473,41 @@ class bdd
             }
         }
         return $profit;
+    }
+
+    public function getStatusByRef(string $reference_produit): bool
+    {
+        $this->__wakeup();
+        $sql = "SELECT status FROM produit WHERE reference_produit LIKE " . "'" . $reference_produit . "';";
+        return $this->connection->query($sql)->fetch()['status'];
+    }
+
+    public function updateStatus(string $reference_produit): PDOStatement|bool
+    {
+        $this->__wakeup();
+        $sql = "UPDATE produit SET status = '" . !$this->getStatusByRef($reference_produit) . "' WHERE reference_produit LIKE '" . $reference_produit . "';";
+        return $this->connection->query($sql);
+    }
+
+    public function addNewCommandeProduit(string $reference, string $stocks, string $boughtPrice): bool|PDOStatement
+    {
+        $this->__wakeup();
+        $sql = "INSERT INTO commande_produit (id_produit, quantite, cout) VALUES ('" . $this->getProductByReference($reference)->fetch()['id_produit'] . "', '" . $stocks . "', '" . $boughtPrice * $stocks . "')";
+        return $this->connection->query($sql);
+    }
+
+    public function deleteSupplierById($id_supplier): bool|PDOStatement
+    {
+        $this->__wakeup();
+        $sql = "DELETE FROM fournisseur WHERE id_fournisseur = " . $id_supplier;
+        return $this->connection->query($sql);
+    }
+
+    public function addNewSupplier($name, $address, $postalCode, $city, $country, $phone, $email): bool|PDOStatement
+    {
+        $this->__wakeup();
+        $sql = "INSERT INTO fournisseur (nom_fournisseur, adresse_fournisseur, code_postal_fournisseur, ville_fournisseur, pays_fournisseur, telephone_fournisseur, email_fournisseur) VALUES ('" . $name . "', '" . $address . "', '" . $postalCode . "', '" . $city . "', '" . $country . "', '" . $phone . "', '" . $email . "')";
+        return $this->connection->query($sql);
     }
 }
 

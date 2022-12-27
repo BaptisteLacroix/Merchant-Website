@@ -54,7 +54,7 @@ $product = $product->fetch();
                 <?php $stock = $product['quantite_produit'] ?>
                 <h3 id="stock"><?= $stock ?> en stocks</h3>
                 <button class="cart-button"
-                    <?php if ($stock > 0) {
+                    <?php if ($stock > 0 && $product['status'] == 1) {
                         echo 'onclick="addToCart()"';
                     } else {
                         echo 'style="opacity: 0.5"';

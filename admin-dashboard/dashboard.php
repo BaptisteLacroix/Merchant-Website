@@ -39,7 +39,7 @@ $_client = $pdo->getClient($_SESSION['email_client'])->fetch();
             </li>
             <li>
                 <input id="people" type="radio" name="href">
-                <label for="people"> People IN PROGRESS</label>
+                <label for="people"> People </label>
             </li>
             <li>
                 <input id="account" type="radio" name="href">
@@ -55,7 +55,7 @@ $_client = $pdo->getClient($_SESSION['email_client'])->fetch();
             </li>
             <li>
                 <input id="supplier" type="radio" name="href">
-                <label for="supplier"> Suppliers IN PROGRESS </label>
+                <label for="supplier"> Suppliers </label>
             </li>
         </ul>
     </div>

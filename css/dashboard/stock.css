@@ -1,5 +1,29 @@
 /* */
 
+form {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+fieldset {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+}
+
+.delete {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.status-state {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
 #adding-box {
     background: #20283c;
     border-radius: 4px;
@@ -33,11 +57,14 @@
 
 /* adding element */
 
+input, select, option {
+    color: black;
+}
+
 #adding-element > form > fieldset:first-child {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    background: white;
     border-radius: 4px;
     margin-bottom: 20px;
     margin-top: 20px;
@@ -46,14 +73,27 @@
 }
 
 #adding-element > form > fieldset:first-child label {
-    padding: 15px;
     border: 1px solid black;
     border-radius: 0;
     margin-bottom: 10px;
+    width: 50%;
+    box-sizing: border-box;
+    color: black;
+    font-size: 13px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#adding-element > form > fieldset:first-child input, select, option {
+    border: 1px solid black;
+    border-radius: 0;
     width: 100%;
     box-sizing: border-box;
     color: black;
     font-size: 13px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px;
 }
 
 #fileInput {
@@ -62,50 +102,7 @@
 
 #icon {
     display: block;
-    width: 100px;
-    cursor: pointer;
-}
-
-#adding-element > form > fieldset:first-child input[type="button"] {
-    width: 100px;
-    background: #ee0979;
-    font-weight: bold;
-    color: white;
-    border: 0 none;
-    border-radius: 25px;
-    cursor: pointer;
-    padding: 10px 5px;
-    margin: 10px 5px;
-}
-
-#adding-element tr td label input[type="text"] {
-    position: relative;
-    max-width: 100%;
-    width: auto;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    outline: none;
-    border: none;
-    background: transparent;
-}
-
-#adding-element tr td label input[type="button"] {
-    position: relative;
     width: 100%;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    background: transparent;
-    border: #456aff;
-    cursor: pointer;
-}
-
-#fileInput, #add {
-    display: none;
-}
-
-#uploadIMG, #addIMG {
-    width: 25%;
-    height: 25%;
     cursor: pointer;
 }
 

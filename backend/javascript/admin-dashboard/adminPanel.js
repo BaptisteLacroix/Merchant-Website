@@ -6,10 +6,10 @@ function createPanel() {
     linkFooter.type = 'text/css';
     linkFooter.href = '../css/dashboard/adminPanel.css';
     document.head.appendChild(linkFooter);
-    let listOfInnerTitle = ['Forum', 'People', 'Account', 'Stock'];
+    let listOfInnerTitle = ['Suppliers', 'People', 'Account', 'Stock'];
     let listOfInnerHTML = ['Manage customer feedback.', 'Manage customer accounts.', 'Access the chart of accounts.', 'Managing stocks'];
-    let listOfimages = ['forum.svg', 'people.svg', 'account.svg', 'stock.svg'];
-    let listOfLinks = ['./dashboard.php?forum', './dashboard.php?people', './dashboard.php?acount', './dashboard.php?stock'];
+    let listOfimages = ['suppliers.svg', 'people.svg', 'account.svg', 'stock.svg'];
+    let listOfLinks = ['./iframes/fournisseur.php', './iframes/people.php', './iframes/account.php', './iframes/stock.php'];
 
     for (let i = 0; i < listOfInnerHTML.length; i++) {
         let card = document.createElement('div');
