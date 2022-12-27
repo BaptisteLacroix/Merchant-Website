@@ -117,7 +117,7 @@ $products = $pdo->getProductsFromCart($_SESSION['id_client']);
                 </div>
                 <div class="tva-container">
                     <p>TVA</p>
-                    <p><?php // Montant HT * (1 + taux de TVA)
+                    <p id="tva"><?php // Montant HT * (1 + taux de TVA)
                         $tva = round($pdo->getTotalPrice($_SESSION['id_client'])->fetch()['somme'] * (1 + 0.2) - $pdo->getTotalPrice($_SESSION['id_client'])->fetch()['somme'], 2);
                         echo $tva ?>
                         €</p>
@@ -177,6 +177,7 @@ $products = $pdo->getProductsFromCart($_SESSION['id_client']);
                 }
                 $(".price").text(data.totalPrice + "€");
                 $("#price-quantity-" + id_panier).text(parseFloat($("#price-product-" + id_panier).text()) * parseFloat($('#cart-quantity-wanted-' + id_panier).text()) + "€");
+                $("#tva").text((data.totalPrice * (1 + 0.2) - data.totalPrice).toFixed(2) + "€");
             }
         });
     }
