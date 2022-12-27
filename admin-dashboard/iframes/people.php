@@ -3,13 +3,13 @@
 require_once('../../backend/php/global.php');
 
 
-if (!isLoggedIn()) {
-    header('Location: ../../public/login.php');
-    exit();
-}
-
 /** @var BDD $pdo */
 $pdo = $_SESSION['pdo'];
+
+require_once '../globalAdmin.php';
+
+testConnectionIframes($pdo);
+
 $clients = $pdo->getAllClient()->fetchAll();
 
 if (!empty($_POST['function_name']) && $_POST['function_name'] == 'add') {

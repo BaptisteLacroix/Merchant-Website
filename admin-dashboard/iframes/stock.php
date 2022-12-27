@@ -5,13 +5,10 @@ require_once('../../backend/php/global.php');
 $pdo = $_SESSION['pdo'];
 $products = $pdo->getProducts();
 
-if (!isLoggedIn()) {
-    header('Location: ../../public/login.php');
-    exit();
-} else if ($pdo->getAdminByClientId($_SESSION['id_client'])->rowCount() <= 0) {
-    header('Location: ../../index.php');
-    exit();
-}
+require_once '../globalAdmin.php';
+
+testConnectionIframes($pdo);
+
 
 if (!empty($_POST['function_name']) && $_POST['function_name'] == 'updateStatus') {
     $var = $pdo->updateStatus($_POST['arguments'][0]);
@@ -111,6 +108,9 @@ if (!empty($_POST['function_name']) && $_POST['function_name'] == 'updateStatus'
     </div>
 
     <div id="adding-element">
+        <?php if (!empty($_GET['error'])) : ?>
+            <p><b style="color: red; font-weight: bolder"><?= urldecode($_GET['error']) ?></b></p>
+        <?php endif ?>
         <form method="POST" enctype="multipart/form-data" action="../../backend/php/updateStocks.php">
             <fieldset>
                 <h2 class="fs-title">Product Details</h2>

@@ -23,7 +23,7 @@ if (isset($_POST['function_name'])) {
                 'success' => $var,
             ]);
     }
-} else if (isset($_POST)){
+} else if (isset($_POST)) {
     addNewSupplier($pdo);
     header('Location: ../../admin-dashboard/iframes/fournisseur.php');
 }
@@ -38,7 +38,15 @@ function addNewSupplier(BDD $pdo): void
     $country = $_POST['country'];
     $phone = $_POST['phone'];
     $email = $_POST['email'];
-    $pdo->addNewSupplier($name, $address, $postalCode, $city, $country, $phone, $email);
+
+    if (!empty($name) && !empty($address) && (!empty($postalCode) && preg_match('/^[0-9]{5}$/', $postalCode))
+        && !empty($city) && !empty($country) && (!empty($phone) && preg_match('/^[0-9]{10}$/', $phone))
+        && (!empty($email) && preg_match('/[\w\-]{2,}@[\w\-]{2,}\.[\w\-]+/', $email))) {
+        $pdo->addNewSupplier($name, $address, $postalCode, $city, $country, $phone, $email);
+    } else {
+        header('Location: ../../admin-dashboard/iframes/fournisseur.php?error=' . urlencode('Please fill all the fields with valid values'));
+        exit();
+    }
 }
 
 function deleteSupplierById($id_supplier, BDD $pdo): bool|PDOStatement

@@ -5,13 +5,9 @@ require_once('../backend/php/global.php');
 /** @var BDD $pdo */
 $pdo = $_SESSION['pdo'];
 
-if (!isLoggedIn()) {
-    header('Location: ../public/login.php');
-    exit();
-} else if ($pdo->getAdminByClientId($_SESSION['id_client'])->rowCount() <= 0) {
-    header('Location: ../index.php');
-    exit();
-}
+require_once 'globalAdmin.php';
+
+testConnection($pdo);
 
 $_client = $pdo->getClient($_SESSION['email_client'])->fetch();
 
@@ -47,11 +43,7 @@ $_client = $pdo->getClient($_SESSION['email_client'])->fetch();
             </li>
             <li>
                 <input id="stock" type="radio" name="href">
-                <label for="stock"> Stock IN PROGRESS </label>
-            </li>
-            <li>
-                <input id="forum" type="radio" name="href">
-                <label for="forum"> Forum TODO</label>
+                <label for="stock"> Stock </label>
             </li>
             <li>
                 <input id="supplier" type="radio" name="href">

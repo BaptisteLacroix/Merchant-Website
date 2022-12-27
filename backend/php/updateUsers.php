@@ -46,7 +46,7 @@ function addNewUser(BDD $pdo): void
         empty($lastname) && !preg_match('/^[A-Za-z\s\-]+$/', $lastname) ||
         empty($email) && !preg_match('/[\w\-]{2,}@[\w\-]{2,}\.[\w\-]+/', $email) ||
         empty($password)) {
-        header('Location: ../../admin-dashboard/iframes/people.php?error=invalid');
+        header('Location: ../../admin-dashboard/iframes/people.php?error=' . urlencode('Please fill all the fields with valid values'));
         exit();
         /* It's checking if the address, postalCode, city, country, and phone are empty. */
     } else if (!empty($address) && !empty($postalCode) && !empty($city) && !empty($country) && !empty($phone)) {
@@ -54,7 +54,7 @@ function addNewUser(BDD $pdo): void
     } else if (empty($address) && empty($postalCode) && empty($city) && empty($country) && empty($phone)) {
         $pdo->addNewClient($lastname, $firstname, $email, $password);
     } else {
-        header('Location: ../../admin-dashboard/iframes/people.php?error=invalid');
+        header('Location: ../../admin-dashboard/iframes/people.php?error=' . urlencode('Please fill all the fields with valid values'));
         exit();
     }
     if ($admin == 'on') {

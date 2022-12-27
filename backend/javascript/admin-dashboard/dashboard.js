@@ -2,7 +2,6 @@ let home = document.getElementById("home");
 let people = document.getElementById("people");
 let account = document.getElementById("account");
 let stock = document.getElementById("stock");
-let forum = document.getElementById("forum");
 let supplier = document.getElementById("supplier");
 let iframe = document.getElementById("iframe");
 
@@ -20,10 +19,6 @@ account.addEventListener("click", () => {
 
 stock.addEventListener("click", () => {
     iframe.src = "./iframes/stock.php";
-});
-
-forum.addEventListener("click", () => {
-    iframe.src = "./iframes/forum.php";
 });
 
 supplier.addEventListener("click", () => {

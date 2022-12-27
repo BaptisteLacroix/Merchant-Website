@@ -1,8 +1,15 @@
 <?php
 
 require_once('../../backend/php/global.php');
+
 /** @var BDD $pdo */
 $pdo = $_SESSION['pdo'];
+
+require_once '../globalAdmin.php';
+
+testConnectionIframes($pdo);
+
+
 $suppliers = $pdo->getAllSuppliers()->fetchAll();
 
 ?>
@@ -88,6 +95,9 @@ $suppliers = $pdo->getAllSuppliers()->fetchAll();
     </div>
 
     <div id="adding-element">
+        <?php if (!empty($_GET['error'])) : ?>
+            <p><b style="color: red; font-weight: bolder"><?= urldecode($_GET['error']) ?></b></p>
+        <?php endif ?>
         <form method="POST" enctype="multipart/form-data" action="../../backend/php/updateSuppliers.php">
             <table>
                 <thead>

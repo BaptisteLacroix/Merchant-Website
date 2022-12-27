@@ -1,10 +1,14 @@
 <?php
 
-
 require_once('../../backend/php/global.php');
 
 /** @var BDD $pdo */
 $pdo = $_SESSION['pdo'];
+
+require_once '../globalAdmin.php';
+
+testConnectionIframes($pdo);
+
 $products = $pdo->getProducts();
 $products2 = $pdo->getProducts();
 $products3 = $pdo->getProducts();

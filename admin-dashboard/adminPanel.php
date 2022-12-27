@@ -1,12 +1,13 @@
 <?php
 require_once('../backend/php/global.php');
 
-if (!isLoggedIn()) {
-    header('Location: ../public/login.php');
-    exit();
-}
 /** @var BDD $pdo */
 $pdo = $_SESSION['pdo'];
+
+require_once 'globalAdmin.php';
+
+testConnection($pdo);
+
 $_client = $_SESSION['id_client'];
 
 if (!empty($_COOKIE['id_client'])) {
@@ -74,7 +75,7 @@ if (!empty($_COOKIE['id_client'])) {
                 </a>
             </li>
             <li>
-                <a href="../backend/php/logout.php">
+                <a href="../backend/php/logout.php" target="_parent">
                     <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                          preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
                         <path fill="white"

@@ -23,7 +23,7 @@ if (isset($_POST['function_name'])) {
                 'success' => $var,
             ]);
     }
-} else if (isset($_POST)){
+} else if (isset($_POST)) {
     addNewProduct($pdo);
     header('Location: ../../admin-dashboard/iframes/stock.php');
 }
@@ -50,8 +50,17 @@ function addNewProduct(BDD $pdo): void
     $descriptif = $_POST['descriptif'];
     $stocks = $_POST['quantite'];
 
-    $pdo->addNewProduct($imgContent, $fournisseur, $reference, $status, $marque, $type, $aspect, $taille, $couleur, $publicPrice, $boughtPrice, $titre, $descriptif, $stocks);
-    $pdo->addNewCommandeProduit($reference, $stocks, $boughtPrice);
+    if (!empty($fournisseur) && !empty($reference) && !empty($status) && !empty($marque) && !empty($type) &&
+        !empty($aspect) && !empty($taille) && !empty($couleur) && (!empty($publicPrice) &&
+            preg_match('/^[-+]?\d*\.?\d+$/')) && !empty($boughtPrice) &&
+        !empty($titre) && !empty($descriptif) && (!empty($stocks) && preg_match('/^[0-9]*$/', $stocks))) {
+        $pdo->addNewProduct($imgContent, $fournisseur, $reference, $status, $marque, $type, $aspect, $taille, $couleur,
+            $publicPrice, $boughtPrice, $titre, $descriptif, $stocks);
+        $pdo->addNewCommandeProduit($reference, $stocks, $boughtPrice);
+    } else {
+        header('Location: ../../admin-dashboard/iframes/stock.php?error=' . urlencode('Please fill all the fields with valid values'));
+        exit();
+    }
 }
 
 function deleteProductById($id_produit, BDD $pdo): bool|PDOStatement

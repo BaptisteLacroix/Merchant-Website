@@ -7,11 +7,17 @@ if (!isLoggedIn()) {
     exit();
 }
 
+/** @var BDD $pdo */
 $pdo = $_SESSION['pdo'];
 $id_client = $_SESSION['id_client'];
 $email_client = $_SESSION['email_client'];
 
 $client_informations = $pdo->getClient($email_client)->fetch();
+
+if ($pdo->getCarts($id_client)->rowCount() <= 0) {
+    header('Location: ../index.php');
+    exit();
+}
 
 
 if (empty($client_informations['prenom_client']) || empty($client_informations['nom_client']) ||
@@ -146,17 +152,11 @@ foreach ($allreferences as $reference) {
                 let amount_paid = orderData.purchase_units[0].amount.value;
                 let date = orderData.create_time;
 
-                // Print the extracted information
-                console.log(description);
-                console.log(full_name);
-                console.log(email_address);
-                console.log(items);
-                console.log(address);
-                console.log(amount_paid);
-                console.log(date);
-
-
                 const element = document.getElementById('paypal-button-container');
+                // delete the node under element
+                while (element.firstChild) {
+                    element.removeChild(element.firstChild);
+                }
                 let title = document.createElement('h3');
                 title.innerHTML = 'Thank you for your payment!';
 
@@ -184,7 +184,7 @@ foreach ($allreferences as $reference) {
             type: 'POST', // use POST method
             data: {
                 function_name: 'transaction_success',
-                message: [description, full_name, email_address, items, address, amount_paid, date]
+                arguments: [description, full_name, email_address, items, address, amount_paid, date]
             },
             success: function (response) { // on success
                 console.log(response);
