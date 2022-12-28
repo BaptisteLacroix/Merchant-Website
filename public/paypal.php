@@ -94,7 +94,7 @@ foreach ($allreferences as $reference) {
     }
 
     if ($quantity > $stock) {
-        header('Location: ../checkout.php?error=' . urlencode('The stock is not available for the product ' . $reference));
+        header('Location: ./checkout.php?error=' . urlencode('The stock is not available for the product ' . $reference));
         exit();
     }
 }
@@ -127,25 +127,6 @@ foreach ($allreferences as $reference) {
 <section class="container">
     <div id="paypal-button-container"></div>
 </section>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde sunt, eaque optio id nostrum ullam voluptatum incidunt modi autem nulla nihil, voluptatibus iusto consectetur. Est quas libero illum dolore dicta?</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde sunt, eaque optio id nostrum ullam voluptatum incidunt modi autem nulla nihil, voluptatibus iusto consectetur. Est quas libero illum dolore dicta?</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde sunt, eaque optio id nostrum ullam voluptatum incidunt modi autem nulla nihil, voluptatibus iusto consectetur. Est quas libero illum dolore dicta?</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde sunt, eaque optio id nostrum ullam voluptatum incidunt modi autem nulla nihil, voluptatibus iusto consectetur. Est quas libero illum dolore dicta?</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde sunt, eaque optio id nostrum ullam voluptatum incidunt modi autem nulla nihil, voluptatibus iusto consectetur. Est quas libero illum dolore dicta?</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde sunt, eaque optio id nostrum ullam voluptatum incidunt modi autem nulla nihil, voluptatibus iusto consectetur. Est quas libero illum dolore dicta?</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde sunt, eaque optio id nostrum ullam voluptatum incidunt modi autem nulla nihil, voluptatibus iusto consectetur. Est quas libero illum dolore dicta?</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde sunt, eaque optio id nostrum ullam voluptatum incidunt modi autem nulla nihil, voluptatibus iusto consectetur. Est quas libero illum dolore dicta?</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde sunt, eaque optio id nostrum ullam voluptatum incidunt modi autem nulla nihil, voluptatibus iusto consectetur. Est quas libero illum dolore dicta?</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde sunt, eaque optio id nostrum ullam voluptatum incidunt modi autem nulla nihil, voluptatibus iusto consectetur. Est quas libero illum dolore dicta?</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde sunt, eaque optio id nostrum ullam voluptatum incidunt modi autem nulla nihil, voluptatibus iusto consectetur. Est quas libero illum dolore dicta?</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde sunt, eaque optio id nostrum ullam voluptatum incidunt modi autem nulla nihil, voluptatibus iusto consectetur. Est quas libero illum dolore dicta?</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde sunt, eaque optio id nostrum ullam voluptatum incidunt modi autem nulla nihil, voluptatibus iusto consectetur. Est quas libero illum dolore dicta?</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde sunt, eaque optio id nostrum ullam voluptatum incidunt modi autem nulla nihil, voluptatibus iusto consectetur. Est quas libero illum dolore dicta?</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde sunt, eaque optio id nostrum ullam voluptatum incidunt modi autem nulla nihil, voluptatibus iusto consectetur. Est quas libero illum dolore dicta?</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde sunt, eaque optio id nostrum ullam voluptatum incidunt modi autem nulla nihil, voluptatibus iusto consectetur. Est quas libero illum dolore dicta?</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde sunt, eaque optio id nostrum ullam voluptatum incidunt modi autem nulla nihil, voluptatibus iusto consectetur. Est quas libero illum dolore dicta?</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde sunt, eaque optio id nostrum ullam voluptatum incidunt modi autem nulla nihil, voluptatibus iusto consectetur. Est quas libero illum dolore dicta?</p>
-
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>

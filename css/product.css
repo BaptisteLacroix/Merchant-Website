@@ -327,3 +327,11 @@ button.btn-scroll {
         text-align: center;
     }
 }
+
+@media (max-width: 665px) {
+    .cover {
+        margin: 3em 2em 2em;
+        display: block;
+        text-align: center;
+    }
+}

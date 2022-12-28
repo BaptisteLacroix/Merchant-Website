@@ -176,6 +176,6 @@ section#panel-container {
 
 @media screen and (max-width: 360px) {
     .container .card {
-        width: 250px;
+        width: 200px;
     }
 }
