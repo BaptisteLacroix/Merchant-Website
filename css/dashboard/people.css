@@ -14,11 +14,3 @@ button.removeAdmin {
     color: red;
     border: none;
 }
-
-
-@media screen and (max-width: 1050px) {
-    table {
-        display: block;
-        overflow-x: auto;
-    }
-}

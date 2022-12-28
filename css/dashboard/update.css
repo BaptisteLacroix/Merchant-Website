@@ -73,3 +73,10 @@ body {
     height: 25%;
     cursor: pointer;
 }
+
+@media screen and (max-width: 1050px) {
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+}

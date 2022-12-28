@@ -11,6 +11,10 @@
     height: 250px;
 }
 
+span {
+    font-size: 60px;
+}
+
 #revenue-year {
     padding: 20px;
     border-radius: 4px;
@@ -109,6 +113,10 @@ ul {
 
 @media screen and (max-width: 370px) {
     .container {
-        width: 250px;
+        width: 200px;
+    }
+
+    span {
+        font-size: 40px;
     }
 }

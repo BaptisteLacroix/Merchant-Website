@@ -29,25 +29,25 @@ $_client = $pdo->getClient($_SESSION['email_client'])->fetch();
 <section class="nav-container">
     <div class="nav-bar-left">
         <ul>
-            <li>
-                <input id="home" type="radio" name="href" checked>
-                <label for="home"> Home</label>
+            <li id="home">
+                <img class="img-buttons" src="../img/home.svg" alt="home">
+                <span>Home</span>
             </li>
-            <li>
-                <input id="people" type="radio" name="href">
-                <label for="people"> People </label>
+            <li id="people">
+                <img class="img-buttons" src="../img/people-white.svg" alt="people">
+                <span> People </span>
             </li>
-            <li>
-                <input id="account" type="radio" name="href">
-                <label for="account"> Account </label>
+            <li id="account">
+                <img class="img-buttons" src="../img/account-white.svg" alt="account">
+                <span> Account </span>
             </li>
-            <li>
-                <input id="stock" type="radio" name="href">
-                <label for="stock"> Stock </label>
+            <li id="stock">
+                <img class="img-buttons" src="../img/stock-white.svg" alt="stock">
+                <span> Stock </span>
             </li>
-            <li>
-                <input id="supplier" type="radio" name="href">
-                <label for="supplier"> Suppliers </label>
+            <li id="supplier">
+                <img class="img-buttons" src="../img/suppliers-white.svg" alt="suppliers">
+                <span> Suppliers </span>
             </li>
         </ul>
     </div>
@@ -60,6 +60,9 @@ $_client = $pdo->getClient($_SESSION['email_client'])->fetch();
 
 <!--script src="../backend/javascript/footer.js"></script>-->
 <script src="../backend/javascript/admin-dashboard/dashboard.js"></script>
+<script>
+
+</script>
 </body>
 </html>
 

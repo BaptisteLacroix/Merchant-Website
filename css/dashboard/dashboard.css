@@ -29,9 +29,13 @@ ul {
 }
 
 ul li {
+    display: flex;
     margin: 10px;
     background: rgb(23 30 47);
     list-style: none;
+    align-items: stretch;
+    flex-direction: row;
+    justify-content: flex-start;
 }
 
 ul li:hover {
@@ -39,14 +43,6 @@ ul li:hover {
     border-right: 5px solid #456aff;
 }
 
-ul li label {
-    display: block;
-    padding: 20px;
-}
-
-ul li input:checked + label {
-    border-right: 5px solid #456aff;
-}
 
 ul li input {
     display: none;
@@ -68,7 +64,60 @@ iframe {
     min-height: 100vh;
 }
 
-ul li a {
-    text-decoration: none;
+ul li span {
     color: white;
+    padding: 20px;
+    display: block;
+}
+
+#logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.img-buttons {
+    width: 50px;
+    height: 50px;
+}
+
+
+@media screen and (max-width: 760px) {
+    ul {
+        margin-top: 10vh;
+    }
+
+    .nav-bar-left {
+        position: fixed;
+        width: 75px;
+        transition: 0.5s ease-in-out;
+    }
+
+    .nav-bar-left ul li span {
+        display: none;
+        transition: 0.5s ease-in-out;
+    }
+
+    .nav-bar-left:hover {
+        width: 200px;
+    }
+
+    .nav-bar-left:hover ul li span {
+        display: block;
+    }
+
+    .dashboard-container {
+        width: calc(100% - 76px);
+        margin-left: 75px;
+    }
+
+    .img-buttons {
+        width: 50px;
+        height: 50px;
+    }
+
+    .nav-bar-left:hover .img-buttons {
+        width: 50px;
+        height: 50px;
+    }
 }

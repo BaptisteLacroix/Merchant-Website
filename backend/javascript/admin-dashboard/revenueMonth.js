@@ -56,12 +56,8 @@ new Chart(ctx, {
             }]
     },
     options: {
-        maintainAspectRatio: false, // Enable the aspect ratio
+        maintainAspectRatio: true, // Enable the aspect ratio
         responsive: true, // Enable responsive behavior
-        // Set the height of the chart
-        layout: {
-            height: 600
-        },
         title: {
             display: true,
             text: 'Sales and Purchases per month for the current year',

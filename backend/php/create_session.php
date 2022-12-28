@@ -38,11 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
                 }
             } else {
                 $errorMsg = 'Wrong email or password';
-                header('Location: ../../login.php?error=' . urlencode($errorMsg));
+                header('Location: ../../public/login.php?error=' . urlencode($errorMsg));
             }
         } else {
             $errorMsg = 'Wrong email or password';
-            header('Location: ../../login.php?error=' . urlencode($errorMsg));
+            header('Location: ../../public/login.php?error=' . urlencode($errorMsg));
         }
     }
     exit();
@@ -60,12 +60,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         empty($email) && !preg_match('/[\w\-]{2,}@[\w\-]{2,}\.[\w\-]+/', $email) ||
         empty($password) || empty($cpassword)) {
         $errorMsg = 'Please fill all the fields with valid values';
-        header('Location: ../../login.php?error=' . urlencode($errorMsg));
+        header('Location: ../../public/login.php?error=' . urlencode($errorMsg));
         exit();
         // if the both passwords are not the same.
     } else if ($password != $cpassword) {
         $errorMsg = 'Passwords do not match';
-        header('Location: ../../login.php?error=' . urlencode($errorMsg));
+        header('Location: ../../public/login.php?error=' . urlencode($errorMsg));
         exit();
     } else {
         $hash = password_hash($password, PASSWORD_DEFAULT);
@@ -73,18 +73,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         // If email is already used
         if ($client->rowCount() > 0) {
             $errorMsg = 'Email already used';
-            header('Location: ../../../../login.php?error=' . urlencode($errorMsg));
+            header('Location: ../../public/login.php?error=' . urlencode($errorMsg));
         } else {
             $pdo->addNewClient($prenom, $nom, $email, $hash);
             $client = $pdo->getClient($email);
             $client = $client->fetch();
             $_SESSION['id_client'] = $client['id_client'];
             $_SESSION['email_client'] = $client['email_client'];
-            header('Location: ../../index.php');
+            header('Location: ../../public/index.php');
         }
         exit();
     }
 } else {
-    header('Location: ../../login.php');
+    header('Location: ../../public/login.php');
     exit();
 }

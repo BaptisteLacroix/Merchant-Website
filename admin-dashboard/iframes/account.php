@@ -35,7 +35,7 @@ $data = json_decode($pdo->getAllData(), true);
         <div class="container" id="revenue-year">
             <div>
                 <h3>Revenue this year (TTC)</h3>
-                <span style="font-size: 60px; color: #456aff">+<?= $pdo->getTotalRevenueTTC() ?>€</span>
+                <span style="color: #456aff">+<?= $pdo->getTotalRevenueTTC() ?>€</span>
             </div>
             <div>
                 <h3>Profit this year (TTC)</h3>
@@ -43,7 +43,7 @@ $data = json_decode($pdo->getAllData(), true);
                 $profit = $pdo->getProfit();
                 $color = $profit > 0 ? 'green' : 'red';
                 ?>
-                <span style="font-size: 60px; color: <?= $color ?>"><?= $profit ?>€</span>
+                <span style="color: <?= $color ?>"><?= $profit > 0 ? '+' : '-' ?><?= $profit ?>€</span>
             </div>
         </div>
         <div class="container product-s">
@@ -97,7 +97,7 @@ $data = json_decode($pdo->getAllData(), true);
         <div>
             <h3>By product</h3>
             <div>
-                <canvas id="revenueMonth" style="background: #20283c; width: 50%"></canvas>
+                <canvas id="revenueMonth" style="background: #20283c; width: 50%;"></canvas>
             </div>
         </div>
 </section>
