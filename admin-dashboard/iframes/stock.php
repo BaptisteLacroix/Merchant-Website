@@ -102,17 +102,13 @@ if (!empty($_POST['function_name']) && $_POST['function_name'] == 'updateStatus'
             </tbody>
         </table>
     </div>
-    <div id="adding-box">
-        <input id="showForm" type="checkbox">
-        <label for="showForm">Add new product</label>
-    </div>
 
     <div id="adding-element">
         <?php if (!empty($_GET['error'])) : ?>
             <p><b style="color: red; font-weight: bolder"><?= urldecode($_GET['error']) ?></b></p>
         <?php endif ?>
         <form method="POST" enctype="multipart/form-data" action="../../backend/php/updateStocks.php">
-            <fieldset>
+            <div class="tab">
                 <h2 class="fs-title">Product Details</h2>
                 <label for="fileInput">
                     <img id="icon" src="../../img/upload.svg" alt="upload file">
@@ -134,9 +130,8 @@ if (!empty($_POST['function_name']) && $_POST['function_name'] == 'updateStatus'
                 <label>
                     <input type="checkbox" name="status" checked/>
                 </label>
-                <input type="button" name="next" class="next action-button" value="Next"/>
-            </fieldset>
-            <fieldset>
+            </div>
+            <div class="tab">
                 <h2 class="fs-title">Product Profiles</h2>
                 <label>
                     Marque
@@ -166,10 +161,8 @@ if (!empty($_POST['function_name']) && $_POST['function_name'] == 'updateStatus'
                     descriptif
                     <input type="text" name="descriptif" placeholder="Iorem ipsum"/>
                 </label>
-                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
-                <input type="button" name="next" class="next action-button" value="Next"/>
-            </fieldset>
-            <fieldset>
+            </div>
+            <div class="tab">
                 <h2 class="fs-title">Finalise Product</h2>
                 <label>
                     Public price
@@ -183,14 +176,25 @@ if (!empty($_POST['function_name']) && $_POST['function_name'] == 'updateStatus'
                     Quantity
                     <input type="number" name="quantite" placeholder="6" required/>
                 </label>
-                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
-                <input type="submit" name="submit" class="submit action-button" value="Submit"/>
-            </fieldset>
+            </div>
+            <div style="overflow:auto;">
+                <div style="float:right;">
+                    <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                    <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                </div>
+            </div>
+            <div style="text-align:center;margin-top:40px;">
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+            </div>
         </form>
     </div>
 
 </section>
 
+<script src="../../backend/javascript/admin-dashboard/stock.js"></script>
 <script>
     const buttons = document.getElementsByClassName("status-state");
     // foreah button

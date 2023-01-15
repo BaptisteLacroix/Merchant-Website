@@ -1,113 +1,77 @@
-/* */
+tbody > tr > td > button {
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
 
 form {
-    width: 500px;
-    margin-left: auto;
-    margin-right: auto;
+    background-color: #22283c;
+    margin: 100px auto;
+    font-family: Raleway, sans-serif;
+    padding: 40px;
+    width: 70%;
+    min-width: 300px;
 }
 
-fieldset {
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(20px);
+h1 {
+    text-align: center;
+    text-transform: uppercase;
+    color: #2C3E50;
 }
 
-.delete {
-    background: transparent;
-    border: none;
-    cursor: pointer;
+.tab > input {
+    padding: 10px;
+    width: 100%;
+    font-size: 17px;
+    font-family: Raleway, sans-serif;
+    border: 1px solid #aaaaaa;
 }
 
-.status-state {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    outline: none;
+.tab > input.invalid {
+    background-color: #ffdddd;
 }
 
-#adding-box {
-    background: #20283c;
-    border-radius: 4px;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    width: 200px;
-}
-
-#adding-box label {
-    display: block;
-    padding: 20px 0 20px 20px;
-    width: 90%;
-}
-
-#adding-box input {
+.tab {
     display: none;
 }
 
-#adding-box input:checked + label {
-    border-right: 5px solid #456aff;
-    margin-bottom: 20px;
-}
-
-#adding-element {
-    /*display: none;*/
-}
-
-#adding-box input:checked ~ #adding-element {
-    display: block;
-}
-
-/* adding element */
-
-input, select, option {
-    color: black;
-}
-
-#adding-element > form > fieldset:first-child {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    border-radius: 4px;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    padding: 20px;
-    color: black;
-}
-
-#adding-element > form > fieldset:first-child label {
-    border: 1px solid black;
-    border-radius: 0;
-    margin-bottom: 10px;
-    width: 50%;
-    box-sizing: border-box;
-    color: black;
-    font-size: 13px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#adding-element > form > fieldset:first-child input, select, option {
-    border: 1px solid black;
-    border-radius: 0;
-    width: 100%;
-    box-sizing: border-box;
-    color: black;
-    font-size: 13px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 15px;
-}
-
-#fileInput {
-    display: none;
-}
-
-#icon {
-    display: block;
-    width: 100%;
+#prevBtn, #nextBtn {
+    background-color: #4CAF50;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 17px;
+    font-family: Raleway, sans-serif;
     cursor: pointer;
 }
 
+#prevBtn:hover, #nextBtn:hover {
+    opacity: 0.8;
+}
 
-/**/
+#prevBtn {
+    background-color: #bbbbbb;
+}
+
+.step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+}
+
+.step.active {
+    opacity: 1;
+}
+
+.step.finish {
+    background-color: #4CAF50;
+}
 
 #bottom {
     margin-top: 100px

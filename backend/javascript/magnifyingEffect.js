@@ -1,16 +1,19 @@
-// Set magnifier background image same as img
-$(".magnifier").css("background-image", "url(" + $("#myimage").attr("src") + ")");
-// Set disable true on loading page
-$(".magnifier").hide();
+const magnifier = $('.magnifier');
+const magnified = $('.magnified');
 
-$(".magnified").hover(function (e) {
+// Set magnifier background image same as img
+magnifier.css("background-image", "url(" + $("#myimage").attr("src") + ")");
+// Set disable true on loading page
+magnifier.hide();
+
+magnified.hover(function (e) {
     //Store position & dimension information of image
     let imgPosition = $(".magnify").position(),
-        imgHeight = $(".magnified").height(),
-        imgWidth = $(".magnified").width();
+        imgHeight = magnified.height(),
+        imgWidth = magnified.width();
 
     //Show mangifier on hover
-    $(".magnifier").show();
+    magnifier.show();
 
     //While the mouse is moving and over the image move the magnifier and magnified image
     $(this).mousemove(function (e) {
@@ -22,7 +25,7 @@ $(".magnified").hover(function (e) {
             perc = percX + "% " + percY + "%";
 
         //Change CSS of magnifier, move it to mouse location and change background position based on the percentages stored.
-        $(".magnifier").css({
+        magnifier.css({
             top: posY,
             left: posX,
             backgroundPosition: perc
@@ -30,5 +33,5 @@ $(".magnified").hover(function (e) {
     });
 }, function () {
     //Hide the magnifier when mouse is no longer hovering over image.
-    $(".magnifier").hide();
+    magnifier.hide();
 });

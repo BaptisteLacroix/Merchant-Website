@@ -35,7 +35,10 @@ $data = json_decode($pdo->getAllData(), true);
         <div class="container" id="revenue-year">
             <div>
                 <h3>Revenue this year (TTC)</h3>
-                <span style="color: #456aff">+<?= $pdo->getTotalRevenueTTC() ?>€</span>
+                <?php
+                $revenue = $pdo->getTotalRevenueTTCByYears();
+                ?>
+                <span style="color: #456aff">+<?= $revenue == null ? 0 : $revenue ?>€</span>
             </div>
             <div>
                 <h3>Profit this year (TTC)</h3>

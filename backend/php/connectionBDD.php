@@ -353,6 +353,12 @@ class bdd
         return $this->connection->query($sql)->fetch()['somme'];
     }
 
+    public function getTotalRevenueTTCByYears() {
+        $this->__wakeup();
+        $sql = "SELECT ROUND(SUM(prix_total_TTC), 2) as somme FROM facturation WHERE YEAR(date_creation) = YEAR(NOW());";
+        return $this->connection->query($sql)->fetch()['somme'];
+    }
+
     public function getTotalRevenueHT()
     {
         $this->__wakeup();

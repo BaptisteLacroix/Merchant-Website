@@ -320,7 +320,26 @@ button.btn-scroll {
     transition: 1s;
 }
 
+
+@media screen and (max-width: 1000px) {
+    #myimage {
+        width: 100%;
+    }
+
+    .magnified {
+        width: 90%;
+    }
+}
+
 @media (max-width: 840px) {
+    #myimage {
+        width: 100%;
+    }
+
+    .magnified {
+        width: 80%;
+    }
+
     .cover {
         margin: 5em 2em 2em;
         display: block;
@@ -329,6 +348,14 @@ button.btn-scroll {
 }
 
 @media (max-width: 665px) {
+    #myimage {
+        width: 100%;
+    }
+
+    .magnified {
+        width: 70%;
+    }
+
     .cover {
         margin: 3em 2em 2em;
         display: block;
