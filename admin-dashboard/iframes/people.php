@@ -116,7 +116,7 @@ if (!empty($_POST['function_name']) && $_POST['function_name'] == 'add') {
                     if ($boolean) {
                         $className = 'addAdmin';
                         $name = 'addAdmin';
-                        $text = 'Add';
+                        $text = 'Added';
                     } else {
                         $className = 'removeAdmin';
                         $name = 'removeAdmin';

@@ -46,7 +46,8 @@ function sendmail($description, $full_name, $email_address, $items, $address, $a
         // array to string items
         "\r\nList of all oil paintings buy : " . json_encode($items, true) .
         "\r\nTotal amount : " . $amount_paid .
-        "\r\nDate : " . $date;
+        "\r\nDate : " . $date .
+        "Thank you for your purchase !";
     $headers = 'From: baptiste.lacroix03@gmail.com' . "\r\n" .
         'CC: baptiste.lacroix03@gmail.com';
     mail($to, $subject, $message, $headers);

@@ -7,6 +7,9 @@ if (isLoggedIn()) {
     exit();
 }
 
+
+
+
 ?>
 
 
@@ -60,7 +63,13 @@ if (isLoggedIn()) {
                             <input id="remember" name="remember" type="checkbox" value="yes">
                         </label>
                     </div>
-                    <a href="#" class="forgot">Forgot password ?</a>
+                </form>
+                <a href="#" id="forget" class="forgot">Forgot password ?</a>
+                <form id="forgetPassword" style="display: none; margin-top: 1em;" method="post" action="../backend/php/updateUsers.php">
+                    <label>
+                        <input type="email" name="emailForget" placeholder="email@exemple.com" required>
+                    </label>
+                    <input type="submit" name="forgetPassword" value="Reset">
                 </form>
             </div>
             <div class="form sign-up-form">
@@ -92,6 +101,19 @@ if (isLoggedIn()) {
 </section>
 <script src="../backend/javascript/login.js"></script>
 <script src="../backend/javascript/footer.js"></script>
+<script>
+    let click = false;
+    // when user click on forgot password show the form
+    document.getElementById('forget').addEventListener('click', function () {
+        if (!click) {
+            document.getElementById('forgetPassword').style.display = 'block';
+            click = true;
+        } else {
+            document.getElementById('forgetPassword').style.display = 'none';
+            click = false;
+        }
+    });
+</script>
 </body>
 </html>
 

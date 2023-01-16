@@ -46,7 +46,7 @@ $data = json_decode($pdo->getAllData(), true);
                 $profit = $pdo->getProfit();
                 $color = $profit > 0 ? 'green' : 'red';
                 ?>
-                <span style="color: <?= $color ?>"><?= $profit > 0 ? '+' : '-' ?><?= $profit ?>€</span>
+                <span style="color: <?= $color ?>"><?= $profit > 0 ? '+' : '' ?><?= $profit ?>€</span>
             </div>
         </div>
         <div class="container product-s">

@@ -2,11 +2,6 @@ body {
     min-height: 100vh;
 }
 
-body.active {
-    /* Mettre la couleur du background pour le moment de l'identification */
-    /*background-image: url(../img/cards.png);*/
-}
-
 #top {
     height: 10vh;
 }
@@ -158,7 +153,6 @@ body.active {
 /* CheckBox */
 
 
-
 /* Responsive */
 
 
@@ -182,6 +176,7 @@ body.active {
         top: 0;
         box-shadow: none;
     }
+
     .background-sign-in .box {
         position: absolute;
         width: 100%;
@@ -220,6 +215,7 @@ body.active {
         top: 0;
         box-shadow: none;
     }
+
     .background-sign-in .box {
         position: absolute;
         width: 100%;
@@ -257,6 +253,7 @@ body.active {
         top: 0;
         box-shadow: none;
     }
+
     .background-sign-in .box {
         position: absolute;
         width: 100%;

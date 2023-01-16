@@ -27,31 +27,61 @@ function nextPrev(n) {
     if (n === 1 && !validateForm()) return false;
     // Hide the current tab:
     x[currentTab].style.display = "none";
+    resetColor();
     // Increase or decrease the current tab by 1:
     currentTab = currentTab + n;
     // if you have reached the end of the form...
     if (currentTab >= x.length) {
         // ... the form gets submitted:
-        document.getElementById("regForm").submit();
+        console.log(document.getElementById("adding-element-stock"));
+        document.getElementById("adding-element-stock").submit();
         return false;
     }
     // Otherwise, display the correct tab:
     showTab(currentTab);
 }
 
+
+function resetColor() {
+    let y = document.getElementsByClassName("tab");
+    let z = y[currentTab].getElementsByTagName("input");
+    for (let i = 0; i < z.length; i++) {
+        if (z[i].style.display !== "none") {
+            z[i].className = z[i].className.replace("invalid", "");
+        } else {
+            document.getElementById("file-label").className = document.getElementById("file-label").className.replace("invalid", "");
+        }
+    }
+}
+
 function validateForm() {
     // This function deals with validation of the form fields
-    let x, y, i, valid = true;
+    let x, y, z, i, valid = true;
     x = document.getElementsByClassName("tab");
+    // get all the input elements in the current tab:
     y = x[currentTab].getElementsByTagName("input");
     // A loop that checks every input field in the current tab:
     for (i = 0; i < y.length; i++) {
         // If a field is empty...
         if (y[i].value === "") {
             // add an "invalid" class to the field:
-            y[i].className += " invalid";
-            // and set the current valid status to false
-            valid = false;
+
+            // Check if the style contain diplay none
+            if (y[i].style.display !== "none") {
+                if (y[i].className === "") {
+                    y[i].className += "invalid";
+                } else if (y[i].className.indexOf("invalid") === -1) {
+                    y[i].className += " invalid";
+                }
+                // and set the current valid status to false
+                valid = false;
+            } else {
+                if (y[i].className === "") {
+                    document.getElementById("file-label").className += "invalid";
+                } else if (y[i].className.indexOf("invalid") === -1) {
+                    document.getElementById("file-label").className += " invalid";
+                }
+            }
         }
     }
     // If the valid status is true, mark the step as finished and valid:

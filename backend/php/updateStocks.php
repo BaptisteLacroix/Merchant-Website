@@ -22,6 +22,12 @@ if (isset($_POST['function_name'])) {
             [
                 'success' => $var,
             ]);
+    } else if ($function_name == 'updateImage') {
+        $var = updateImage($_FILES['file']['tmp_name'], $_POST['reference'], $pdo);
+        echo json_encode(
+            [
+                'success' => $var,
+            ]);
     }
 } else if (isset($_POST)) {
     addNewProduct($pdo);
@@ -31,8 +37,6 @@ exit();
 
 function addNewProduct(BDD $pdo): void
 {
-
-    print_r($_POST);
     // get the image to insert into the database
     $image = $_FILES['file']['tmp_name'];
     $imgContent = addslashes(file_get_contents($image));
@@ -52,7 +56,8 @@ function addNewProduct(BDD $pdo): void
 
     if (!empty($fournisseur) && !empty($reference) && !empty($status) && !empty($marque) && !empty($type) &&
         !empty($aspect) && !empty($taille) && !empty($couleur) && (!empty($publicPrice) &&
-            preg_match('/^[-+]?\d*\.?\d+$/')) && !empty($boughtPrice) &&
+            preg_match('/^[-+]?\d*\.?\d+$/', $publicPrice)) && (!empty($boughtPrice) &&
+            preg_match('/^[-+]?\d*\.?\d+$/', $boughtPrice)) &&
         !empty($titre) && !empty($descriptif) && (!empty($stocks) && preg_match('/^[0-9]*$/', $stocks))) {
         $pdo->addNewProduct($imgContent, $fournisseur, $reference, $status, $marque, $type, $aspect, $taille, $couleur,
             $publicPrice, $boughtPrice, $titre, $descriptif, $stocks);
@@ -66,4 +71,14 @@ function addNewProduct(BDD $pdo): void
 function deleteProductById($id_produit, BDD $pdo): bool|PDOStatement
 {
     return $pdo->deleteProductById($id_produit);
+}
+
+function updateImage($image, $reference, BDD $pdo): bool|PDOStatement
+{
+    // get the image to insert into the database
+    // encode the image for insertion into db
+    $imgContent = base64_encode(addslashes(file_get_contents($image)));
+    print_r($imgContent);
+    // return $pdo->updateImage($imgContent, $reference);
+    return true;
 }

@@ -1,7 +1,7 @@
 <?php
 
 require_once('../../backend/php/global.php');
-/** @var BDD $pdo */
+/** @let BDD $pdo */
 $pdo = $_SESSION['pdo'];
 $products = $pdo->getProducts();
 
@@ -74,8 +74,23 @@ if (!empty($_POST['function_name']) && $_POST['function_name'] == 'updateStatus'
                         </button>
                     </td>
                     <td>
-                        <img src="data:image/jpeg;base64,<?= base64_encode($product['image']) ?>" class="sh_img"
-                             alt="<?php echo $product['titre_produit'] ?>">
+                        <label style="cursor: pointer" for="fileInput<?= $product['reference_produit'] ?>">
+                            <img id="img<?= $product['reference_produit'] ?>"
+                                 src="data:image/jpeg;base64,<?= base64_encode($product['image']) ?>" class="sh_img"
+                                 alt="<?= $product['titre_produit'] ?>">
+                        </label>
+                        <input style="display: none" id="fileInput<?= $product['reference_produit'] ?>" type="file"
+                               name="file" accept="image/*"
+                               onchange="updateImage('<?= $product['reference_produit'] ?>')"/>
+
+                        <script>
+                            document.getElementById('fileInput<?= $product['reference_produit'] ?>').addEventListener('change', function () {
+                                if (this.files && this.files[0]) {
+                                    let img = document.getElementById('img<?= $product['reference_produit'] ?>');
+                                    img.src = URL.createObjectURL(this.files[0]);
+                                }
+                            });
+                        </script>
                     </td>
                     <td>
                         <?= $product['reference_produit'] ?>
@@ -107,13 +122,14 @@ if (!empty($_POST['function_name']) && $_POST['function_name'] == 'updateStatus'
         <?php if (!empty($_GET['error'])) : ?>
             <p><b style="color: red; font-weight: bolder"><?= urldecode($_GET['error']) ?></b></p>
         <?php endif ?>
-        <form method="POST" enctype="multipart/form-data" action="../../backend/php/updateStocks.php">
+        <form id="adding-element-stock" method="POST" enctype="multipart/form-data"
+              action="../../backend/php/updateStocks.php">
             <div class="tab">
                 <h2 class="fs-title">Product Details</h2>
-                <label for="fileInput">
+                <label id="file-label" style="cursor: pointer" for="fileInput">
                     <img id="icon" src="../../img/upload.svg" alt="upload file">
                 </label>
-                <input id="fileInput" type="file" name="file" accept="image/*" required/>
+                <input style="display: none" id="fileInput" type="file" name="file" accept="image/*" required/>
                 <label for="fournisseur">
                     <select name="fournisseur" id="fournisseur" required>
                         <?php
@@ -127,39 +143,33 @@ if (!empty($_POST['function_name']) && $_POST['function_name'] == 'updateStatus'
                 <label>
                     <input type="text" name="reference" placeholder="FRA000" required/>
                 </label>
-                <label>
-                    <input type="checkbox" name="status" checked/>
+                <label style="cursor: pointer; color: red" class="containerCheckBox" for="available">
+                    Disabled
                 </label>
+                <input style="display: none" id="available" type="checkbox" name="status" checked/>
             </div>
             <div class="tab">
                 <h2 class="fs-title">Product Profiles</h2>
                 <label>
-                    Marque
-                    <input type="text" name="marque" placeholder="Claude Monet" required/>
+                    <input type="text" name="marque" placeholder="Marque" required/>
                 </label>
                 <label>
-                    Titre
-                    <input type="text" name="titre" placeholder="Sunflowers in Vase" required/>
+                    <input type="text" name="titre" placeholder="Titre" required/>
                 </label>
                 <label>
-                    Type
-                    <input type="text" name="type" placeholder="Oil" required/>
+                    <input type="text" name="type" placeholder="Type" required/>
                 </label>
                 <label>
-                    Aspect
-                    <input type="text" name="aspect" placeholder="Smooth" required/>
+                    <input type="text" name="aspect" placeholder="Aspect" required/>
                 </label>
                 <label>
-                    taille
-                    <input type="text" name="taille" placeholder="50x50" required/>
+                    <input type="text" name="taille" placeholder="taille" required/>
                 </label>
                 <label>
-                    Couleur
-                    <input type="text" name="couleur" placeholder="red" required/>
+                    <input type="text" name="couleur" placeholder="Couleur" required/>
                 </label>
                 <label>
-                    descriptif
-                    <input type="text" name="descriptif" placeholder="Iorem ipsum"/>
+                    <input type="text" name="descriptif" placeholder="descriptif"/>
                 </label>
             </div>
             <div class="tab">
@@ -184,7 +194,6 @@ if (!empty($_POST['function_name']) && $_POST['function_name'] == 'updateStatus'
                 </div>
             </div>
             <div style="text-align:center;margin-top:40px;">
-                <span class="step"></span>
                 <span class="step"></span>
                 <span class="step"></span>
                 <span class="step"></span>
@@ -233,8 +242,53 @@ if (!empty($_POST['function_name']) && $_POST['function_name'] == 'updateStatus'
         let parentNode = node.parentNode;
         parentNode.removeChild(node);
     }
+
+
+    function updateImage(reference_produit) {
+
+        let fileInput = document.getElementById('fileInput' + reference_produit);
+        if (!fileInput) return console.log("fileInput element not found");
+        let file = fileInput.files[0];
+        if (!file) return console.log("file not selected");
+
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "../../backend/php/updateStocks.php", true);
+        let formData = new FormData();
+        formData.append("function_name", "updateImage");
+        formData.append("file", file);
+        formData.append("reference", reference_produit);
+        console.log(formData);
+        xhr.send(formData);
+        xhr.onload = function () {
+            console.log(this.responseText);
+            if (this.status === 200 && JSON.parse(this.responseText).success) {
+                // Update image with the file above
+                // window.location.reload();
+            }
+        }
+    }
+
+    // On image change event
+    // Make a preview of the image
+    document.getElementById('fileInput').addEventListener('change', function () {
+        if (this.files && this.files[0]) {
+            let img = document.getElementById('icon');
+            img.src = URL.createObjectURL(this.files[0]);
+        }
+    });
+
+    // if checkbox is checked change the innerHTML of the label and the color to red
+    document.getElementById('available').addEventListener('change', function () {
+        let label = document.getElementsByClassName('containerCheckBox')[0];
+        if (this.checked) {
+            label.innerHTML = "Disabled";
+            label.style.color = "red";
+        } else {
+            label.innerHTML = "Active";
+            label.style.color = "green";
+        }
+    });
 </script>
 
 </body>
 </html>
-
