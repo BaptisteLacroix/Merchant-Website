@@ -9,7 +9,7 @@ function createFooter() {
     linkFooter.href = '../css/footer.css';
     document.head.appendChild(linkFooter);
     let listOfInnerHTML = ['Home', 'Explore', 'About Us', 'Cart', 'Login'];
-    let listOfLinks = ['../index.php', './explore.php', './about.php', './cart.php', './login.php'];
+    let listOfLinks = ['../index.php', './explore.php', '#', './cart.php', './login.php'];
     footer.classList.add('sticky-footer');
     let ul = document.createElement('ul');
     for (let i = 0; i < listOfLinks.length; i++) {

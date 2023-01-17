@@ -23,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['payment'])) {
     $country = filter_input(INPUT_POST, 'country', FILTER_SANITIZE_STRING);
 
     // If there are some input non-filled
-    print_r($_POST);
     if (empty($firstName) && !preg_match('/^[A-Za-z\s\-]+$/', $firstName) ||
         empty($lastName) && !preg_match('/^[A-Za-z\s\-]+$/', $lastName) ||
         empty($email) && !preg_match('/[\w\-]{2,}@[\w\-]{2,}\.[\w\-]+/', $email) ||

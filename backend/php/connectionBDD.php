@@ -483,7 +483,7 @@ class bdd
     public function getPurshasingPriceForEachMonth(): array
     {
         $this->__wakeup();
-        $sql = "SELECT MONTH(date_commande) AS month, ROUND(SUM(cout), 2) AS total_cost FROM Commande_produit WHERE YEAR(date_commande) = YEAR(NOW()) GROUP BY MONTH(date_commande)";
+        $sql = "SELECT MONTH(date_commande) AS month, ROUND(SUM(cout), 2) AS total_cost FROM commande_produit WHERE YEAR(date_commande) = YEAR(NOW()) GROUP BY MONTH(date_commande)";
         $purchases = [];
         foreach ($this->connection->query($sql)->fetchAll() as $purchase) {
             $purchases[$purchase['month']] = $purchase['total_cost'];
