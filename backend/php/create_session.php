@@ -7,6 +7,7 @@ if (isLoggedIn()) {
     exit();
 }
 
+/** @var BDD $pdo */
 $pdo = $_SESSION['pdo'];
 
 
@@ -32,7 +33,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
                 $_SESSION['id_client'] = $id_client;
                 $_SESSION['email_client'] = $email;
                 if ($pdo->getAdminByClientId($id_client)->rowCount() > 0) {
-                    header('Location: ../../admin-dashboard/dashboard.php');
+                    if ($pdo->checkStocksStatus()) {
+                        header('Location: ../../admin-dashboard/dashboard.php?info=' . urlencode('Attention products need your attention'));
+                    } else {
+                        header('Location: ../../admin-dashboard/dashboard.php');
+                    }
                 } else {
                     header('Location: ../../index.php');
                 }

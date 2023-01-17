@@ -79,7 +79,7 @@ function updateQuantity($arguments): bool
     $quantite = $arguments[1];
     $pdo->updateQuantityCart($id_panier, $quantite);
     if ($pdo->getCart($id_panier)->fetch()['quantite'] === 0) {
-        deleteFromCart([$id_panier]);
+        deleteFromCart($id_panier);
         return true;
     }
     return false;

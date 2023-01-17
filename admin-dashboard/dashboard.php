@@ -60,9 +60,18 @@ $_client = $pdo->getClient($_SESSION['email_client'])->fetch();
 
 <!--script src="../backend/javascript/footer.js"></script>-->
 <script src="../backend/javascript/admin-dashboard/dashboard.js"></script>
-<script>
 
-</script>
+<?php if (!empty($_GET['info'])) : ?>
+    <?php echo "
+    <script>
+    window.addEventListener('load', function(){
+        let result = confirm('" . urldecode($_GET['info']) . "');
+        if (result) window.location.href = './dashboard.php'
+        else window.location.href = './dashboard.php'
+    });
+    </script>"?>
+<?php endif ?>
+
 </body>
 </html>
 

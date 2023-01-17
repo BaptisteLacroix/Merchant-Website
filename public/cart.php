@@ -8,6 +8,7 @@ if (isLoggedIn() === false) {
 }
 
 $index = 0;
+/** @var BDD $pdo */
 $pdo = $_SESSION['pdo'];
 $cart = $pdo->getCarts($_SESSION['id_client'])->fetchAll();
 foreach ($cart as $item) {

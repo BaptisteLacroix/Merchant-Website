@@ -1,7 +1,7 @@
 <?php
 
 require_once ('../backend/php/global.php');
-
+/** @var BDD $pdo */
 $pdo = $_SESSION['pdo'];
 $products = $pdo->getProducts();
 

@@ -66,13 +66,13 @@ class bdd
     {
         $this->__wakeup();
         $sql = "SELECT * FROM produit WHERE titre_produit LIKE '%" . $search . "%' OR " .
-        "reference_produit LIKE '%" . $search . "%' OR ".
-        "marque_produit LIKE '%" . $search . "%' OR " .
-        "type_produit LIKE '%" . $search . "%' OR " .
-        "aspect_produit LIKE '%" . $search . "%' OR " .
-        "taille_produit LIKE '%" . $search . "%' OR " .
-        "couleur_produit LIKE '%" . $search . "%' OR " .
-        "descriptif_produit LIKE '%" . $search . "%';";
+            "reference_produit LIKE '%" . $search . "%' OR " .
+            "marque_produit LIKE '%" . $search . "%' OR " .
+            "type_produit LIKE '%" . $search . "%' OR " .
+            "aspect_produit LIKE '%" . $search . "%' OR " .
+            "taille_produit LIKE '%" . $search . "%' OR " .
+            "couleur_produit LIKE '%" . $search . "%' OR " .
+            "descriptif_produit LIKE '%" . $search . "%';";
         return $this->connection->query($sql);
     }
 
@@ -145,7 +145,7 @@ class bdd
     {
         $this->__wakeup();
         $sql = "SELECT * FROM client WHERE email_client LIKE '%" . $search . "%' OR " .
-            "prenom_client LIKE '%" . $search . "%' OR ".
+            "prenom_client LIKE '%" . $search . "%' OR " .
             "nom_client LIKE '%" . $search . "%' OR " .
             "adresse_client LIKE '%" . $search . "%' OR " .
             "code_postal_client LIKE '%" . $search . "%' OR " .
@@ -313,7 +313,7 @@ class bdd
     {
         $this->__wakeup();
         $sql = "SELECT * FROM fournisseur WHERE " .
-            "nom_fournisseur LIKE '%" . $search . "%' OR ".
+            "nom_fournisseur LIKE '%" . $search . "%' OR " .
             "adresse_fournisseur LIKE '%" . $search . "%' OR " .
             "code_postal_fournisseur LIKE '%" . $search . "%' OR " .
             "ville_fournisseur LIKE '%" . $search . "%' OR " .
@@ -576,6 +576,15 @@ class bdd
             $total_quantity += $product['quantite'];
         }
         return $total_quantity;
+    }
+
+    public function checkStocksStatus(): bool
+    {
+        // search in all product if the stocks is under 5
+        $this->__wakeup();
+        $sql = "SELECT * FROM produit WHERE quantite_produit <= 3";
+        // if there is a product with a low stocks return true
+        return $this->connection->query($sql)->rowCount() > 0;
     }
 }
 

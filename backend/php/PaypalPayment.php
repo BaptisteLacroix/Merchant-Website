@@ -2,7 +2,7 @@
 
 
 require_once __DIR__ . '/global.php';
-
+/** @var BDD $pdo */
 $pdo = $_SESSION['pdo'];
 $id_client = $_SESSION['id_client'];
 

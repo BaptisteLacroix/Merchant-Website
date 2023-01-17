@@ -1,4 +1,5 @@
 <?php
+/** @var BDD $pdo */
 $pdo = $_SESSION['pdo'];
 
 if (isLoggedIn() && !empty($_COOKIE['id_client'])) {
