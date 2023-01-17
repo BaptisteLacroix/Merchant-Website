@@ -75,7 +75,6 @@ $product = $product->fetch();
 </section>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="../backend/javascript/magnifyingEffect.js"></script>
-<script src="../backend/javascript/commentary.js"></script>
 <script src="../backend/javascript/footer.js"></script>
 <script>
     function addToCart() {
