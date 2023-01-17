@@ -529,7 +529,7 @@ class bdd
         return $this->connection->query($sql)->fetch()['status'];
     }
 
-    public function updateStatus(string $reference_produit): PDOStatement|bool
+    public function updateStatus(string $reference_produit): PDOStatement
     {
         $this->__wakeup();
         $sql = "UPDATE produit SET status = '" . !$this->getStatusByRef($reference_produit) . "' WHERE reference_produit LIKE '" . $reference_produit . "';";

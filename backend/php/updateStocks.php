@@ -68,17 +68,17 @@ function addNewProduct(BDD $pdo): void
     }
 }
 
-function deleteProductById($id_produit, BDD $pdo): bool|PDOStatement
+function deleteProductById($id_produit, BDD $pdo): PDOStatement
 {
     return $pdo->deleteProductById($id_produit);
 }
 
-function updateImage($image, $reference, BDD $pdo): bool|PDOStatement
+function updateImage($image, $reference, BDD $pdo): PDOStatement
 {
     // get the image to insert into the database
     // encode the image for insertion into db
     $imgContent = base64_encode(addslashes(file_get_contents($image)));
     print_r($imgContent);
     // return $pdo->updateImage($imgContent, $reference);
-    return true;
+    return false;
 }
