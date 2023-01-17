@@ -166,7 +166,11 @@ class bdd
                                  string $mobilephone, string $address, string $postalCode, string $city, string $country): PDOStatement
     {
         $this->__wakeup();
-        $sql = "UPDATE client SET nom_client = '" . $lastname . "', prenom_client = '" . $firstname . "', email_client = '" . $email . "', telephone_client = '" . $mobilephone . "', adresse_client = '" . $address . "', code_postal_client = '" . $postalCode . "', ville_client = '" . $city . "', pays_client = '" . $country . "' WHERE id_client = " . $id_client . ";";
+        $sql = "UPDATE client SET nom_client = '" . $lastname . "', prenom_client = '" . $firstname .
+            "', email_client = '" . $email . "', telephone_client = '" . $mobilephone .
+            "', adresse_client = '" . $address . "', code_postal_client = '" . $postalCode .
+            "', ville_client = '" . $city . "', pays_client = '" . $country .
+            "' WHERE id_client = " . $id_client . ";";
         return $this->connection->query($sql);
     }
 

@@ -10,9 +10,8 @@ if (!isLoggedIn()) {
 /** @var BDD $pdo */
 $pdo = $_SESSION['pdo'];
 $id_client = $_SESSION['id_client'];
-$email_client = $_SESSION['email_client'];
 
-$client_informations = $pdo->getClient($email_client)->fetch();
+$client_informations = $pdo->getClientById($id_client)->fetch();
 
 if ($pdo->getCarts($id_client)->rowCount() <= 0) {
     header('Location: ../index.php');
@@ -25,7 +24,7 @@ if (empty($client_informations['prenom_client']) || empty($client_informations['
     empty($client_informations['adresse_client']) || empty($client_informations['code_postal_client']) ||
     empty($client_informations['ville_client']) || empty($client_informations['pays_client'])) {
 
-    header('Location: ../checkout.php?error=' . urlencode('Please fill all the fields with valid values'));
+    header('Location: ./checkout.php?error=' . urlencode('Please fill all the fields with valid values'));
     exit();
 }
 

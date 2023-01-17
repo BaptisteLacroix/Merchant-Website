@@ -13,7 +13,6 @@ $id_client = $_SESSION['id_client'];
 $email_client = $_SESSION['email_client'];
 $client_informations = $pdo->getClient($email_client)->fetch();
 
-/** @var BDD $pdo */
 if ($pdo->getCarts($id_client)->rowCount() <= 0) {
     header('Location: ./cart.php');
     exit();
