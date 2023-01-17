@@ -62,17 +62,24 @@ class bdd
         return $this->connection->query($sql);
     }
 
+    public function searchProduct(string $search): PDOStatement
+    {
+        $this->__wakeup();
+        $sql = "SELECT * FROM produit WHERE titre_produit LIKE '%" . $search . "%' OR " .
+        "reference_produit LIKE '%" . $search . "%' OR ".
+        "marque_produit LIKE '%" . $search . "%' OR " .
+        "type_produit LIKE '%" . $search . "%' OR " .
+        "aspect_produit LIKE '%" . $search . "%' OR " .
+        "taille_produit LIKE '%" . $search . "%' OR " .
+        "couleur_produit LIKE '%" . $search . "%' OR " .
+        "descriptif_produit LIKE '%" . $search . "%';";
+        return $this->connection->query($sql);
+    }
+
     public function getProductByid(string $id_product): PDOStatement
     {
         $this->__wakeup();
         $sql = "SELECT * FROM produit WHERE id_produit = '" . $id_product . "';";
-        return $this->connection->query($sql);
-    }
-
-    public function searchProduct(string $search): PDOStatement
-    {
-        $this->__wakeup();
-        $sql = "SELECT * FROM produit WHERE reference_produit LIKE '%" . $search . "%' OR titre_produit LIKE '%" . $search . "%';";
         return $this->connection->query($sql);
     }
 
@@ -137,7 +144,14 @@ class bdd
     public function searchClient(string $search): PDOStatement
     {
         $this->__wakeup();
-        $sql = "SELECT * FROM client WHERE email_client LIKE " . "'%" . $search . "%' OR prenom_client LIKE " . "'%" . $search . "%' OR nom_client LIKE " . "'%" . $search . "%';";
+        $sql = "SELECT * FROM client WHERE email_client LIKE '%" . $search . "%' OR " .
+            "prenom_client LIKE '%" . $search . "%' OR ".
+            "nom_client LIKE '%" . $search . "%' OR " .
+            "adresse_client LIKE '%" . $search . "%' OR " .
+            "code_postal_client LIKE '%" . $search . "%' OR " .
+            "ville_client LIKE '%" . $search . "%' OR " .
+            "pays_client LIKE '%" . $search . "%' OR " .
+            "telephone_client LIKE '%" . $search . "%';";
         return $this->connection->query($sql);
     }
 
@@ -298,7 +312,14 @@ class bdd
     public function searchSupplier(string $search): PDOStatement
     {
         $this->__wakeup();
-        $sql = "SELECT * FROM fournisseur WHERE nom_fournisseur LIKE " . "'%" . $search . "%';";
+        $sql = "SELECT * FROM fournisseur WHERE " .
+            "nom_fournisseur LIKE '%" . $search . "%' OR ".
+            "adresse_fournisseur LIKE '%" . $search . "%' OR " .
+            "code_postal_fournisseur LIKE '%" . $search . "%' OR " .
+            "ville_fournisseur LIKE '%" . $search . "%' OR " .
+            "pays_fournisseur LIKE '%" . $search . "%' OR " .
+            "telephone_fournisseur LIKE '%" . $search . "%' OR " .
+            "email_fournisseur LIKE '%" . $search . "%';";
         return $this->connection->query($sql);
     }
 

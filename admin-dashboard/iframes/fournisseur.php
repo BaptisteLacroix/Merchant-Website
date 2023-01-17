@@ -9,8 +9,11 @@ require_once '../globalAdmin.php';
 
 testConnectionIframes($pdo);
 
-
-$suppliers = $pdo->getAllSuppliers()->fetchAll();
+if (isset($_POST['search'])) {
+    $suppliers = $pdo->searchSupplier($_POST['search']);
+} else {
+    $suppliers = $pdo->getAllSuppliers()->fetchAll();
+}
 
 ?>
 
@@ -31,9 +34,11 @@ $suppliers = $pdo->getAllSuppliers()->fetchAll();
 <section>
     <h1>Stocks</h1>
     <div id="search-bar">
-        <label>
-            <input type="search" placeholder="Search...">
-        </label>
+        <form method="post" action="./fournisseur.php">
+            <label>
+                <input type="search" name="search" placeholder="Search...">
+            </label>
+        </form>
     </div>
     <div>
         <table>

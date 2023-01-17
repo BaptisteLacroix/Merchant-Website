@@ -10,8 +10,6 @@ require_once '../globalAdmin.php';
 
 testConnectionIframes($pdo);
 
-$clients = $pdo->getAllClient()->fetchAll();
-
 if (!empty($_POST['function_name']) && $_POST['function_name'] == 'add') {
     $var = $pdo->addAdmin($_POST['arguments'][0]);
     echo json_encode(
@@ -26,6 +24,10 @@ if (!empty($_POST['function_name']) && $_POST['function_name'] == 'add') {
             'success' => !$var->fetch(),
         ]);
     exit();
+} else if (isset($_POST['search'])) {
+    $clients = $pdo->searchClient($_POST['search']);
+} else {
+    $clients = $pdo->getAllClient()->fetchAll();
 }
 
 
@@ -49,9 +51,11 @@ if (!empty($_POST['function_name']) && $_POST['function_name'] == 'add') {
 <section>
     <h1>Stocks</h1>
     <div id="search-bar">
+    <form method="post" action="./people.php">
         <label>
-            <input type="search" placeholder="Search...">
+            <input type="search" name="search" placeholder="Search...">
         </label>
+    </form>
     </div>
     <div>
         <table>

@@ -1,9 +1,8 @@
 <?php
 
 require_once('../../backend/php/global.php');
-/** @let BDD $pdo */
+/** @var BDD $pdo */
 $pdo = $_SESSION['pdo'];
-$products = $pdo->getProducts();
 
 require_once '../globalAdmin.php';
 
@@ -17,6 +16,10 @@ if (!empty($_POST['function_name']) && $_POST['function_name'] == 'updateStatus'
             'success' => !$var->fetch(),
         ]);
     exit();
+} else if (!empty($_POST['search'])) {
+    $products = $pdo->searchProduct($_POST['search']);
+} else {
+    $products = $pdo->getProducts();
 }
 
 ?>
@@ -38,9 +41,11 @@ if (!empty($_POST['function_name']) && $_POST['function_name'] == 'updateStatus'
 <section>
     <h1>Stocks</h1>
     <div id="search-bar">
-        <label>
-            <input type="search" placeholder="Search...">
-        </label>
+        <form action="./stock.php" method="post">
+            <label>
+                <input type="search" name="search" placeholder="Search...">
+            </label>
+        </form>
     </div>
     <div>
         <table>
