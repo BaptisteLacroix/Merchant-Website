@@ -336,14 +336,17 @@ class bdd
         return $this->connection->query($sql);
     }
 
-    function getAllData(): string
+    function getAllData(bool $getByYear = false): string
     {
         $this->__wakeup();
         // get all the json from facturation
         $factures = $this->getAllFacture()->fetchAll();
         $json = [];
         for ($i = 0; $i < count($factures); $i++) {
-            $json[] = json_decode($factures[$i]['produits'], true);
+            if ($getByYear && str_contains($factures[$i]['date_creation'], date("Y")))
+                $json[] = json_decode($factures[$i]['produits'], true);
+            else if (!$getByYear)
+                $json[] = json_decode($factures[$i]['produits'], true);
         }
 
         $data = [];
@@ -378,7 +381,10 @@ class bdd
     {
         $this->__wakeup();
         $sql = "SELECT ROUND(SUM(prix_total_TTC), 2) as somme FROM facturation WHERE YEAR(date_creation) = YEAR(NOW());";
-        return $this->connection->query($sql)->fetch()['somme'];
+        $total = $this->connection->query($sql)->fetch()['somme'];
+        if ($total == null)
+            return 0;
+        return $total;
     }
 
     public function getTotalRevenueHT()
@@ -388,23 +394,11 @@ class bdd
         return $this->connection->query($sql)->fetch()['somme'];
     }
 
-    public function getTotalQuantity(): int
-    {
-        $this->__wakeup();
-        $get_all_data = json_decode($this->getAllData(), true);
-        $total_quantity = 0;
-        foreach ($get_all_data as $product) {
-            $total_quantity += $product['quantite'];
-        }
-        return $total_quantity;
-    }
-
-
-    public function getRevenueProduct(string $reference_product): float
+    public function getRevenueProduct(string $reference_product, bool $checkThisYear): float
     {
         $this->__wakeup();
         // get all data and sum the price of the product
-        $get_all_data = json_decode($this->getAllData(), true);
+        $get_all_data = json_decode($this->getAllData($checkThisYear), true);
         $total_price = 0;
         foreach ($get_all_data as $product) {
             if ($product['reference_produit'] == $reference_product) {
@@ -415,11 +409,11 @@ class bdd
     }
 
 
-    public function getQuantityProduct(string $reference_produit): float
+    public function getQuantityProduct(string $reference_produit, bool $checkThisYear): float
     {
         $this->__wakeup();
         // get all data and sum the quantity of the product
-        $get_all_data = json_decode($this->getAllData(), true);
+        $get_all_data = json_decode($this->getAllData($checkThisYear), true);
         $total_quantity = 0;
         foreach ($get_all_data as $product) {
             if ($product['reference_produit'] == $reference_produit) {
@@ -550,6 +544,17 @@ class bdd
         $this->__wakeup();
         $sql = "UPDATE client SET password_client = '" . password_hash($password, PASSWORD_DEFAULT) . "' WHERE email_client LIKE '" . $email . "';";
         return $this->connection->query($sql)->execute();
+    }
+
+    public function getTotalQuantity(bool $checkThisYear): int
+    {
+        $this->__wakeup();
+        $get_all_data = json_decode($this->getAllData($checkThisYear), true);
+        $total_quantity = 0;
+        foreach ($get_all_data as $product) {
+            $total_quantity += $product['quantite'];
+        }
+        return $total_quantity;
     }
 }
 

@@ -57,7 +57,7 @@ $data = json_decode($pdo->getAllData(), true);
                         <li>
                             <div class="container-product-ref">
                                 <p><?= $product['reference_produit'] ?></p>
-                                <p><?= $pdo->getRevenueProduct($product['reference_produit']) ?>€</p>
+                                <p><?= $pdo->getRevenueProduct($product['reference_produit'], true) ?>€</p>
                             </div>
                             <div class="bar">
                                 <div class="progressBar" id="<?= $product['reference_produit'] ?>-revenue">
@@ -70,7 +70,7 @@ $data = json_decode($pdo->getAllData(), true);
         </div>
         <div class="container" id="units-sold-year">
             <h3>Units sold this year</h3>
-            <span style="font-size: 60px;"><?= $pdo->getTotalQuantity() ?></span>
+            <span style="font-size: 60px;"><?= $pdo->getTotalQuantity(true) ?></span>
         </div>
         <div class="container product-s">
             <h3>By product</h3>
@@ -80,7 +80,7 @@ $data = json_decode($pdo->getAllData(), true);
                         <li>
                             <div class="container-product-ref">
                                 <p><?= $product['reference_produit'] ?></p>
-                                <p><?= $pdo->getQuantityProduct($product['reference_produit']) ?></p>
+                                <p><?= $pdo->getQuantityProduct($product['reference_produit'], true) ?></p>
                             </div>
                             <div class="bar">
                                 <div class="progressBar" id="<?= $product['reference_produit'] ?>-quantity">
@@ -106,8 +106,8 @@ $data = json_decode($pdo->getAllData(), true);
 </section>
 
 <script>
-    let totalRevenue = <?= $pdo->getTotalRevenueHT() ?>;
-    let totalQuantity = <?= $pdo->getTotalQuantity() ?>;
+    let totalRevenue = <?= $pdo->getTotalRevenueTTCByYears() ?>;
+    let totalQuantity = <?= $pdo->getTotalQuantity(true) ?>;
 
     let listOfReferences = [];
     let listOfRevenue = [];
@@ -116,8 +116,8 @@ $data = json_decode($pdo->getAllData(), true);
     // On load window
     <?php foreach ($products3 as $product) { ?>
     listOfReferences.push("<?= $product['reference_produit'] ?>");
-    listOfRevenue.push(<?= $pdo->getRevenueProduct($product['reference_produit']) ?>);
-    listOfQuantity.push(<?= $pdo->getQuantityProduct($product['reference_produit']) ?>);
+    listOfRevenue.push(<?= $pdo->getRevenueProduct($product['reference_produit'], true) ?>);
+    listOfQuantity.push(<?= $pdo->getQuantityProduct($product['reference_produit'], true) ?>);
     <?php } ?>
 
     let listOfRevenuePercent = [];
