@@ -38,7 +38,7 @@ $product = $product->fetch();
                 <!-- <div class="magnify">
                     <div class="magnifier"></div>
                     <div class="magnified">
-                        <img id="myimage" src="data:image/jpeg;base64,<?= base64_encode($product['image']) ?>"
+                        <img id="myimage" src="data:image/jpeg;base64,<= base64_encode($product['image']) ?>"
                              alt="image">
                     </div>
                 </div>-->

@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/backend/php/global.php';
+
 /** @var BDD $pdo */
 $pdo = $_SESSION['pdo'];
 $products = $pdo->getProducts();
@@ -49,7 +50,7 @@ if (isLoggedIn() && !empty($_COOKIE['id_client'])) {
                         </g>
                     </svg>
                 </a></li>
-            <li><a href="./public/about.php">About Us</a></li>
+            <li><a href="#">About Us</a></li>
             <li>
                 <a href="./public/cart.php">
                     <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
@@ -73,7 +74,7 @@ if (isLoggedIn() && !empty($_COOKIE['id_client'])) {
                 </a>
             </li>
             <li>
-                <a href="./backend/php/logout.php">
+                <a href="./backend/php/logout.php"  target="_parent">
                     <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                          preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
                         <path fill="white"
@@ -135,7 +136,7 @@ if (isLoggedIn() && !empty($_COOKIE['id_client'])) {
         linkFooter.href = './css/footer.css';
         document.head.appendChild(linkFooter);
         let listOfInnerHTML = ['Home', 'Explore', 'About Us', 'Cart', 'Login'];
-        let listOfLinks = ['./index.php', './public/explore.php', './public/about.php', './public/cart.php', './public/login.php'];
+        let listOfLinks = ['./index.php', './public/explore.php', '#', './public/cart.php', './public/login.php'];
         footer.classList.add('sticky-footer');
         let ul = document.createElement('ul');
         for (let i = 0; i < listOfLinks.length; i++) {
