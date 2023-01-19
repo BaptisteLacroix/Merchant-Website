@@ -322,9 +322,6 @@ button.btn-scroll {
 
 
 @media screen and (max-width: 1000px) {
-    #myimage {
-        width: 100%;
-    }
 
     .magnified {
         width: 90%;
@@ -337,13 +334,22 @@ button.btn-scroll {
     }
 
     .magnified {
-        width: 80%;
+        width: 100%;
     }
 
     .cover {
         margin: 5em 2em 2em;
         display: block;
         text-align: center;
+    }
+
+    .product-container {
+        margin-top: 100px;
+        margin-bottom: 100px;
+    }
+
+    .container-left {
+        margin-top: 50px
     }
 }
 
@@ -353,12 +359,52 @@ button.btn-scroll {
     }
 
     .magnified {
-        width: 70%;
+        width: 100%;
     }
 
     .cover {
         margin: 3em 2em 2em;
         display: block;
         text-align: center;
+    }
+
+    .cover {
+        padding: 0;
+    }
+
+    .desc {
+        padding-bottom: 20px;
+    }
+}
+
+@media screen and (max-width: 610px) {
+    #myimage {
+        height: auto;
+    }
+
+    .magnified {
+        width: 100%;
+    }
+
+    .cover {
+        width: 70%;
+    }
+
+    .magnify .magnified {
+        margin: 0;
+    }
+
+    .cover {
+        margin: 3em 2em 2em;
+        display: block;
+        text-align: center;
+    }
+
+    .cover {
+        padding: 0;
+    }
+
+    .desc {
+        padding-bottom: 20px;
     }
 }

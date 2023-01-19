@@ -39,6 +39,7 @@ header {
     justify-content: space-between;
     padding: 0 100px;
     position: fixed;
+    top: 0;
 }
 
 .logo > a {
