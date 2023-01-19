@@ -29,7 +29,3 @@ This project is being undertaken as part of my university curriculum at the IUT 
 ## Authors
 
 * Lacroix Baptiste - Initial work
-
-## License
-
-This project is licensed under the [Name of License] license - see the [LICENSE.md](LICENSE.md) file for details. -- TODO
