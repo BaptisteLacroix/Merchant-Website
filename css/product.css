@@ -30,14 +30,11 @@
 }
 
 #myimage {
-    width: 540px;
-    height: 450px;
+    width: 100%;
 }
 
 
 .magnify {
-    width: 550px;
-    height: 300px;
     position: relative;
     display: inline-block;
 }
@@ -406,5 +403,21 @@ button.btn-scroll {
 
     .desc {
         padding-bottom: 20px;
+    }
+
+    .magnify .magnifier {
+        height: 100px;
+        width: 100px;
+        margin-left: -80px !important;
+        margin-top: -80px !important;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .magnify .magnifier {
+        height: 70px;
+        width: 70px;
+        margin-left: -60px !important;
+        margin-top: -60px !important;
     }
 }
