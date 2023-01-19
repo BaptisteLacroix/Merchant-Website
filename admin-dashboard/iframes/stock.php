@@ -134,7 +134,7 @@ if (!empty($_POST['function_name']) && $_POST['function_name'] == 'updateStatus'
                 <label id="file-label" style="cursor: pointer" for="fileInput">
                     <img id="icon" src="../../img/upload.svg" alt="upload file">
                 </label>
-                <input style="display: none" id="fileInput" type="file" name="file" accept="image/*" required/>
+                <input style="display: none" id="fileInput" type="file" name="file" accept="image/webp" required/>
                 <label for="fournisseur">
                     <select name="fournisseur" id="fournisseur" required>
                         <?php
