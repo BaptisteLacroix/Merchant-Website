@@ -108,7 +108,7 @@ if (isLoggedIn() && !empty($_COOKIE['id_client'])) {
         <div class="images-containers">
             <?php foreach ($products as $product) { ?>
                 <div class="image-size">
-                    <img src="data:image/jpeg;base64,<?= base64_encode($product['image']) ?>"
+                    <img src="data:image/webp;base64,<?= base64_encode($product['image']) ?>"
                          alt="<?php echo $product['titre_produit'] ?>">
                     <a class="btn-information cta"
                        href="public/product.php?reference=<?php echo $product['reference_produit'] ?>">

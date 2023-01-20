@@ -71,7 +71,7 @@ $products = $pdo->getProductsFromCart($_SESSION['id_client']);
                         </button>
                     </td>
                     <td>
-                        <img src="data:image/jpeg;base64,<?= base64_encode($product['image']) ?>" alt="product image">
+                        <img src="data:image/webp;base64,<?= base64_encode($product['image']) ?>" alt="product image">
                     </td>
                     <td>
                         <h4><?= $product['titre_produit'] ?></h4>

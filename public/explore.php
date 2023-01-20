@@ -39,7 +39,7 @@ $products = $pdo->getProducts();
                 <div class="cover">
                     <div class="cover-front">
                         <div>
-                            <img src="data:image/jpeg;base64,<?= base64_encode($product['image']) ?>" class="sh_img"
+                            <img src="data:image/webp;base64,<?= base64_encode($product['image']) ?>" class="sh_img"
                                  alt="<?php echo $product['titre_produit'] ?>">
                         </div>
                     </div>

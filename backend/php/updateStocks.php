@@ -40,6 +40,11 @@ function addNewProduct(BDD $pdo): void
     // get the image to insert into the database
     $image = $_FILES['file']['tmp_name'];
     $imgContent = addslashes(file_get_contents($image));
+    // if image is not webp redirect to error page
+    if (mime_content_type($image) != 'image/webp') {
+        header('Location: ../../admin-dashboard/iframes/stock.php?error=' . urlencode('Image must be in webp format'));
+        exit();
+    }
     $fournisseur = $_POST['fournisseur'];
     $reference = $_POST['reference'];
     $status = $_POST['status'];

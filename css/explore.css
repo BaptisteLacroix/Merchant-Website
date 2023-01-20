@@ -46,7 +46,7 @@
     width: 200px;
     height: 300px;
     border-radius: 0 10px 10px 0;
-    background-image: url('../img/cards.png');
+    background-image: url('../img/cards.webp');
     justify-content: center;
     align-items: center;
     display: flex;
@@ -62,7 +62,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('../img/cards.png');
+    background-image: url('../img/cards.webp');
     transform-style: preserve-3d;
     transform-origin: left;
     transition: transform 1s;

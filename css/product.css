@@ -9,7 +9,7 @@
 
 .cover {
     margin: 10em auto auto;
-    background-image: url(../img/cards.png);
+    background-image: url(../img/cards.webp);
     padding: 2em;
     border-radius: 10px;
     max-width: 50em;
@@ -331,7 +331,7 @@ button.btn-scroll {
     }
 
     .magnified {
-        width: 100%;
+        width: 70%;
     }
 
     .cover {

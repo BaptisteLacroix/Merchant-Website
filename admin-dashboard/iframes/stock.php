@@ -81,11 +81,11 @@ if (!empty($_POST['function_name']) && $_POST['function_name'] == 'updateStatus'
                     <td>
                         <label style="cursor: pointer" for="fileInput<?= $product['reference_produit'] ?>">
                             <img id="img<?= $product['reference_produit'] ?>"
-                                 src="data:image/jpeg;base64,<?= base64_encode($product['image']) ?>" class="sh_img"
+                                 src="data:image/webp;base64,<?= base64_encode($product['image']) ?>" class="sh_img"
                                  alt="<?= $product['titre_produit'] ?>">
                         </label>
                         <input style="display: none" id="fileInput<?= $product['reference_produit'] ?>" type="file"
-                               name="file" accept="image/*"
+                               name="file" accept="image/wepb"
                                onchange="updateImage('<?= $product['reference_produit'] ?>')"/>
 
                         <script>
