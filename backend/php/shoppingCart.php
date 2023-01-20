@@ -74,6 +74,7 @@ function deleteFromCart($arguments): void
 
 function updateQuantity($arguments): bool
 {
+    /** @var BDD $pdo */
     $pdo = $_SESSION['pdo'];
     $id_panier = $arguments[0];
     $quantite = $arguments[1];

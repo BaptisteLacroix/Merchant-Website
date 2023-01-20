@@ -255,7 +255,7 @@ titre_produit, descriptif_produit, quantite_produit) VALUES (:fournisseur, :img,
     public function updateQuantityCart(string $id_panier, int $newValue): PDOStatement
     {
         $this->__wakeup();
-        $sql = "UPDATE panier SET quantite = :quantite WHERE id_panier = :id_panier";
+        $sql = "UPDATE panier SET quantite = quantite + :quantite WHERE id_panier = :id_panier";
         $sth = $this->connection->prepare($sql);
         $sth->execute(['quantite' => $newValue, 'id_panier' => $id_panier]);
         return $sth;
