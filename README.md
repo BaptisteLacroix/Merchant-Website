@@ -10,7 +10,7 @@ This project is being undertaken as part of my university curriculum at the IUT 
 
 1. Clone the repository to your local machine
 2. Set up a web server and configure it to point to the project's root directory
-3. Import the provided SQL file to set up the database
+3. Import the provided SQL file to set up the database (requetes.sql include all data in the tables, onlyTable.sql include only the empty tables)
 4. Update the configuration files with your database and PayPal API credentials
 5. Run the website on your local server
 
