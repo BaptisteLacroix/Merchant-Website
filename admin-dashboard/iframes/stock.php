@@ -148,10 +148,6 @@ if (!empty($_POST['function_name']) && $_POST['function_name'] == 'updateStatus'
                 <label>
                     <input type="text" name="reference" placeholder="FRA000" required/>
                 </label>
-                <label style="cursor: pointer; color: red" class="containerCheckBox" for="available">
-                    Disabled
-                </label>
-                <input style="display: none" id="available" type="checkbox" name="status" checked/>
             </div>
             <div class="tab">
                 <h2 class="fs-title">Product Profiles</h2>
@@ -279,18 +275,6 @@ if (!empty($_POST['function_name']) && $_POST['function_name'] == 'updateStatus'
         if (this.files && this.files[0]) {
             let img = document.getElementById('icon');
             img.src = URL.createObjectURL(this.files[0]);
-        }
-    });
-
-    // if checkbox is checked change the innerHTML of the label and the color to red
-    document.getElementById('available').addEventListener('change', function () {
-        let label = document.getElementsByClassName('containerCheckBox')[0];
-        if (this.checked) {
-            label.innerHTML = "Disabled";
-            label.style.color = "red";
-        } else {
-            label.innerHTML = "Active";
-            label.style.color = "green";
         }
     });
 </script>

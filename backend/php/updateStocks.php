@@ -47,7 +47,7 @@ function addNewProduct(BDD $pdo): void
     }
     $fournisseur = $_POST['fournisseur'];
     $reference = $_POST['reference'];
-    $status = $_POST['status'];
+    $status = 1;
     $marque = $_POST['marque'];
     $type = $_POST['type'];
     $aspect = $_POST['aspect'];
