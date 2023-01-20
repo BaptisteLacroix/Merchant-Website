@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             $client = $client->fetch();
             $_SESSION['id_client'] = $client['id_client'];
             $_SESSION['email_client'] = $client['email_client'];
-            header('Location: ../../public/index.php');
+            header('Location: ../../index.php');
         }
         exit();
     }
