@@ -28,7 +28,7 @@ if (!isLoggedIn()) {
 
 function sendmail($description, $full_name, $email_address, $items, $address, $amount_paid, $date): void
 {
-    $to = "baptiste.lacroix@etu.unice.fr";
+    $to = $email_address;
     $address_line_1 = $address['address_line_1'];
     $admin_area_2 = $address['admin_area_2'];
     $admin_area_1 = $address['admin_area_1'];
