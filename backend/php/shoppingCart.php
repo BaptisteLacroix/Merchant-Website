@@ -56,6 +56,7 @@ if (!isLoggedIn()) {
 
 function addToCart($arguments): void
 {
+    /** @var BDD $pdo */
     $pdo = $_SESSION['pdo'];
     $id_client = $_SESSION['id_client'];
     $reference_produit = $arguments[0];
@@ -67,6 +68,7 @@ function addToCart($arguments): void
 
 function deleteFromCart($arguments): void
 {
+    /** @var BDD $pdo */
     $pdo = $_SESSION['pdo'];
     $id_panier = $arguments[0];
     $pdo->deleteFromCart($id_panier);
@@ -79,8 +81,8 @@ function updateQuantity($arguments): bool
     $id_panier = $arguments[0];
     $quantite = $arguments[1];
     $pdo->updateQuantityCart($id_panier, $quantite);
-    if ($pdo->getCart($id_panier)->fetch()['quantite'] === 0) {
-        deleteFromCart($id_panier);
+    if ($pdo->getCart($id_panier)->fetch()['quantite'] <= 0) {
+        deleteFromCart([$id_panier]);
         return true;
     }
     return false;
