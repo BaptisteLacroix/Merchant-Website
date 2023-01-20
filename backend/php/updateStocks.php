@@ -23,7 +23,7 @@ if (isset($_POST['function_name'])) {
                 'success' => $var,
             ]);
     } else if ($function_name == 'updateImage') {
-        $var = updateImage($_FILES['file']['tmp_name'], $_POST['reference'], $pdo);
+        $var = updateImage($_POST['reference'], $pdo);
         echo json_encode(
             [
                 'success' => $var,
@@ -66,6 +66,7 @@ function addNewProduct(BDD $pdo): void
         !empty($titre) && !empty($descriptif) && (!empty($stocks) && preg_match('/^[0-9]*$/', $stocks))) {
         $pdo->addNewProduct($imgContent, $fournisseur, $reference, $status, $marque, $type, $aspect, $taille, $couleur,
             $publicPrice, $boughtPrice, $titre, $descriptif, $stocks);
+        updateImage($reference, $pdo);
         $pdo->addNewCommandeProduit($reference, $stocks, $boughtPrice);
     } else {
         header('Location: ../../admin-dashboard/iframes/stock.php?error=' . urlencode('Please fill all the fields with valid values'));
@@ -78,12 +79,14 @@ function deleteProductById($id_produit, BDD $pdo): PDOStatement
     return $pdo->deleteProductById($id_produit);
 }
 
-function updateImage($image, $reference, BDD $pdo): PDOStatement
+function updateImage($reference, BDD $pdo): bool
 {
     // get the image to insert into the database
     // encode the image for insertion into db
-    $imgContent = base64_encode(addslashes(file_get_contents($image)));
-    print_r($imgContent);
-    // return $pdo->updateImage($imgContent, $reference);
-    return false;
+    $target_dir = "../../upload/";
+    $target_dir = $target_dir . basename( $_FILES["file"]["name"]);
+    move_uploaded_file($_FILES["file"]["tmp_name"], $target_dir);
+    $imgContent = file_get_contents("../../upload/" . basename( $_FILES["file"]["name"]));
+    unlink("../../upload/" . basename( $_FILES["file"]["name"]));
+    return $pdo->updateImage($imgContent, $reference);
 }

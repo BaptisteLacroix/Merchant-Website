@@ -258,13 +258,12 @@ if (!empty($_POST['function_name']) && $_POST['function_name'] == 'updateStatus'
         formData.append("function_name", "updateImage");
         formData.append("file", file);
         formData.append("reference", reference_produit);
-        console.log(formData);
         xhr.send(formData);
         xhr.onload = function () {
             console.log(this.responseText);
             if (this.status === 200 && JSON.parse(this.responseText).success) {
                 // Update image with the file above
-                // window.location.reload();
+                //window.location.reload();
             }
         }
     }
