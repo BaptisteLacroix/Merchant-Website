@@ -152,7 +152,7 @@ header {
     }
 }
 
-@media (max-width: 850px) {
+@media (max-width: 866px) {
     header {
         display: flex;
         cursor: pointer;

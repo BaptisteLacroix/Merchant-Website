@@ -28,7 +28,7 @@ if (!isLoggedIn()) {
 
 function sendmail($description, $full_name, $email_address, $items, $address, $amount_paid, $date): void
 {
-    $to = $email_address;
+    $to = "baptiste.lacroix@etu.unice.fr";
     $address_line_1 = $address['address_line_1'];
     $admin_area_2 = $address['admin_area_2'];
     $admin_area_1 = $address['admin_area_1'];
@@ -36,18 +36,13 @@ function sendmail($description, $full_name, $email_address, $items, $address, $a
     $country_code = $address['country_code'];
 
     $subject = $description;
-    $message = $email_address .
-        "\r\npackage send at " . $full_name .
-        "\r\naddress : " . $address_line_1 .
-        "\r\n" . $admin_area_2 .
-        "\r\n" . $admin_area_1 .
-        "\r\n" . $postal_code .
-        "\r\n" . $country_code .
-        // array to string items
-        "\r\nList of all oil paintings buy : " . json_encode($items, true) .
-        "\r\nTotal amount : " . $amount_paid .
-        "\r\nDate : " . $date .
-        "Thank you for your purchase !";
+    $message = "Thank you for your purchase!\r\n\r\nYour package will be sent to:\r\n\r\nName: " . $full_name . "\r\nEmail: " . $email_address . "\r\nAddress: " . $address_line_1 . "\r\nCity: " . $admin_area_2 . "\r\nState/Province: " . $admin_area_1 . "\r\nPostal Code: " . $postal_code . "\r\nCountry: " . $country_code . "\r\n\r\nOrder Details:\r\n\r\nItem                           Quantity    Unit Amount (EUR)    Tax (EUR)\r\n";
+    // loop through the items array
+    foreach($items as $item) {
+        $message .= $item['name'] . "                           " . $item['quantity'] . "           " . $item['unit_amount']['value'] . "              " . $item['tax']['value'] . "\r\n";
+    }
+    $message .= "\r\nTotal Amount: " . $amount_paid . "\r\n\r\nDate of purchase: " . $date . "\r\n\r\nThank you for choosing our store and we hope you enjoy your new oil paintings!";
+
     $headers = 'From: baptiste.lacroix03@gmail.com' . "\r\n" .
         'CC: baptiste.lacroix03@gmail.com';
     mail($to, $subject, $message, $headers);
