@@ -6,7 +6,7 @@ function createPanel() {
     linkFooter.type = 'text/css';
     linkFooter.href = '../css/dashboard/adminPanel.css';
     document.head.appendChild(linkFooter);
-    let listOfInnerTitle = ['Suppliers', 'People', 'Account', 'Stock'];
+    let listOfInnerTitle = ['Suppliers', 'Users', 'Account', 'Stock'];
     let listOfInnerHTML = ['Manage customer feedback.', 'Manage customer accounts.', 'Access the chart of accounts.', 'Managing stocks'];
     let listOfimages = ['suppliers.svg', 'people.svg', 'account.svg', 'stock.svg'];
     let listOfLinks = ['./iframes/fournisseur.php', './iframes/people.php', './iframes/account.php', './iframes/stock.php'];

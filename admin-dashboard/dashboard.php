@@ -35,7 +35,7 @@ $_client = $pdo->getClient($_SESSION['email_client'])->fetch();
             </li>
             <li id="people">
                 <img class="img-buttons" src="../img/people-white.svg" alt="people">
-                <span> People </span>
+                <span> Users </span>
             </li>
             <li id="account">
                 <img class="img-buttons" src="../img/account-white.svg" alt="account">

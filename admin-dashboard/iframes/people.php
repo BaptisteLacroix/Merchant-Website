@@ -120,7 +120,7 @@ if (!empty($_POST['function_name']) && $_POST['function_name'] == 'add') {
                     if ($boolean) {
                         $className = 'addAdmin';
                         $name = 'addAdmin';
-                        $text = 'Added';
+                        $text = 'Add';
                     } else {
                         $className = 'removeAdmin';
                         $name = 'removeAdmin';
@@ -153,7 +153,6 @@ if (!empty($_POST['function_name']) && $_POST['function_name'] == 'add') {
                     <th>City</th>
                     <th>Country</th>
                     <th>Mobile phone</th>
-                    <th>Admin</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -203,18 +202,13 @@ if (!empty($_POST['function_name']) && $_POST['function_name'] == 'add') {
                             <input type="tel" name="phone" pattern="^[0-9]{10}$" placeholder="Mobile Phone">
                         </label>
                     </td>
-                    <td>
-                        <label>
-                            <input type="checkbox" name="admin">
-                        </label>
-                    </td>
                 </tr>
                 </tbody>
             </table>
 
             <div id="adding-box">
                 <input id="showForm" type="submit">
-                <label for="showForm">Add new product</label>
+                <label for="showForm">Add new User</label>
             </div>
         </form>
     </div>

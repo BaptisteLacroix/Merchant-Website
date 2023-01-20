@@ -160,7 +160,7 @@ if (isset($_POST['search'])) {
 
             <div id="adding-box">
                 <input id="showForm" type="submit">
-                <label for="showForm">Add new product</label>
+                <label for="showForm">Add new Supplier</label>
             </div>
         </form>
     </div>

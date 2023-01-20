@@ -81,7 +81,6 @@ function addNewUser(BDD $pdo): void
     $city = $_POST['city'];
     $country = $_POST['country'];
     $phone = $_POST['phone'];
-    $admin = $_POST['admin'];
     /* It's checking if the firstname, lastname, email, and password are empty. */
     if (empty($firstname) && !preg_match('/^[A-Za-z\s\-]+$/', $firstname) ||
         empty($lastname) && !preg_match('/^[A-Za-z\s\-]+$/', $lastname) ||
@@ -97,9 +96,6 @@ function addNewUser(BDD $pdo): void
     } else {
         header('Location: ../../admin-dashboard/iframes/people.php?error=' . urlencode('Please fill all the fields with valid values'));
         exit();
-    }
-    if ($admin == 'on') {
-        $pdo->addAdmin($pdo->getClient($email)->fetch()['id_client']);
     }
 }
 
