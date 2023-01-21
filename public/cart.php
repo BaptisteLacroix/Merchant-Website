@@ -114,7 +114,9 @@ $products = $pdo->getProductsFromCart($_SESSION['id_client']);
                 <h5>CART TOTAL</h5>
                 <div class="subtotal-container">
                     <p>Subtotal</p>
-                    <p class="price"><?= $pdo->getTotalPrice($_SESSION['id_client'])->fetch()['somme'] ?> €</p>
+                    <p class="price"><?php
+                        $value = $pdo->getTotalPrice($_SESSION['id_client'])->fetch()['somme'];
+                        if (empty($value)) echo "0"; else echo $value; ?> €</p>
                 </div>
                 <div class="tva-container">
                     <p>TVA</p>
@@ -125,7 +127,9 @@ $products = $pdo->getProductsFromCart($_SESSION['id_client']);
                 </div>
                 <div class="total-container">
                     <p>Total</p>
-                    <p class="price"><?= $pdo->getTotalPrice($_SESSION['id_client'])->fetch()['somme'] + $tva ?> €</p>
+                    <p class="price"><?php
+                        $value = $pdo->getTotalPrice($_SESSION['id_client'])->fetch()['somme'];
+                        if (empty($value)) echo "0"; else echo $value; ?> €</p>
                 </div>
                 <div>
                     <button onclick="processCheckout()">PROCEED TO CHECKOUT</button>
@@ -176,9 +180,14 @@ $products = $pdo->getProductsFromCart($_SESSION['id_client']);
                     removeNode(id_panier);
                     $("#cart-quantity").text(data.counter);
                 }
-                $(".price").text(data.totalPrice + "€");
+                if (data.totalPrice == null) {
+                    $(".price").text("0€");
+                    $("#tva").text("0€");
+                } else {
+                    $(".price").text(data.totalPrice + "€");
+                    $("#tva").text((data.totalPrice * (1 + 0.2) - data.totalPrice).toFixed(2) + "€");
+                }
                 $("#price-quantity-" + id_panier).text(parseFloat($("#price-product-" + id_panier).text()) * parseFloat($('#cart-quantity-wanted-' + id_panier).text()) + "€");
-                $("#tva").text((data.totalPrice * (1 + 0.2) - data.totalPrice).toFixed(2) + "€");
             }
         });
     }
