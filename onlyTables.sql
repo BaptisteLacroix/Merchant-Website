@@ -44,11 +44,11 @@ CREATE TABLE `client` (
   `prenom_client` varchar(255) NOT NULL,
   `email_client` varchar(255) NOT NULL,
   `password_client` varchar(255) NOT NULL,
-  `adresse_client` varchar(255) NOT NULL,
-  `code_postal_client` varchar(255) NOT NULL,
-  `ville_client` varchar(255) NOT NULL,
-  `pays_client` varchar(255) NOT NULL,
-  `telephone_client` varchar(255) NOT NULL
+  `adresse_client` varchar(255),
+  `code_postal_client` varchar(255),
+  `ville_client` varchar(255),
+  `pays_client` varchar(255),
+  `telephone_client` varchar(255)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
