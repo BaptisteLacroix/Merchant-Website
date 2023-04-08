@@ -4,8 +4,6 @@ require_once 'connectionBDD.php';
 
 session_start();
 
-const PAYPAL_ID = 'AT8ri4QbD63g5sAxH3XoQgBko1XXjCxuJwlbsZS0EAIUDPoLqP3uUEvt-WxUs44JoGX9oKswiF84gbXJ';
-
 /**
  * Verify if user is logged in
  *
